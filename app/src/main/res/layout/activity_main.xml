@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GUI.MainActivity">
+
+    <ImageView
+        android:id="@+id/imageViewSfondo"
+        android:layout_width="448dp"
+        android:layout_height="330dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/sfondohp" />
+
+    <TextView
+        android:id="@+id/textViewAttrazioniVicine"
+        android:layout_width="251dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/myfont"
+        android:text="Attrazione più vicine a te!"
+        android:textColor="@android:color/black"
+        android:textSize="19sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottoneRicerca" />
+
+    <Button
+        android:id="@+id/bottoneRistoranti"
+        android:layout_width="114dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/tastofoodhp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/bottoneHotel"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/bottoneHotel"
+        android:layout_width="0dp"
+        android:layout_height="110dp"
+
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/tastohotelhp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/bottoneAltro"
+        app:layout_constraintEnd_toStartOf="@+id/bottoneAltro"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toEndOf="@+id/bottoneRistoranti" />
+
+    <Button
+        android:id="@+id/bottoneAltro"
+        android:layout_width="108dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/tastoaltrohp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/bottoneRistoranti"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAttrazioniVicine"
+        app:layout_constraintVertical_bias="0.101" />
+
+    <Button
+        android:id="@+id/bottoneRicerca"
+        android:layout_width="375dp"
+        android:layout_height="43dp"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/ricercahp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewSfondo" />
+
+    <TextView
+        android:id="@+id/textViewRistoranti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/myfont"
+        android:text="Ristoranti"
+        android:textColor="@android:color/black"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="@+id/bottoneRistoranti"
+        app:layout_constraintStart_toStartOf="@+id/bottoneRistoranti"
+        app:layout_constraintTop_toBottomOf="@+id/bottoneRistoranti" />
+
+    <TextView
+        android:id="@+id/textViewHotel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/myfont"
+        android:text="Hotel"
+        android:textColor="@android:color/black"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="@+id/bottoneHotel"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="@+id/bottoneHotel"
+        app:layout_constraintTop_toBottomOf="@+id/bottoneHotel" />
+
+    <TextView
+        android:id="@+id/textViewAltro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/myfont"
+        android:text="Altro"
+        android:textColor="@android:color/black"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="@+id/bottoneAltro"
+        app:layout_constraintStart_toStartOf="@+id/bottoneAltro"
+        app:layout_constraintTop_toBottomOf="@+id/bottoneAltro" />
+
+    <ImageView
+        android:id="@+id/imageViewToolbar"
+        android:layout_width="416dp"
+        android:layout_height="71dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/sfondotoolbar" />
+
+    <Button
+        android:id="@+id/bottoneMappa"
+        android:layout_width="36dp"
+        android:layout_height="41dp"
+        android:background="@drawable/iconmap"
+        app:layout_constraintBaseline_toBaselineOf="@+id/bottoneProfilo"
+        app:layout_constraintEnd_toStartOf="@+id/bottoneProfilo"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toEndOf="@+id/bottoneHome" />
+
+    <Button
+        android:id="@+id/bottoneHome"
+        android:layout_width="47dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="28dp"
+        android:background="@drawable/iconahome"
+        app:layout_constraintBaseline_toBaselineOf="@+id/bottoneMappa"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/bottoneProfilo"
+        android:layout_width="47dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/iconprofile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

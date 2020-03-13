@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">#00BAFF</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+
+        <item name="colorControlActivated">#00BAFF</item>
+
+        <item name="colorSwitchThumbNormal">#000000
+        </item>
+
+        <item name="android:colorForeground">#000000
+        </item>
+    </style>
+
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">#FBFBFB</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="colorAccent">#00BAFF</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Dead.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">#FBFBFB</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="colorAccent">#00BAFF</item>
+        <item name="colorControlNormal">#00BAFF</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+</resources>

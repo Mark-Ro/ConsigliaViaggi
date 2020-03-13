@@ -1,12 +1,10 @@
 package com.consigliaviaggi.Controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.LoginPage;
-import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.ProfiloPage;
 import com.consigliaviaggi.GUI.RicercaPage;
 

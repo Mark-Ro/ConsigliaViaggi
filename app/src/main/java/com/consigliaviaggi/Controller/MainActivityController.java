@@ -8,6 +8,7 @@ import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.LoginPage;
 import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.ProfiloPage;
+import com.consigliaviaggi.GUI.RicercaPage;
 
 public class MainActivityController {
 
@@ -28,6 +29,13 @@ public class MainActivityController {
             intent = new Intent(contextMainActivity, ProfiloPage.class);
         else
             intent = new Intent(contextMainActivity,LoginPage.class);
+
+        contextMainActivity.startActivity(intent);
+    }
+
+    public void openRicercaPage() {
+
+        Intent intent = new Intent(contextMainActivity, RicercaPage.class);
 
         contextMainActivity.startActivity(intent);
     }

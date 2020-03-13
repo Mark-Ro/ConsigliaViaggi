@@ -21,6 +21,12 @@ public class MainActivity extends AppCompatActivity {
         mainActivityController = new MainActivityController(MainActivity.this);
 
         bottoneRicerca = (Button) findViewById(R.id.bottoneRicerca);
+        bottoneRicerca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivityController.openRicercaPage();
+            }
+        });
 
         bottoneProfilo = findViewById(R.id.bottoneProfilo);
         bottoneProfilo.setOnClickListener(new View.OnClickListener() {

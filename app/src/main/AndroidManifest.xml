@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GUI.RicercaPage"></activity>
+        <activity android:name=".GUI.VerificationCodePage"></activity>
+        <activity android:name=".GUI.RicercaPage" />
         <activity android:name=".GUI.ProfiloPage" />
         <activity android:name=".GUI.LoginPage" />
         <activity android:name=".GUI.MainActivity">

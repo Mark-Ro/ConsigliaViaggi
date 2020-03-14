@@ -4,34 +4,52 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
+
 import com.consigliaviaggi.DAO.LoginCognito;
 import com.consigliaviaggi.GUI.LoginPage;
+import com.consigliaviaggi.GUI.MainActivity;
+import com.consigliaviaggi.GUI.VerificationCodePage;
 
 public class LoginController {
 
     private Context contextLoginPage;
     private LoginCognito loginCognito;
+    String username,password;
 
     public Context getContextLoginPage() {
         return contextLoginPage;
     }
 
-    public LoginController(Context context) {
+    public LoginController(Context context, String username, String password) {
         this.contextLoginPage = context;
+        this.username = username;
+        this.password = password;
     }
 
-    public void effettuaLogin(String username, String password) {
+    public void effettuaLogin() {
         loginCognito = new LoginCognito(LoginController.this,username,password);
         loginCognito.effettuaLoginCognito();
     }
 
-    public void loginEffettuatoConSuccesso(String username) {
-        Intent intent = new Intent(contextLoginPage, LoginPage.class);
+    public void loginEffettuatoConSuccesso() {
+        Intent intent = new Intent(contextLoginPage, MainActivity.class);
         intent.putExtra("Username",username);
         contextLoginPage.startActivity(intent);
     }
 
-    //public void loginFallito()
+    public void loginFallito(Exception exception) {
+        if (exception.getLocalizedMessage().contains("not confirmed") || exception.getLocalizedMessage().contains("Failed to authenticate user")) {
+            Intent intent = new Intent(contextLoginPage, VerificationCodePage.class);
+            intent.putExtra("Username",username);
+            intent.putExtra("Password",password);
+            intent.putExtra("ActivityChiamante","Login");
+            contextLoginPage.startActivity(intent);
+        }
+        else
+            Toast.makeText(contextLoginPage, "Login fallito: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+    }
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) contextLoginPage.getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -28,7 +28,7 @@ public class LoginCognito {
         @Override
         public void onSuccess(CognitoUserSession userSession, CognitoDevice newDevice) {
             Log.i("Cognito","Login avvenuto con successo, puoi prendere il token!");
-            loginController.loginEffettuatoConSuccesso(username);
+            loginController.loginEffettuatoConSuccesso();
         }
 
         @Override
@@ -53,7 +53,7 @@ public class LoginCognito {
         @Override
         public void onFailure(Exception exception) {
             Log.i("Cognito","Login failed" + exception.getLocalizedMessage());
-
+            loginController.loginFallito(exception);
         }
     };
 

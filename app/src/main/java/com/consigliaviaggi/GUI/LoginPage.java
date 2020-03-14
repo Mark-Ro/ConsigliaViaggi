@@ -27,7 +27,7 @@ public class LoginPage extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        loginController = new LoginController(LoginPage.this);
+
 
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
@@ -42,8 +42,10 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 if (editTextUsername.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty())
                     Toast.makeText(LoginPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
-                else
-                    loginController.effettuaLogin(editTextUsername.getText().toString(),editTextPassword.getText().toString());
+                else {
+                    loginController = new LoginController(LoginPage.this, editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                    loginController.effettuaLogin();
+                }
             }
         });
     }

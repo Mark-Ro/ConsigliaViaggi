@@ -1,21 +1,15 @@
 package com.consigliaviaggi.DAO;
 
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.VerificationHandler;
 import com.consigliaviaggi.Controller.VerificationCodeController;
 
-public class VerificationCodeDAO {
+public class VerificationCodeCognito {
 
     private VerificationCodeController verificationCodeController;
 
-    public VerificationCodeDAO(VerificationCodeController verificationCodeController) {
+    public VerificationCodeCognito(VerificationCodeController verificationCodeController) {
         this.verificationCodeController = verificationCodeController;
     }
 

@@ -15,6 +15,7 @@ import com.consigliaviaggi.Controller.LoginController;
 
 public class LoginCognito {
 
+    private CognitoSettings cognitoSettings;
     private LoginController loginController;
     private String username,password;
 
@@ -58,7 +59,7 @@ public class LoginCognito {
     };
 
     public void effettuaLoginCognito() {
-        CognitoSettings cognitoSettings = new CognitoSettings(loginController.getContextLoginPage());
+        cognitoSettings = new CognitoSettings(loginController.getContextLoginPage());
         CognitoUser thisUser = cognitoSettings.getUserPool().getUser(username);
         thisUser.getSessionInBackground(authenticationHandler);
     }

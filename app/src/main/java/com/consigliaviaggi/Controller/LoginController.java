@@ -7,7 +7,7 @@ import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.LoginCognito;
-import com.consigliaviaggi.GUI.LoginPage;
+import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.VerificationCodePage;
 
@@ -28,11 +28,17 @@ public class LoginController {
     }
 
     public void effettuaLogin() {
-        loginCognito = new LoginCognito(LoginController.this,username,password);
-        loginCognito.effettuaLoginCognito();
+        if (isNetworkAvailable()) {
+            loginCognito = new LoginCognito(LoginController.this, username, password);
+            loginCognito.effettuaLoginCognito();
+        }
+        else
+            Toast.makeText(contextLoginPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
     }
 
     public void loginEffettuatoConSuccesso() {
+        UtenteDAO utenteDAO = new UtenteDAO(LoginController.this);
+        utenteDAO.getInformazioniUtente(username);
         Intent intent = new Intent(contextLoginPage, MainActivity.class);
         intent.putExtra("Username",username);
         contextLoginPage.startActivity(intent);

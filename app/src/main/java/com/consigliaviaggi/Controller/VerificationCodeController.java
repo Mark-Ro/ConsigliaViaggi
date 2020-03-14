@@ -1,7 +1,6 @@
 package com.consigliaviaggi.Controller;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.StrictMode;
@@ -9,12 +8,12 @@ import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.consigliaviaggi.DAO.CognitoSettings;
-import com.consigliaviaggi.DAO.VerificationCodeDAO;
+import com.consigliaviaggi.DAO.VerificationCodeCognito;
 
 public class VerificationCodeController {
 
     private Context contextVerificationCode;
-    private VerificationCodeDAO verificationCodeDAO;
+    private VerificationCodeCognito verificationCodeDAO;
     private String username,password;
 
     public VerificationCodeController (Context contextVerificationCode, String username, String password) {
@@ -24,7 +23,7 @@ public class VerificationCodeController {
     }
 
     public void verificaCodice(String codice) {
-        verificationCodeDAO = new VerificationCodeDAO(VerificationCodeController.this);
+        verificationCodeDAO = new VerificationCodeCognito(VerificationCodeController.this);
         if (!isNetworkAvailable())
             Toast.makeText(contextVerificationCode, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         else {
@@ -46,14 +45,14 @@ public class VerificationCodeController {
     public void effettuaResend() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        verificationCodeDAO = new VerificationCodeDAO(VerificationCodeController.this);
+        verificationCodeDAO = new VerificationCodeCognito(VerificationCodeController.this);
         CognitoSettings cognitoSettings = new CognitoSettings(contextVerificationCode);
         CognitoUser thisUser = cognitoSettings.getUserPool().getUser(username);
         thisUser.resendConfirmationCode(verificationCodeDAO.resendConfCodeHandler);
     }
 
-    public void resendEffettuatoConSuccesso(String destinazione) {
-        Toast.makeText(contextVerificationCode, "Email inviata con successo a: " + destinazione, Toast.LENGTH_SHORT).show();
+    public void resendEffettuatoConSuccesso(String email) {
+        Toast.makeText(contextVerificationCode, "Email inviata con successo a: " + email, Toast.LENGTH_SHORT).show();
     }
 
     public void resendFallito(Exception exception) {

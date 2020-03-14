@@ -197,7 +197,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/insNomeProfile"
+        android:id="@+id/textViewNomeProfilo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
@@ -210,7 +210,7 @@
         tools:text="Prova" />
 
     <TextView
-        android:id="@+id/insCognomeProfile2"
+        android:id="@+id/textViewCognomeProfilo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -219,11 +219,11 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/insNomeProfile"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomeProfilo"
         tools:text="Prova" />
 
     <TextView
-        android:id="@+id/insEmailProfile"
+        android:id="@+id/textViewEmailProfilo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -232,11 +232,11 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView25"
-        app:layout_constraintTop_toBottomOf="@+id/insCognomeProfile2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCognomeProfilo"
         tools:text="Prova" />
 
     <TextView
-        android:id="@+id/insNicknameProfile"
+        android:id="@+id/textViewNicknameProfilo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -245,11 +245,11 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/insEmailProfile"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEmailProfilo"
         tools:text="Prova" />
 
     <TextView
-        android:id="@+id/insNRecensioniProfile"
+        android:id="@+id/textViewNumeroRecensioniProfilo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -258,7 +258,7 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView27"
-        app:layout_constraintTop_toBottomOf="@+id/insNicknameProfile"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNicknameProfilo"
         tools:text="Prova" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.LoginCognito;
@@ -37,8 +38,7 @@ public class LoginController {
     }
 
     public void loginEffettuatoConSuccesso() {
-        UtenteDAO utenteDAO = new UtenteDAO(LoginController.this);
-        utenteDAO.getInformazioniUtente(username);
+        new getInformazioniUtenteTask().doInBackground();
         Intent intent = new Intent(contextLoginPage, MainActivity.class);
         intent.putExtra("Username",username);
         contextLoginPage.startActivity(intent);
@@ -56,6 +56,15 @@ public class LoginController {
             Toast.makeText(contextLoginPage, "Login fallito: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
+    private class getInformazioniUtenteTask extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            UtenteDAO utenteDAO = new UtenteDAO(LoginController.this);
+            utenteDAO.getInformazioniUtente(username);
+            return null;
+        }
+    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) contextLoginPage.getSystemService(Context.CONNECTIVITY_SERVICE);

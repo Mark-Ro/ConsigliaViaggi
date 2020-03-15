@@ -1,12 +1,12 @@
 package com.consigliaviaggi.DAO;
 
-import android.os.StrictMode;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
-import com.consigliaviaggi.Controller.LoginController;
 import com.consigliaviaggi.Entity.Utente;
 
 import org.json.JSONException;
@@ -15,12 +15,12 @@ import org.json.JSONObject;
 public class UtenteDAO {
     private Utente utente;
     private CognitoSettings cognitoSettings;
-    private LoginController loginController;
+    private Context context;
 
-    public UtenteDAO(LoginController loginController) {
+    public UtenteDAO(Context context) {
         this.utente = Utente.getIstance();
-        this.loginController = loginController;
-        this.cognitoSettings = new CognitoSettings(loginController.getContextLoginPage());
+        this.context = context;
+        this.cognitoSettings = new CognitoSettings(context);
     }
 
     public CognitoSettings getCognitoSettings() {
@@ -28,15 +28,24 @@ public class UtenteDAO {
     }
 
     public void getInformazioniUtente(String username) {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        cognitoSettings = getCognitoSettings();
-        CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
-        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(loginController.getContextLoginPage(), Regions.US_WEST_2, cognitoProvider);
-        InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
-        String query = doQuery(interfacciaLambda,username);
-        setInformazioniUtente(query);
+        utente.setUtenteAutenticato(true);
+        new getInformazioniUtenteTask().doInBackground(username);
     }
+
+    private class getInformazioniUtenteTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            cognitoSettings = getCognitoSettings();
+            CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
+            LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
+            InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
+            String query = doQuery(interfacciaLambda,strings[0]);
+            setInformazioniUtente(query);
+            return null;
+        }
+    }
+
 
     private String doQuery(InterfacciaLambda interfacciaLambda, String username) {
         String query;
@@ -53,8 +62,6 @@ public class UtenteDAO {
     private void setInformazioniUtente(String query) {
         String nickname,email,nome,cognome,stato,media,numeroRecensioni,nomePubblico;
         JSONObject jsonQuery= null;
-
-        utente.setUtenteAutenticato(true);
 
         try {
             jsonQuery = new JSONObject(query);
@@ -124,5 +131,7 @@ public class UtenteDAO {
             }
             i++;
         }
+
+        utente.setCaricamentoUtente(true);
     }
 }

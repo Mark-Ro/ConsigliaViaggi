@@ -6,10 +6,11 @@ public class Utente {
     private int numeroRecensioni;
     private String nickname,email,nome,cognome,statoAccount,nomePubblico;
     private float media;
-    private boolean utenteAutenticato;
+    private boolean utenteAutenticato,caricamentoUtente;
 
     private Utente() {
-        this.utenteAutenticato=false;
+        this.utenteAutenticato = false;
+        this.caricamentoUtente = false;
     }
 
     public static Utente getIstance() {
@@ -88,5 +89,13 @@ public class Utente {
 
     public boolean isUtenteAutenticato() {
         return utenteAutenticato;
+    }
+
+    public boolean isCaricamentoUtente() {
+        return caricamentoUtente;
+    }
+
+    public void setCaricamentoUtente(boolean caricamentoUtente) {
+        this.caricamentoUtente = caricamentoUtente;
     }
 }

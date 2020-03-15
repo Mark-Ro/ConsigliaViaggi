@@ -1,6 +1,5 @@
 package com.consigliaviaggi.DAO;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;

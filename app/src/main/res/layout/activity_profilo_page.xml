@@ -203,11 +203,12 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/myfont"
+        android:text="Caricamento..."
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/imageView25"
-        tools:text="Prova" />
+        tools:text="Caricamento..." />
 
     <TextView
         android:id="@+id/textViewCognomeProfilo"
@@ -216,11 +217,12 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/myfont"
+        android:text="Caricamento..."
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/textViewNomeProfilo"
-        tools:text="Prova" />
+        tools:text="Caricamento..." />
 
     <TextView
         android:id="@+id/textViewEmailProfilo"
@@ -229,11 +231,12 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/myfont"
+        android:text="Caricamento..."
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView25"
         app:layout_constraintTop_toBottomOf="@+id/textViewCognomeProfilo"
-        tools:text="Prova" />
+        tools:text="Caricamento..." />
 
     <TextView
         android:id="@+id/textViewNicknameProfilo"
@@ -242,11 +245,12 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/myfont"
+        android:text="Caricamento..."
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView26"
         app:layout_constraintTop_toBottomOf="@+id/textViewEmailProfilo"
-        tools:text="Prova" />
+        tools:text="Caricamento..." />
 
     <TextView
         android:id="@+id/textViewNumeroRecensioniProfilo"
@@ -255,10 +259,11 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/myfont"
+        android:text="Caricamento..."
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView27"
         app:layout_constraintTop_toBottomOf="@+id/textViewNicknameProfilo"
-        tools:text="Prova" />
+        tools:text="Caricamento" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

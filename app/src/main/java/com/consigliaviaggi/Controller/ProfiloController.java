@@ -20,11 +20,13 @@ public class ProfiloController {
 
         Log.i("UTENTE",utente.getNome() + " " + utente.getCognome() + " " + utente.getEmail() + " " + utente.getNickname() + " " + String.valueOf(utente.getNumeroRecensioni()));
 
-        textViewNomeProfilo.setText(utente.getNome());
-        textViewCognomeProfilo.setText(utente.getCognome());
-        textViewEmailProfilo.setText(utente.getEmail());
-        textViewNicknameProfilo.setText(utente.getNickname());
-        textViewNumeroRecensioniProfilo.setText(String.valueOf(utente.getNumeroRecensioni()));
+        if (utente.getNome()!=null) {
+            textViewNomeProfilo.setText(utente.getNome());
+            textViewCognomeProfilo.setText(utente.getCognome());
+            textViewEmailProfilo.setText(utente.getEmail());
+            textViewNicknameProfilo.setText(utente.getNickname());
+            textViewNumeroRecensioniProfilo.setText(String.valueOf(utente.getNumeroRecensioni()));
+        }
     }
 
     public void updateTextViewsProfiloPage(ProfiloPage profiloPage) {

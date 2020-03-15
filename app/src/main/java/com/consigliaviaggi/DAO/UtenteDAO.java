@@ -23,7 +23,7 @@ public class UtenteDAO {
         this.cognitoSettings = new CognitoSettings(context);
     }
 
-    public CognitoSettings getCognitoSettings() {
+    private CognitoSettings getCognitoSettings() {
         return cognitoSettings;
     }
 

@@ -98,4 +98,9 @@ public class Utente {
     public void setCaricamentoUtente(boolean caricamentoUtente) {
         this.caricamentoUtente = caricamentoUtente;
     }
+
+    public void resettaUtente() {
+        setUtenteAutenticato(false);
+        setCaricamentoUtente(false);
+    }
 }

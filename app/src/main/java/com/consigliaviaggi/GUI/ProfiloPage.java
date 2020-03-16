@@ -2,22 +2,19 @@ package com.consigliaviaggi.GUI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.consigliaviaggi.Controller.ProfiloController;
-import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.R;
 
 public class ProfiloPage extends AppCompatActivity {
 
     private TextView textViewNomeProfilo,textViewCognomeProfilo,textViewEmailProfilo,textViewNicknameProfilo,textViewNumeroRecensioniProfilo;
-    private Button bottoneHome;
+    private Button bottoneHome,bottoneLogout;
     private ProfiloController profiloController;
 
     @Override
@@ -33,6 +30,7 @@ public class ProfiloPage extends AppCompatActivity {
         textViewNicknameProfilo = findViewById(R.id.textViewNicknameProfilo);
         textViewNumeroRecensioniProfilo = findViewById(R.id.textViewNumeroRecensioniProfilo);
         bottoneHome = findViewById(R.id.bottoneHome);
+        bottoneLogout = findViewById(R.id.bottoneLogout);
 
         profiloController = new ProfiloController(ProfiloPage.this);
         setTextViews();
@@ -47,7 +45,12 @@ public class ProfiloPage extends AppCompatActivity {
             }
         });
 
-
+        bottoneLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profiloController.logout();
+            }
+        });
 
     }
 

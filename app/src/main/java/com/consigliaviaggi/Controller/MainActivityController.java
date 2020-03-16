@@ -33,10 +33,14 @@ public class MainActivityController {
 
         Intent intent;
 
-        if (utente.isUtenteAutenticato())
+        if (utente.isUtenteAutenticato()) {
             intent = new Intent(contextMainActivity, ProfiloPage.class);
-        else
-            intent = new Intent(contextMainActivity,LoginPage.class);
+            Log.i("MAIN_ACTIVITY","AUTENTICATO: TRUE");
+        }
+        else {
+            intent = new Intent(contextMainActivity, LoginPage.class);
+            Log.i("MAIN_ACTIVITY","AUTENTICATO: FALSE");
+        }
 
         contextMainActivity.startActivity(intent);
     }

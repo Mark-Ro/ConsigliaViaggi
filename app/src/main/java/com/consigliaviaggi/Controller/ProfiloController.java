@@ -1,10 +1,14 @@
 package com.consigliaviaggi.Controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.consigliaviaggi.DAO.CognitoSettings;
 import com.consigliaviaggi.Entity.Utente;
+import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.ProfiloPage;
 
 public class ProfiloController {
@@ -57,5 +61,17 @@ public class ProfiloController {
             profiloPage.startActivity(profiloPage.getIntent());
             profiloPage.overridePendingTransition(0, 0);
         }
+    }
+
+    public void logout() {
+        CognitoSettings cognitoSettings = new CognitoSettings(contextProfiloPage);
+        CognitoUser thisUser = cognitoSettings.getUserPool().getUser(utente.getNickname());
+        thisUser.signOut();
+        utente.resettaUtente();
+        Log.i("UTENTE","Autenticato: " + String.valueOf(utente.isUtenteAutenticato()));
+        Log.i("UTENTE","Caricamento: " + String.valueOf(utente.isCaricamentoUtente()));
+        Intent intent = new Intent(contextProfiloPage, MainActivity.class);
+        intent.putExtra("Logout",true);
+        contextProfiloPage.startActivity(intent);
     }
 }

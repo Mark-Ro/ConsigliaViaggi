@@ -31,10 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         username = intent.getStringExtra("Username");
+        boolean logout = intent.getBooleanExtra("Logout",false);
 
         mainActivityController = new MainActivityController(MainActivity.this);
 
-        gestisciSessioneUtente(username);
+        Log.i("MAIN_ACTIVITY","Username: " + username);
+        Log.i("MAIN_ACTIVITY","Logout = " + String.valueOf(logout));
+        if (logout==false)
+            gestisciSessioneUtente(username);
 
         bottoneRicerca = (Button) findViewById(R.id.bottoneRicerca);
         bottoneRicerca.setOnClickListener(new View.OnClickListener() {

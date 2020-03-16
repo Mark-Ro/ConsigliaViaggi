@@ -40,7 +40,7 @@ public class UtenteDAO {
             CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
             LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
             InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
-            String query = doQuery(interfacciaLambda,strings[0]);
+            String query = doQuery(interfacciaLambda, strings[0]);
             setInformazioniUtente(query);
             return null;
         }
@@ -49,19 +49,19 @@ public class UtenteDAO {
 
     private String doQuery(InterfacciaLambda interfacciaLambda, String username) {
         String query;
-        RequestDetailsUtente request = new RequestDetailsUtente();
+        RequestDetailsUtenteQuery request = new RequestDetailsUtenteQuery();
         request.setNickname(username);
-        ResponseDetails responseDetails = interfacciaLambda.funzioneLambdaQueryUtente(request);
-        if (responseDetails!=null)
+        ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryUtente(request);
+        if (responseDetails != null)
             query = responseDetails.getResultQuery();
         else
-            query="Errore query";
+            query = "Errore query";
         return query;
     }
 
     private void setInformazioniUtente(String query) {
-        String nickname,email,nome,cognome,stato,media,numeroRecensioni,nomePubblico;
-        JSONObject jsonQuery= null;
+        String nickname, email, nome, cognome, stato, media, numeroRecensioni, nomePubblico;
+        JSONObject jsonQuery = null;
 
         try {
             jsonQuery = new JSONObject(query);
@@ -69,69 +69,97 @@ public class UtenteDAO {
             e.printStackTrace();
         }
 
-        boolean flag=false;
-        int i=1;
+        boolean flag = false;
+        int i = 1;
 
-        while (flag==false) {
+        while (flag == false) {
             try {
                 nickname = (String) jsonQuery.get("Nickname" + String.valueOf(i));
                 utente.setNickname(nickname);
             } catch (JSONException e) {
-                flag=true;
+                flag = true;
             }
 
             try {
                 email = (String) jsonQuery.get("Email" + String.valueOf(i));
                 utente.setEmail(email);
             } catch (JSONException e) {
-                flag=true;
+                flag = true;
             }
 
             try {
                 nome = (String) jsonQuery.get("Nome" + String.valueOf(i));
                 utente.setNome(nome);
             } catch (JSONException e) {
-                Log.e("Errore","Errore: " + e.getLocalizedMessage());
-                flag=true;
+                Log.e("Errore", "Errore: " + e.getLocalizedMessage());
+                flag = true;
             }
 
             try {
                 cognome = (String) jsonQuery.get("Cognome" + String.valueOf(i));
                 utente.setCognome(cognome);
             } catch (JSONException e) {
-                flag=true;
+                flag = true;
             }
 
             try {
                 stato = (String) jsonQuery.get("Stato" + String.valueOf(i));
                 utente.setStatoAccount(stato);
             } catch (JSONException e) {
-                flag=true;
+                flag = true;
             }
 
             try {
                 media = (String) jsonQuery.get("Media" + String.valueOf(i));
                 utente.setMedia(Float.parseFloat(media));
             } catch (JSONException e) {
-                flag=true;
+                flag = true;
             }
 
             try {
                 numeroRecensioni = (String) jsonQuery.get("NumeroRecensioni" + String.valueOf(i));
                 utente.setNumeroRecensioni(Integer.parseInt(numeroRecensioni));
             } catch (JSONException e) {
-                flag=true;
+                flag = true;
             }
 
             try {
                 nomePubblico = (String) jsonQuery.get("NomePubblico" + String.valueOf(i));
                 utente.setNomePubblico(nomePubblico);
             } catch (JSONException e) {
-                flag=true;
+                flag = true;
             }
             i++;
         }
 
         utente.setCaricamentoUtente(true);
     }
+
+    public String inserimentoUtente(String nome, String cognome, String email, String nickname, String password, boolean nomePubblico) {
+
+        String inserimento = null, resultMessage = null;
+
+        cognitoSettings = getCognitoSettings();
+        CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
+        InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
+
+        if (nomePubblico)
+            inserimento = "'" + nickname + "'," + "'" + email + "'," + "'" + nome + "'," + "'" + cognome + "'," + "'unbanned','0.0','0','" + nickname + "'";
+        else
+            inserimento = "'" + nickname + "'," + "'" + email + "'," + "'" + nome + "'," + "'" + cognome + "'," + "'unbanned','0.0','0','" + nome + " " + cognome + "'";
+
+        Log.i("UTENTE_DAO", "Insert: " + inserimento);
+
+        RequestDetailsUtenteInsert request = new RequestDetailsUtenteInsert();
+        request.setInserimento(inserimento);
+        ResponseDetailsUpdate responseDetails = interfacciaLambda.funzioneLambdaInserimentoUtente(request);
+        if (responseDetails != null)
+            resultMessage = responseDetails.getMessageReason();
+        else
+            resultMessage = "Errore insert";
+
+        return resultMessage;
+    }
 }
+

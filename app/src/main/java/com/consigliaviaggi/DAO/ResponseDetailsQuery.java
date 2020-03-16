@@ -1,6 +1,6 @@
 package com.consigliaviaggi.DAO;
 
-public class ResponseDetails {
+public class ResponseDetailsQuery {
     private String messageID;
     private String messageReason;
     private String resultQuery;

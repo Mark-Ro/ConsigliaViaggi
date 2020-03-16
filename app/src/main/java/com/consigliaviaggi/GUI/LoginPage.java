@@ -48,5 +48,13 @@ public class LoginPage extends AppCompatActivity {
                 }
             }
         });
+
+        bottoneRegistrati.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginController = new LoginController(LoginPage.this);
+                loginController.openRegistrazionePage();
+            }
+        });
     }
 }

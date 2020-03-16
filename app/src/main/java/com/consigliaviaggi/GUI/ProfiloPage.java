@@ -55,7 +55,7 @@ public class ProfiloPage extends AppCompatActivity {
     }
 
     public void setTextViews () {
-        profiloController.setTextViewsProfiloPage(textViewNomeProfilo,textViewCognomeProfilo,textViewEmailProfilo,textViewNicknameProfilo,textViewNumeroRecensioniProfilo);
+        profiloController.setTextViewsProfiloPage(textViewNomeProfilo,textViewCognomeProfilo,textViewEmailProfilo,textViewNicknameProfilo,textViewNumeroRecensioniProfilo,bottoneLogout);
     }
 
 

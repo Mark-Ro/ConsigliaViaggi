@@ -3,8 +3,11 @@ package com.consigliaviaggi.Controller;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.Entity.Utente;
@@ -33,23 +36,28 @@ public class MainActivityController {
 
         Intent intent;
 
-        if (utente.isUtenteAutenticato()) {
-            intent = new Intent(contextMainActivity, ProfiloPage.class);
-            Log.i("MAIN_ACTIVITY","AUTENTICATO: TRUE");
+        if (isNetworkAvailable()) {
+            if (utente.isUtenteAutenticato()) {
+                intent = new Intent(contextMainActivity, ProfiloPage.class);
+                Log.i("MAIN_ACTIVITY", "AUTENTICATO: TRUE");
+            } else {
+                intent = new Intent(contextMainActivity, LoginPage.class);
+                Log.i("MAIN_ACTIVITY", "AUTENTICATO: FALSE");
+            }
+            contextMainActivity.startActivity(intent);
         }
-        else {
-            intent = new Intent(contextMainActivity, LoginPage.class);
-            Log.i("MAIN_ACTIVITY","AUTENTICATO: FALSE");
-        }
-
-        contextMainActivity.startActivity(intent);
+        else
+            Toast.makeText(contextMainActivity, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
     }
 
     public void openRicercaPage() {
 
-        Intent intent = new Intent(contextMainActivity, RicercaPage.class);
-
-        contextMainActivity.startActivity(intent);
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(contextMainActivity, RicercaPage.class);
+            contextMainActivity.startActivity(intent);
+        }
+        else
+            Toast.makeText(contextMainActivity, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
     }
 
     public void saveUsername(String username) {
@@ -70,9 +78,12 @@ public class MainActivityController {
     }
 
     public void loadInformazioniUtente(String username) {
-
-        ThreadGetInformazioniUtente threadGetInformazioniUtente = new ThreadGetInformazioniUtente(username);
-        threadGetInformazioniUtente.start();
+        if (isNetworkAvailable()) {
+            ThreadGetInformazioniUtente threadGetInformazioniUtente = new ThreadGetInformazioniUtente(username);
+            threadGetInformazioniUtente.start();
+        }
+        else
+            Toast.makeText(contextMainActivity, "Connessione internet non disponibile!", Toast.LENGTH_SHORT).show();
     }
 
     public class ThreadGetInformazioniUtente extends Thread {
@@ -89,5 +100,11 @@ public class MainActivityController {
             utenteDAO = new UtenteDAO(contextMainActivity);
             utenteDAO.getInformazioniUtente(username);
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) contextMainActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 }

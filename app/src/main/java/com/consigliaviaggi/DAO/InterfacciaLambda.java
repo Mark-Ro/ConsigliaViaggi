@@ -4,5 +4,7 @@ import com.amazonaws.mobileconnectors.lambdainvoker.LambdaFunction;
 
 public interface InterfacciaLambda {
     @LambdaFunction
-    ResponseDetails funzioneLambdaQueryUtente(RequestDetailsUtente requestDetails);
+    ResponseDetailsQuery funzioneLambdaQueryUtente(RequestDetailsUtenteQuery requestDetails);
+    @LambdaFunction
+    ResponseDetailsUpdate funzioneLambdaInserimentoUtente(RequestDetailsUtenteInsert requestDetailsUtenteInsert);
 }

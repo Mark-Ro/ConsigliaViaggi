@@ -3,6 +3,7 @@ package com.consigliaviaggi.Controller;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
@@ -20,7 +21,7 @@ public class ProfiloController {
         this.utente = Utente.getIstance();
     }
 
-    public void setTextViewsProfiloPage(TextView textViewNomeProfilo, TextView textViewCognomeProfilo, TextView textViewEmailProfilo, TextView textViewNicknameProfilo, TextView textViewNumeroRecensioniProfilo) {
+    public void setTextViewsProfiloPage(TextView textViewNomeProfilo, TextView textViewCognomeProfilo, TextView textViewEmailProfilo, TextView textViewNicknameProfilo, TextView textViewNumeroRecensioniProfilo, Button bottoneLogout) {
 
         Log.i("UTENTE",utente.getNome() + " " + utente.getCognome() + " " + utente.getEmail() + " " + utente.getNickname() + " " + String.valueOf(utente.getNumeroRecensioni()));
 
@@ -30,6 +31,7 @@ public class ProfiloController {
             textViewEmailProfilo.setText(utente.getEmail());
             textViewNicknameProfilo.setText(utente.getNickname());
             textViewNumeroRecensioniProfilo.setText(String.valueOf(utente.getNumeroRecensioni()));
+            bottoneLogout.setEnabled(true);
         }
     }
 
@@ -68,6 +70,8 @@ public class ProfiloController {
         CognitoUser thisUser = cognitoSettings.getUserPool().getUser(utente.getNickname());
         thisUser.signOut();
         utente.resettaUtente();
+        MainActivityController mainActivityController = new MainActivityController(contextProfiloPage);
+        mainActivityController.saveUsername(null);
         Log.i("UTENTE","Autenticato: " + String.valueOf(utente.isUtenteAutenticato()));
         Log.i("UTENTE","Caricamento: " + String.valueOf(utente.isCaricamentoUtente()));
         Intent intent = new Intent(contextProfiloPage, MainActivity.class);

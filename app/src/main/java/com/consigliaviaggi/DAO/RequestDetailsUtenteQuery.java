@@ -1,6 +1,6 @@
 package com.consigliaviaggi.DAO;
 
-public class RequestDetailsUtente {
+public class RequestDetailsUtenteQuery {
 
     private String nickname;
 

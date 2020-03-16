@@ -140,6 +140,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/iconlogout"
+        android:enabled="false"
         app:layout_constraintBottom_toTopOf="@+id/imageView27"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.627"

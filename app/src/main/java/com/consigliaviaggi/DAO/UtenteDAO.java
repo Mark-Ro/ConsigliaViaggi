@@ -9,6 +9,7 @@ import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
 import com.consigliaviaggi.Entity.Utente;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +30,7 @@ public class UtenteDAO {
 
     public void getInformazioniUtente(String username) {
         utente.setUtenteAutenticato(true);
+        Log.i("UTENTE_DAO","Nickname: " + username);
         new getInformazioniUtenteTask().doInBackground(username);
     }
 
@@ -41,7 +43,13 @@ public class UtenteDAO {
             LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
             InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
             String query = doQuery(interfacciaLambda, strings[0]);
-            setInformazioniUtente(query);
+            Log.i("UTENTE_DAO","Query: " + query);
+            if (!query.equals("\n}"))
+                setInformazioniUtente(query);
+            else {
+                utente.setUtenteAutenticato(false);
+                utente.setCaricamentoUtente(true);
+            }
             return null;
         }
     }

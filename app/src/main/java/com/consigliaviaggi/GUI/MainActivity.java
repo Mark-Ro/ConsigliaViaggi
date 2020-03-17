@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         boolean logout = intent.getBooleanExtra("Logout",false);
 
         mainActivityController = new MainActivityController(MainActivity.this);
+        mainActivityController.inizializzaLambda();
 
         Log.i("MAIN_ACTIVITY","Username: " + username);
         Log.i("MAIN_ACTIVITY","Logout = " + String.valueOf(logout));

@@ -9,6 +9,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
+import com.amazonaws.regions.Regions;
+import com.consigliaviaggi.DAO.CognitoSettings;
+import com.consigliaviaggi.DAO.InterfacciaLambda;
+import com.consigliaviaggi.DAO.RequestDetailsUtenteQuery;
+import com.consigliaviaggi.DAO.ResponseDetailsQuery;
 import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.LoginPage;
@@ -86,7 +93,7 @@ public class MainActivityController {
             Toast.makeText(contextMainActivity, "Connessione internet non disponibile!", Toast.LENGTH_SHORT).show();
     }
 
-    public class ThreadGetInformazioniUtente extends Thread {
+    private class ThreadGetInformazioniUtente extends Thread {
 
         private String username;
 
@@ -100,6 +107,32 @@ public class MainActivityController {
             utenteDAO = new UtenteDAO(contextMainActivity);
             utenteDAO.getInformazioniUtente(username);
         }
+    }
+
+    public void inizializzaLambda() {
+        utente=Utente.getIstance();
+        if (utente.getNome()==null || utente.getNome().equals("")) {
+            ThreadInizializzaLambda threadInizializzaLambda = new ThreadInizializzaLambda();
+            threadInizializzaLambda.start();
+        }
+    }
+
+    private class ThreadInizializzaLambda extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            doQuery("null");
+        }
+    }
+
+    private void doQuery(String inizializza) {
+        CognitoSettings cognitoSettings = new CognitoSettings(contextMainActivity);
+        CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(contextMainActivity, Regions.US_WEST_2, cognitoProvider);
+        InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
+        RequestDetailsUtenteQuery request = new RequestDetailsUtenteQuery();
+        request.setNickname(inizializza);
+        ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryUtente(request);
     }
 
     private boolean isNetworkAvailable() {

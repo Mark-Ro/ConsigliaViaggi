@@ -66,5 +66,6 @@ public class RegistrazionePage extends AppCompatActivity {
                 checkBox.setChecked(false);
             }
         });
+
     }
 }

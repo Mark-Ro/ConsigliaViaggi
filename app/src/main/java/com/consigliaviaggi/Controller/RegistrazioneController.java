@@ -52,7 +52,8 @@ public class RegistrazioneController {
     public void registrazioneFallita(Exception exception) {
         Toast.makeText(context, "Registrazione fallita: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
-    
+
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();

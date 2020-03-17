@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.LoginCognito;
 import com.consigliaviaggi.GUI.MainActivity;
+import com.consigliaviaggi.GUI.RecuperaPasswordPage;
 import com.consigliaviaggi.GUI.RegistrazionePage;
 import com.consigliaviaggi.GUI.VerificationCodePage;
 
@@ -30,6 +31,11 @@ public class LoginController {
 
     public LoginController(Context contextLoginPage) {
         this.contextLoginPage = contextLoginPage;
+    }
+
+    public LoginController(Context contextLoginPage, String username) {
+        this.contextLoginPage = contextLoginPage;
+        this.username = username;
     }
 
     public void effettuaLogin() {
@@ -64,6 +70,15 @@ public class LoginController {
     public void openRegistrazionePage() {
         if (isNetworkAvailable()) {
             Intent intent = new Intent(contextLoginPage, RegistrazionePage.class);
+            contextLoginPage.startActivity(intent);
+        }
+        else
+            Toast.makeText(contextLoginPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void openRecuperaPasswordPage() {
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(contextLoginPage, RecuperaPasswordPage.class);
             contextLoginPage.startActivity(intent);
         }
         else

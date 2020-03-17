@@ -56,5 +56,13 @@ public class LoginPage extends AppCompatActivity {
                 loginController.openRegistrazionePage();
             }
         });
+
+        bottoneRecuperaPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginController = new LoginController(LoginPage.this);
+                loginController.openRecuperaPasswordPage();
+            }
+        });
     }
 }

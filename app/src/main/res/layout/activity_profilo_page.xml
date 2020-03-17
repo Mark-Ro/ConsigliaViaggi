@@ -35,7 +35,7 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/myfont"
         android:text="Il mio profilo"
         android:textColor="@android:color/black"
@@ -123,14 +123,13 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/myfont"
         android:text="Logout"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/bottoneLogout"
-        app:layout_constraintHorizontal_bias="0.986"
+        app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottoneCambiaPassword" />
 
@@ -143,16 +142,17 @@
         android:enabled="false"
         app:layout_constraintBottom_toTopOf="@+id/imageView27"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottoneCambiaPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.19" />
 
     <Button
         android:id="@+id/bottoneCambiaPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/myfont"
         android:text="Cambia password"
@@ -160,7 +160,7 @@
         android:textColor="@color/Bluscuro"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.109"
+        app:layout_constraintHorizontal_bias="0.017"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
@@ -168,7 +168,7 @@
         android:id="@+id/bottoneMieRecensioni"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="92dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/myfont"
         android:text="MieRecensioni"
@@ -176,9 +176,26 @@
         android:textColor="@color/Bluscuro"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <Button
+        android:id="@+id/bottoneCambiaEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/myfont"
+        android:text="Cambia Email"
+        android:textAllCaps="false"
+        android:textColor="@color/Bluscuro"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottoneLogout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintStart_toEndOf="@+id/bottoneCambiaPassword" />
 
     <Button
         android:id="@+id/bottoneMappa"
@@ -188,6 +205,7 @@
         android:background="@drawable/iconmap"
         app:layout_constraintBaseline_toBaselineOf="@+id/bottoneProfilo"
         app:layout_constraintEnd_toStartOf="@+id/bottoneProfilo" />
+
     <Button
         android:id="@+id/bottoneHome"
         android:layout_width="47dp"
@@ -243,7 +261,7 @@
         android:id="@+id/textViewNicknameProfilo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/myfont"
         android:text="Caricamento..."
@@ -255,9 +273,9 @@
 
     <TextView
         android:id="@+id/textViewNumeroRecensioniProfilo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_width="121dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/myfont"
         android:text="Caricamento..."
@@ -265,6 +283,6 @@
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView27"
         app:layout_constraintTop_toBottomOf="@+id/textViewNicknameProfilo"
-        tools:text="Caricamento" />
+        tools:text="Caricamento..." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

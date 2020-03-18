@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.consigliaviaggi.DAO.CognitoSettings;
 import com.consigliaviaggi.Entity.Utente;
+import com.consigliaviaggi.GUI.CambiaEmailPage;
 import com.consigliaviaggi.GUI.CambiaPasswordPage;
 import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.ProfiloPage;
@@ -82,6 +83,16 @@ public class ProfiloController {
 
     public void openCambiaPasswordPage() {
         Intent intent = new Intent(contextProfiloPage, CambiaPasswordPage.class);
+        contextProfiloPage.startActivity(intent);
+    }
+
+    public void openHomePage() {
+        Intent intent = new Intent(contextProfiloPage,MainActivity.class);
+        contextProfiloPage.startActivity(intent);
+    }
+
+    public void openCambiaEmailPage() {
+        Intent intent = new Intent(contextProfiloPage, CambiaEmailPage.class);
         contextProfiloPage.startActivity(intent);
     }
 }

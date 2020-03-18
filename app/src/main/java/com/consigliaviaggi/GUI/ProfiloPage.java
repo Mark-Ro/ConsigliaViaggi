@@ -14,7 +14,7 @@ import com.consigliaviaggi.R;
 public class ProfiloPage extends AppCompatActivity {
 
     private TextView textViewNomeProfilo,textViewCognomeProfilo,textViewEmailProfilo,textViewNicknameProfilo,textViewNumeroRecensioniProfilo;
-    private Button bottoneHome,bottoneLogout,bottoneCambiaPassword;
+    private Button bottoneHome,bottoneLogout,bottoneCambiaPassword,bottoneCambiaEmail;
     private ProfiloController profiloController;
 
     @Override
@@ -32,6 +32,7 @@ public class ProfiloPage extends AppCompatActivity {
         bottoneHome = findViewById(R.id.bottoneHome);
         bottoneLogout = findViewById(R.id.bottoneLogout);
         bottoneCambiaPassword = findViewById(R.id.bottoneCambiaPassword);
+        bottoneCambiaEmail = findViewById(R.id.bottoneCambiaEmail);
 
         profiloController = new ProfiloController(ProfiloPage.this);
         setTextViews();
@@ -41,8 +42,7 @@ public class ProfiloPage extends AppCompatActivity {
         bottoneHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfiloPage.this,MainActivity.class);
-                startActivity(intent);
+                profiloController.openHomePage();
             }
         });
 
@@ -59,11 +59,22 @@ public class ProfiloPage extends AppCompatActivity {
                 profiloController.openCambiaPasswordPage();
             }
         });
+
+        bottoneCambiaEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profiloController.openCambiaEmailPage();
+            }
+        });
     }
 
     public void setTextViews () {
         profiloController.setTextViewsProfiloPage(textViewNomeProfilo,textViewCognomeProfilo,textViewEmailProfilo,textViewNicknameProfilo,textViewNumeroRecensioniProfilo,bottoneLogout);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTextViews();
+    }
 }

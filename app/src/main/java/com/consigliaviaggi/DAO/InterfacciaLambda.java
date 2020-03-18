@@ -7,4 +7,6 @@ public interface InterfacciaLambda {
     ResponseDetailsQuery funzioneLambdaQueryUtente(RequestDetailsUtenteQuery requestDetails);
     @LambdaFunction
     ResponseDetailsUpdate funzioneLambdaInserimentoUtente(RequestDetailsUtenteInsert requestDetailsUtenteInsert);
+    @LambdaFunction
+    ResponseDetailsUpdate funzioneLambdaUpdateUtente(RequestDetailsUpdateUtente requestDetailsUpdateUtente);
 }

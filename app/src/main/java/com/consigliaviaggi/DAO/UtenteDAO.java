@@ -169,5 +169,22 @@ public class UtenteDAO {
 
         return resultMessage;
     }
+
+    public boolean updateEmailUtente(String email) {
+        boolean risultato=false;
+        cognitoSettings = getCognitoSettings();
+        CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
+        InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
+        RequestDetailsUpdateUtente request = new RequestDetailsUpdateUtente();
+        request.setAttributo("email");
+        request.setNickname(utente.getNickname());
+        request.setValore(email);
+        ResponseDetailsUpdate responseDetails = interfacciaLambda.funzioneLambdaUpdateUtente(request);
+        if (responseDetails!=null)
+            if (responseDetails.getMessageID().equals("1"))
+                risultato=true;
+        return risultato;
+    }
 }
 

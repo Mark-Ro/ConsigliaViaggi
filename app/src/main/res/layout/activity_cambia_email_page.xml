@@ -22,7 +22,7 @@
         android:layout_height="46dp"
         android:background="@android:color/transparent"
         android:ems="10"
-        android:inputType="textPassword"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="@+id/imageView17"
         app:layout_constraintEnd_toEndOf="@+id/imageView17"
         app:layout_constraintHorizontal_bias="0.484"
@@ -61,7 +61,7 @@
         app:layout_constraintVertical_bias="0.36" />
 
     <Button
-        android:id="@+id/bottoneCambiaPassword"
+        android:id="@+id/bottoneCambiaEmail"
         android:layout_width="137dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"

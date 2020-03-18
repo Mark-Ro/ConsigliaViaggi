@@ -133,6 +133,7 @@ public class MainActivityController {
         RequestDetailsUtenteQuery request = new RequestDetailsUtenteQuery();
         request.setNickname(inizializza);
         ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryUtente(request);
+        Log.i("MAIN_ACTIVITY",responseDetails.getResultQuery());
     }
 
     private boolean isNetworkAvailable() {

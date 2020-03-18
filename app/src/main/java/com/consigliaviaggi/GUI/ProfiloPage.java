@@ -14,7 +14,7 @@ import com.consigliaviaggi.R;
 public class ProfiloPage extends AppCompatActivity {
 
     private TextView textViewNomeProfilo,textViewCognomeProfilo,textViewEmailProfilo,textViewNicknameProfilo,textViewNumeroRecensioniProfilo;
-    private Button bottoneHome,bottoneLogout;
+    private Button bottoneHome,bottoneLogout,bottoneCambiaPassword;
     private ProfiloController profiloController;
 
     @Override
@@ -31,6 +31,7 @@ public class ProfiloPage extends AppCompatActivity {
         textViewNumeroRecensioniProfilo = findViewById(R.id.textViewNumeroRecensioniProfilo);
         bottoneHome = findViewById(R.id.bottoneHome);
         bottoneLogout = findViewById(R.id.bottoneLogout);
+        bottoneCambiaPassword = findViewById(R.id.bottoneCambiaPassword);
 
         profiloController = new ProfiloController(ProfiloPage.this);
         setTextViews();
@@ -52,6 +53,12 @@ public class ProfiloPage extends AppCompatActivity {
             }
         });
 
+        bottoneCambiaPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profiloController.openCambiaPasswordPage();
+            }
+        });
     }
 
     public void setTextViews () {

@@ -9,12 +9,15 @@ import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.RecuperaPasswordCognito;
 import com.consigliaviaggi.GUI.LoginPage;
+import com.consigliaviaggi.GUI.RecuperaPasswordPage;
 
 public class RecuperaPasswordController {
 
+    private RecuperaPasswordPage recuperaPasswordPage;
     private Context contextRecuperaPassword;
     private RecuperaPasswordCognito recuperaPasswordCognito;
-    public RecuperaPasswordController(Context contextRecuperaPassword) {
+    public RecuperaPasswordController(RecuperaPasswordPage recuperaPasswordPage, Context contextRecuperaPassword) {
+        this.recuperaPasswordPage = recuperaPasswordPage;
         this.contextRecuperaPassword = contextRecuperaPassword;
         this.recuperaPasswordCognito = new RecuperaPasswordCognito(RecuperaPasswordController.this,contextRecuperaPassword);
     }
@@ -33,8 +36,7 @@ public class RecuperaPasswordController {
 
     public void operazioneCompletataConSuccesso() {
         Toast.makeText(contextRecuperaPassword, "Operazione riuscita!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(contextRecuperaPassword, LoginPage.class);
-        contextRecuperaPassword.startActivity(intent);
+        recuperaPasswordPage.activityPrecedente();
     }
 
     public void operazioneFallita(Exception exception) {

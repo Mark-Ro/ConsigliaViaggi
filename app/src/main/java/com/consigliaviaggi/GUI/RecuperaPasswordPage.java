@@ -32,7 +32,7 @@ public class RecuperaPasswordPage extends AppCompatActivity {
         bottoneRiceviCodice = findViewById(R.id.bottoneRiceviCodice);
         bottoneResetPassword = findViewById(R.id.bottoneResetPassword);
 
-        recuperaPasswordController = new RecuperaPasswordController(RecuperaPasswordPage.this);
+        recuperaPasswordController = new RecuperaPasswordController(this,this);
 
         bottoneRiceviCodice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,5 +53,9 @@ public class RecuperaPasswordPage extends AppCompatActivity {
                     recuperaPasswordController.resettaPassword(editTextCodice.getText().toString(),editTextNuovaPassword.getText().toString());
             }
         });
+    }
+
+    public void activityPrecedente() {
+        super.onBackPressed();
     }
 }

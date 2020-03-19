@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
 import com.consigliaviaggi.Entity.Utente;
@@ -185,6 +186,11 @@ public class UtenteDAO {
             if (responseDetails.getMessageID().equals("1"))
                 risultato=true;
         return risultato;
+    }
+
+    public void logoutCognito() {
+        CognitoUser thisUser = cognitoSettings.getUserPool().getUser(utente.getNickname());
+        thisUser.signOut();
     }
 }
 

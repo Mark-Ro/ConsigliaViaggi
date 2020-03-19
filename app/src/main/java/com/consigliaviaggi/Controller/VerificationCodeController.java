@@ -6,8 +6,6 @@ import android.net.NetworkInfo;
 import android.os.StrictMode;
 import android.widget.Toast;
 
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
-import com.consigliaviaggi.DAO.CognitoSettings;
 import com.consigliaviaggi.DAO.VerificationCodeCognito;
 
 public class VerificationCodeController {
@@ -18,18 +16,17 @@ public class VerificationCodeController {
 
     public VerificationCodeController (Context contextVerificationCode, String username, String password) {
         this.contextVerificationCode = contextVerificationCode;
+        verificationCodeDAO = new VerificationCodeCognito(VerificationCodeController.this,contextVerificationCode);
         this.username = username;
         this.password = password;
     }
 
     public void verificaCodice(String codice) {
-        verificationCodeDAO = new VerificationCodeCognito(VerificationCodeController.this);
+
         if (!isNetworkAvailable())
             Toast.makeText(contextVerificationCode, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         else {
-            CognitoSettings cognitoSettings = new CognitoSettings(contextVerificationCode);
-            CognitoUser thisUser = cognitoSettings.getUserPool().getUser(username);
-            thisUser.confirmSignUp(codice,false,verificationCodeDAO.confirmationCallback);
+            verificationCodeDAO.verificaCodiceCognito(username,codice);
         }
     }
 
@@ -45,10 +42,7 @@ public class VerificationCodeController {
     public void effettuaResend() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        verificationCodeDAO = new VerificationCodeCognito(VerificationCodeController.this);
-        CognitoSettings cognitoSettings = new CognitoSettings(contextVerificationCode);
-        CognitoUser thisUser = cognitoSettings.getUserPool().getUser(username);
-        thisUser.resendConfirmationCode(verificationCodeDAO.resendConfCodeHandler);
+        verificationCodeDAO.effettuaResendCognito(username);
     }
 
     public void resendEffettuatoConSuccesso(String email) {

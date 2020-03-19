@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
-import com.consigliaviaggi.DAO.CognitoSettings;
+import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.CambiaEmailPage;
 import com.consigliaviaggi.GUI.CambiaPasswordPage;
@@ -68,9 +66,8 @@ public class ProfiloController {
     }
 
     public void logout() {
-        CognitoSettings cognitoSettings = new CognitoSettings(contextProfiloPage);
-        CognitoUser thisUser = cognitoSettings.getUserPool().getUser(utente.getNickname());
-        thisUser.signOut();
+        UtenteDAO utenteDAO = new UtenteDAO(contextProfiloPage);
+        utenteDAO.logoutCognito();
         utente.resettaUtente();
         MainActivityController mainActivityController = new MainActivityController(contextProfiloPage);
         mainActivityController.saveUsername(null);

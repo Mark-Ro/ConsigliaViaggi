@@ -35,11 +35,11 @@ public class MainActivityController {
 
     public MainActivityController(Context contextMainActivity) {
         this.contextMainActivity = contextMainActivity;
+        this.utente = Utente.getIstance();
+        this.utenteDAO = new UtenteDAO(contextMainActivity);
     }
 
     public void openProfiloPage(){
-
-        utente = Utente.getIstance();
 
         Intent intent;
 
@@ -104,13 +104,11 @@ public class MainActivityController {
         @Override
         public void run() {
             super.run();
-            utenteDAO = new UtenteDAO(contextMainActivity);
             utenteDAO.getInformazioniUtente(username);
         }
     }
 
     public void inizializzaLambda() {
-        utente=Utente.getIstance();
         if (utente.getNome()==null || utente.getNome().equals("")) {
             ThreadInizializzaLambda threadInizializzaLambda = new ThreadInizializzaLambda();
             threadInizializzaLambda.start();

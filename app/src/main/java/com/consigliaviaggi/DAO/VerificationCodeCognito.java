@@ -1,5 +1,8 @@
 package com.consigliaviaggi.DAO;
 
+import android.content.Context;
+
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.VerificationHandler;
@@ -8,9 +11,11 @@ import com.consigliaviaggi.Controller.VerificationCodeController;
 public class VerificationCodeCognito {
 
     private VerificationCodeController verificationCodeController;
+    private CognitoSettings cognitoSettings;
 
-    public VerificationCodeCognito(VerificationCodeController verificationCodeController) {
+    public VerificationCodeCognito(VerificationCodeController verificationCodeController, Context context) {
         this.verificationCodeController = verificationCodeController;
+        cognitoSettings = new CognitoSettings(context);
     }
 
     public final GenericHandler confirmationCallback = new GenericHandler() {
@@ -37,4 +42,14 @@ public class VerificationCodeCognito {
             verificationCodeController.resendFallito(exception);
         }
     };
+
+    public void verificaCodiceCognito(String username, String codice) {
+        CognitoUser thisUser = cognitoSettings.getUserPool().getUser(username);
+        thisUser.confirmSignUp(codice,false,confirmationCallback);
+    }
+
+    public void effettuaResendCognito(String username) {
+        CognitoUser thisUser = cognitoSettings.getUserPool().getUser(username);
+        thisUser.resendConfirmationCode(resendConfCodeHandler);
+    }
 }

@@ -1,5 +1,6 @@
 package com.consigliaviaggi.Controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +15,7 @@ public class CambiaEmailController {
 
     private CambiaEmailPage cambiaEmailPage;
     private Context contextCambiaEmail;
+    private ProgressDialog progressDialog;
     private Utente utente;
 
     public CambiaEmailController(CambiaEmailPage cambiaEmailPage, Context contextCambiaEmail) {
@@ -24,6 +26,7 @@ public class CambiaEmailController {
 
     public void cambiaEmail(String email) {
         if (isNetworkAvailable()) {
+            progressDialog = ProgressDialog.show(contextCambiaEmail, "","Caricamento...", true);
             UtenteDAO utenteDAO = new UtenteDAO(contextCambiaEmail);
             if (utenteDAO.updateEmailUtente(email)) {
                 CambiaEmailCognito cambiaEmailCognito = new CambiaEmailCognito(CambiaEmailController.this,contextCambiaEmail);
@@ -37,12 +40,14 @@ public class CambiaEmailController {
     }
 
     public void cambiaEmailEffettuatoConSuccesso(String email) {
+        progressDialog.cancel();
         Toast.makeText(cambiaEmailPage, "Email cambiata con successo!", Toast.LENGTH_SHORT).show();
         utente.setEmail(email);
         cambiaEmailPage.activityPrecedente();
     }
 
     public void cambiaEmailFallito(Exception exception) {
+        progressDialog.cancel();
         Toast.makeText(cambiaEmailPage, "Operazione fallita: " + exception.getLocalizedMessage() , Toast.LENGTH_SHORT).show();
     }
 

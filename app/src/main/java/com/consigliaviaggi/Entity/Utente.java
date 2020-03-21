@@ -8,6 +8,7 @@ public class Utente {
     private float media;
     private boolean utenteAutenticato,caricamentoUtente;
 
+
     private Utente() {
         this.utenteAutenticato = false;
         this.caricamentoUtente = false;

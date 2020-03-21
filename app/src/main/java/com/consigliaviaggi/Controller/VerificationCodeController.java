@@ -1,5 +1,6 @@
 package com.consigliaviaggi.Controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -12,6 +13,7 @@ public class VerificationCodeController {
 
     private Context contextVerificationCode;
     private VerificationCodeCognito verificationCodeDAO;
+    private ProgressDialog progressDialog;
     private String username,password;
 
     public VerificationCodeController (Context contextVerificationCode, String username, String password) {
@@ -26,16 +28,19 @@ public class VerificationCodeController {
         if (!isNetworkAvailable())
             Toast.makeText(contextVerificationCode, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         else {
+            progressDialog = ProgressDialog.show(contextVerificationCode, "","Caricamento...", true);
             verificationCodeDAO.verificaCodiceCognito(username,codice);
         }
     }
 
     public void verificaEffettuataConSuccesso() {
+        progressDialog.cancel();
         LoginController loginController = new LoginController(contextVerificationCode,username,password);
         loginController.effettuaLogin();
     }
 
     public void verificaFallita(Exception exception) {
+        progressDialog.cancel();
         Toast.makeText(contextVerificationCode, "Errore: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 

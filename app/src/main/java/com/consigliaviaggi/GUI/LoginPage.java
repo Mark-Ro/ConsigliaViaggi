@@ -27,8 +27,6 @@ public class LoginPage extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-
-
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
         bottoneAccedi = findViewById(R.id.bottoneAccedi);

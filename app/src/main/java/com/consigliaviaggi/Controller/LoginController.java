@@ -1,5 +1,6 @@
 package com.consigliaviaggi.Controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -17,6 +18,7 @@ public class LoginController {
 
     private Context contextLoginPage;
     private LoginCognito loginCognito;
+    private ProgressDialog progressDialog;
     String username,password;
 
     public Context getContextLoginPage() {
@@ -41,7 +43,9 @@ public class LoginController {
     public void effettuaLogin() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         if (isNetworkAvailable()) {
+            progressDialog = ProgressDialog.show(contextLoginPage, "","Caricamento...", true);
             loginCognito = new LoginCognito(LoginController.this, username, password);
             loginCognito.effettuaLoginCognito();
         }
@@ -50,12 +54,14 @@ public class LoginController {
     }
 
     public void loginEffettuatoConSuccesso() {
+        progressDialog.cancel();
         Intent intent = new Intent(contextLoginPage, MainActivity.class);
         intent.putExtra("Username",username);
         contextLoginPage.startActivity(intent);
     }
 
     public void loginFallito(Exception exception) {
+        progressDialog.cancel();
         if (exception.getLocalizedMessage().contains("not confirmed") || exception.getLocalizedMessage().contains("Failed to authenticate user")) {
             Intent intent = new Intent(contextLoginPage, VerificationCodePage.class);
             intent.putExtra("Username",username);
@@ -65,6 +71,7 @@ public class LoginController {
         }
         else
             Toast.makeText(contextLoginPage, "Login fallito: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
     }
 
     public void openRegistrazionePage() {

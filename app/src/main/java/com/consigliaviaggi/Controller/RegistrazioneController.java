@@ -1,5 +1,6 @@
 package com.consigliaviaggi.Controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -15,6 +16,7 @@ public class RegistrazioneController {
 
     private Context context;
     private UtenteDAO utenteDAO;
+    private ProgressDialog progressDialog;
 
     public RegistrazioneController(Context context) {
         this.context = context;
@@ -24,12 +26,17 @@ public class RegistrazioneController {
     public void effettuaRegistrazione(String nome, String cognome, String email, String nickname, String password, boolean nomePubblico) {
 
         if (isNetworkAvailable()) {
+            progressDialog = ProgressDialog.show(context, "","Caricamento...", true);
             String resultInsert = utenteDAO.inserimentoUtente(nome, cognome, email, nickname, password, nomePubblico);
             Log.i("REGISTRAZIONE_CONTROLLER",resultInsert);
-            if (resultInsert.contains("PRIMARY"))
+            if (resultInsert.contains("PRIMARY")) {
+                progressDialog.cancel();
                 Toast.makeText(context, "Nickname già esistente!", Toast.LENGTH_SHORT).show();
-            else if (resultInsert.contains("uniqueMail"))
+            }
+            else if (resultInsert.contains("uniqueMail")) {
+                progressDialog.cancel();
                 Toast.makeText(context, "Mail già esistente!", Toast.LENGTH_SHORT).show();
+            }
             else {
                 RegistrazioneCognito registrazioneCognito = new RegistrazioneCognito(RegistrazioneController.this,context,nickname,password,email);
                 registrazioneCognito.effettuaRegistrazioneCognito();
@@ -41,6 +48,7 @@ public class RegistrazioneController {
     }
     
     public void registrazioneEffettuataConSuccesso(String nickname, String password, String email) {
+        progressDialog.cancel();
         Toast.makeText(context, "Registrazione effettuata! Codice di verifica inviato a: " + email, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(context, VerificationCodePage.class);
         intent.putExtra("Username",nickname);
@@ -50,6 +58,7 @@ public class RegistrazioneController {
     }
 
     public void registrazioneFallita(Exception exception) {
+        progressDialog.cancel();
         Toast.makeText(context, "Registrazione fallita: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 

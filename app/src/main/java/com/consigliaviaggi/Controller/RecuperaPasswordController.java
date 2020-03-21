@@ -1,5 +1,6 @@
 package com.consigliaviaggi.Controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -16,6 +17,7 @@ public class RecuperaPasswordController {
     private RecuperaPasswordPage recuperaPasswordPage;
     private Context contextRecuperaPassword;
     private RecuperaPasswordCognito recuperaPasswordCognito;
+    private ProgressDialog progressDialog;
     public RecuperaPasswordController(RecuperaPasswordPage recuperaPasswordPage, Context contextRecuperaPassword) {
         this.recuperaPasswordPage = recuperaPasswordPage;
         this.contextRecuperaPassword = contextRecuperaPassword;

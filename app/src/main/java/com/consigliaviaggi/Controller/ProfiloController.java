@@ -1,5 +1,6 @@
 package com.consigliaviaggi.Controller;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.consigliaviaggi.GUI.ProfiloPage;
 public class ProfiloController {
     private Context contextProfiloPage;
     private Utente utente;
+    private ProgressDialog progressDialog;
 
     public ProfiloController(Context contextProfiloPage) {
         this.contextProfiloPage = contextProfiloPage;
@@ -38,6 +40,7 @@ public class ProfiloController {
     public void updateTextViewsProfiloPage(ProfiloPage profiloPage) {
         utente = Utente.getIstance();
         if (utente.isCaricamentoUtente()==false) {
+            progressDialog = ProgressDialog.show(contextProfiloPage, "","Caricamento...", true);
             RiaggiornaProfiloPage riaggiornaProfiloPage = new RiaggiornaProfiloPage(profiloPage);
             riaggiornaProfiloPage.start();
         }
@@ -56,8 +59,9 @@ public class ProfiloController {
             super.run();
             Utente utente = Utente.getIstance();
             while (utente.isCaricamentoUtente()==false)
-                Log.i("PROFILO_CICLO","Sono nel ciclo...");
+                Log.i("PROFILO_CICLO", "Sono nel ciclo...");
             Log.i("THREAD_PROFILO","Uscito dal while");
+            progressDialog.cancel();
             profiloPage.finish();
             profiloPage.overridePendingTransition(0, 0);
             profiloPage.startActivity(profiloPage.getIntent());

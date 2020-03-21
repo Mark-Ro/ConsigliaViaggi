@@ -45,12 +45,12 @@ public class RegistrazionePage extends AppCompatActivity {
             public void onClick(View v) {
                 if (editTextNome.getText().toString().isEmpty() || editTextCognome.getText().toString().isEmpty() || editTextEmail.getText().toString().isEmpty() || editTextNickname.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty() || editTextConfermaPassword.getText().toString().isEmpty())
                     Toast.makeText(RegistrazionePage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
+                else if (!editTextEmail.getText().toString().contains("@") || !editTextEmail.getText().toString().contains("."))
+                    Toast.makeText(RegistrazionePage.this, "Inserire una email valida!", Toast.LENGTH_SHORT).show();
                 else if (!editTextPassword.getText().toString().equals(editTextConfermaPassword.getText().toString()))
                         Toast.makeText(RegistrazionePage.this, "Le password non coincidono!", Toast.LENGTH_SHORT).show();
                 else if (editTextPassword.getText().toString().length() < 8)
                     Toast.makeText(RegistrazionePage.this, "Password troppo corta!", Toast.LENGTH_SHORT).show();
-                else if (!editTextEmail.getText().toString().contains("@") || !editTextEmail.getText().toString().contains("."))
-                    Toast.makeText(RegistrazionePage.this, "Inserire una email valida!", Toast.LENGTH_SHORT).show();
                 else
                     registrazioneController.effettuaRegistrazione(editTextNome.getText().toString(),editTextCognome.getText().toString(),editTextEmail.getText().toString(),editTextNickname.getText().toString(),editTextPassword.getText().toString(),checkBox.isChecked());
             }

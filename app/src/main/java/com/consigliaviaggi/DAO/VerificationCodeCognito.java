@@ -5,6 +5,7 @@ import android.content.Context;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GenericHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.UpdateAttributesHandler;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.VerificationHandler;
 import com.consigliaviaggi.Controller.VerificationCodeController;
 
@@ -51,5 +52,13 @@ public class VerificationCodeCognito {
     public void effettuaResendCognito(String username) {
         CognitoUser thisUser = cognitoSettings.getUserPool().getUser(username);
         thisUser.resendConfirmationCode(resendConfCodeHandler);
+    }
+
+    public void verificaCodiceEmailCognito(String username, String codice) {
+        cognitoSettings.getUserPool().getUser(username).verifyAttributeInBackground("email",codice,confirmationCallback);
+    }
+
+    public void effettuaResendCambiaEmailCognito(String username) {
+        cognitoSettings.getUserPool().getUser(username).getAttributeVerificationCodeInBackground("email",resendConfCodeHandler);
     }
 }

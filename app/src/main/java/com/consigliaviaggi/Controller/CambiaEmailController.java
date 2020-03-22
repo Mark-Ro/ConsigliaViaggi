@@ -2,6 +2,7 @@ package com.consigliaviaggi.Controller;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import com.consigliaviaggi.DAO.CambiaEmailCognito;
 import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.CambiaEmailPage;
+import com.consigliaviaggi.GUI.VerificationCodePage;
 
 public class CambiaEmailController {
 
@@ -26,7 +28,6 @@ public class CambiaEmailController {
 
     public void cambiaEmail(String email) {
         if (isNetworkAvailable()) {
-            progressDialog = ProgressDialog.show(contextCambiaEmail, "","Caricamento...", true);
             UtenteDAO utenteDAO = new UtenteDAO(contextCambiaEmail);
             if (utenteDAO.updateEmailUtente(email)) {
                 CambiaEmailCognito cambiaEmailCognito = new CambiaEmailCognito(CambiaEmailController.this,contextCambiaEmail);
@@ -41,14 +42,25 @@ public class CambiaEmailController {
 
     public void cambiaEmailEffettuatoConSuccesso(String email) {
         progressDialog.cancel();
-        Toast.makeText(cambiaEmailPage, "Email cambiata con successo!", Toast.LENGTH_SHORT).show();
         utente.setEmail(email);
-        cambiaEmailPage.activityPrecedente();
+        Intent intent = new Intent(contextCambiaEmail,VerificationCodePage.class);
+        intent.putExtra("Username",utente.getNickname());
+        intent.putExtra("Password","token");
+        intent.putExtra("ActivityChiamante","CambiaEmail");
+        contextCambiaEmail.startActivity(intent);
     }
 
     public void cambiaEmailFallito(Exception exception) {
         progressDialog.cancel();
         Toast.makeText(cambiaEmailPage, "Operazione fallita: " + exception.getLocalizedMessage() , Toast.LENGTH_SHORT).show();
+    }
+
+    public void openProgressDialog() {
+        progressDialog = ProgressDialog.show(contextCambiaEmail, "","Caricamento...", true);
+    }
+
+    public void cancelProgressDialog() {
+        progressDialog.cancel();
     }
 
     private boolean isNetworkAvailable() {

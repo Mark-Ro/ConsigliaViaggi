@@ -24,9 +24,7 @@ public class RegistrazioneController {
     }
 
     public void effettuaRegistrazione(String nome, String cognome, String email, String nickname, String password, boolean nomePubblico) {
-
         if (isNetworkAvailable()) {
-            progressDialog = ProgressDialog.show(context, "","Caricamento...", true);
             String resultInsert = utenteDAO.inserimentoUtente(nome, cognome, email, nickname, password, nomePubblico);
             Log.i("REGISTRAZIONE_CONTROLLER",resultInsert);
             if (resultInsert.contains("PRIMARY")) {
@@ -42,9 +40,10 @@ public class RegistrazioneController {
                 registrazioneCognito.effettuaRegistrazioneCognito();
             }
         }
-            else
+        else {
+            progressDialog.cancel();
             Toast.makeText(context, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
-
+        }
     }
     
     public void registrazioneEffettuataConSuccesso(String nickname, String password, String email) {
@@ -62,6 +61,13 @@ public class RegistrazioneController {
         Toast.makeText(context, "Registrazione fallita: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
+    public void openProgressDialog() {
+        progressDialog = ProgressDialog.show(context, "","Caricamento...", true);
+    }
+
+    public void cancelProgressDialog() {
+        progressDialog.cancel();
+    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

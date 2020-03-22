@@ -12,13 +12,13 @@ import com.consigliaviaggi.DAO.VerificationCodeCognito;
 public class VerificationCodeController {
 
     private Context contextVerificationCode;
-    private VerificationCodeCognito verificationCodeDAO;
+    private VerificationCodeCognito verificationCodeCognito;
     private ProgressDialog progressDialog;
     private String username,password;
 
     public VerificationCodeController (Context contextVerificationCode, String username, String password) {
         this.contextVerificationCode = contextVerificationCode;
-        verificationCodeDAO = new VerificationCodeCognito(VerificationCodeController.this,contextVerificationCode);
+        verificationCodeCognito = new VerificationCodeCognito(VerificationCodeController.this,contextVerificationCode);
         this.username = username;
         this.password = password;
     }
@@ -29,7 +29,7 @@ public class VerificationCodeController {
             Toast.makeText(contextVerificationCode, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         else {
             progressDialog = ProgressDialog.show(contextVerificationCode, "","Caricamento...", true);
-            verificationCodeDAO.verificaCodiceCognito(username,codice);
+            verificationCodeCognito.verificaCodiceCognito(username,codice);
         }
     }
 
@@ -47,7 +47,7 @@ public class VerificationCodeController {
     public void effettuaResend() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        verificationCodeDAO.effettuaResendCognito(username);
+        verificationCodeCognito.effettuaResendCognito(username);
     }
 
     public void resendEffettuatoConSuccesso(String email) {
@@ -56,6 +56,19 @@ public class VerificationCodeController {
 
     public void resendFallito(Exception exception) {
         Toast.makeText(contextVerificationCode, "Errore: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void verificaCodiceEmail(String codice) {
+        if (isNetworkAvailable()) {
+            progressDialog = ProgressDialog.show(contextVerificationCode, "","Caricamento...", true);
+            verificationCodeCognito.verificaCodiceEmailCognito(username,codice);
+        }
+        else
+            Toast.makeText(contextVerificationCode, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void effettuaResendCambiaEmail() {
+        verificationCodeCognito.effettuaResendCambiaEmailCognito(username);
     }
 
     private boolean isNetworkAvailable() {

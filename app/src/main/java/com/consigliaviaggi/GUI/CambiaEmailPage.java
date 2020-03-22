@@ -31,10 +31,15 @@ public class CambiaEmailPage extends AppCompatActivity {
         bottoneCambiaEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editTextNuovaEmail.getText().toString().isEmpty())
+                cambiaEmailController.openProgressDialog();
+                if (editTextNuovaEmail.getText().toString().isEmpty()) {
+                    cambiaEmailController.cancelProgressDialog();
                     Toast.makeText(CambiaEmailPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
-                else if (!editTextNuovaEmail.getText().toString().contains("@") || !editTextNuovaEmail.getText().toString().contains("."))
+                }
+                else if (!editTextNuovaEmail.getText().toString().contains("@") || !editTextNuovaEmail.getText().toString().contains(".")) {
+                    cambiaEmailController.cancelProgressDialog();
                     Toast.makeText(CambiaEmailPage.this, "Inserire una mail valida!", Toast.LENGTH_SHORT).show();
+                }
                 else
                     cambiaEmailController.cambiaEmail(editTextNuovaEmail.getText().toString());
             }

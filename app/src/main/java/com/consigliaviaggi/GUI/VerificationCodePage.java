@@ -46,15 +46,20 @@ public class VerificationCodePage extends AppCompatActivity {
                     Toast.makeText(VerificationCodePage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                 else if (editTextCodice.getText().toString().length()!=6)
                     Toast.makeText(VerificationCodePage.this, "Verifica non riuscita: codice non corretto!", Toast.LENGTH_SHORT).show();
-                else
+                else if (!activityChiamante.equals("CambiaEmail"))
                     verificationCodeController.verificaCodice(editTextCodice.getText().toString());
+                else
+                    verificationCodeController.verificaCodiceEmail(editTextCodice.getText().toString());
             }
         });
 
         bottoneReinviaCodice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verificationCodeController.effettuaResend();
+                if (!activityChiamante.equals("CambiaEmail"))
+                    verificationCodeController.effettuaResend();
+                else
+                    verificationCodeController.effettuaResendCambiaEmail();
             }
         });
 

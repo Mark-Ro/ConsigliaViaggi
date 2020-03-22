@@ -46,10 +46,14 @@ public class VerificationCodePage extends AppCompatActivity {
                     Toast.makeText(VerificationCodePage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                 else if (editTextCodice.getText().toString().length()!=6)
                     Toast.makeText(VerificationCodePage.this, "Verifica non riuscita: codice non corretto!", Toast.LENGTH_SHORT).show();
-                else if (!activityChiamante.equals("CambiaEmail"))
+                else if (!activityChiamante.equals("CambiaEmail")) {
+                    verificationCodeController.openLoadingDialog(VerificationCodePage.this);
                     verificationCodeController.verificaCodice(editTextCodice.getText().toString());
-                else
+                }
+                else {
+                    verificationCodeController.openLoadingDialog(VerificationCodePage.this);
                     verificationCodeController.verificaCodiceEmail(editTextCodice.getText().toString());
+                }
             }
         });
 

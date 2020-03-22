@@ -1,6 +1,6 @@
 package com.consigliaviaggi.Controller;
 
-import android.app.ProgressDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,13 +8,15 @@ import android.os.StrictMode;
 import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.VerificationCodeCognito;
+import com.consigliaviaggi.GUI.LoadingDialog;
 
 public class VerificationCodeController {
 
     private Context contextVerificationCode;
     private VerificationCodeCognito verificationCodeCognito;
-    private ProgressDialog progressDialog;
     private String username,password;
+
+    private LoadingDialog loadingDialog;
 
     public VerificationCodeController (Context contextVerificationCode, String username, String password) {
         this.contextVerificationCode = contextVerificationCode;
@@ -25,22 +27,22 @@ public class VerificationCodeController {
 
     public void verificaCodice(String codice) {
 
-        if (!isNetworkAvailable())
+        if (!isNetworkAvailable()) {
+            cancelLoadingDialog();
             Toast.makeText(contextVerificationCode, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
-        else {
-            progressDialog = ProgressDialog.show(contextVerificationCode, "","Caricamento...", true);
-            verificationCodeCognito.verificaCodiceCognito(username,codice);
         }
+        else
+            verificationCodeCognito.verificaCodiceCognito(username,codice);
     }
 
     public void verificaEffettuataConSuccesso() {
-        progressDialog.cancel();
+        cancelLoadingDialog();
         LoginController loginController = new LoginController(contextVerificationCode,username,password);
         loginController.effettuaLogin();
     }
 
     public void verificaFallita(Exception exception) {
-        progressDialog.cancel();
+        cancelLoadingDialog();
         Toast.makeText(contextVerificationCode, "Errore: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
@@ -59,16 +61,26 @@ public class VerificationCodeController {
     }
 
     public void verificaCodiceEmail(String codice) {
-        if (isNetworkAvailable()) {
-            progressDialog = ProgressDialog.show(contextVerificationCode, "","Caricamento...", true);
+        if (isNetworkAvailable())
             verificationCodeCognito.verificaCodiceEmailCognito(username,codice);
-        }
-        else
+        else {
+            cancelLoadingDialog();
             Toast.makeText(contextVerificationCode, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void effettuaResendCambiaEmail() {
         verificationCodeCognito.effettuaResendCambiaEmailCognito(username);
+    }
+
+    public void openLoadingDialog(Activity activity) {
+        loadingDialog = new LoadingDialog(activity);
+        loadingDialog.startLoadingDialog();
+    }
+
+    public void cancelLoadingDialog() {
+        if (loadingDialog!=null)
+            loadingDialog.dismissDialog();
     }
 
     private boolean isNetworkAvailable() {

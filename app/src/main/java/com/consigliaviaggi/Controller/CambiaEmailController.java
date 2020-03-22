@@ -1,5 +1,6 @@
 package com.consigliaviaggi.Controller;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,14 +12,16 @@ import com.consigliaviaggi.DAO.CambiaEmailCognito;
 import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.CambiaEmailPage;
+import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.VerificationCodePage;
 
 public class CambiaEmailController {
 
     private CambiaEmailPage cambiaEmailPage;
     private Context contextCambiaEmail;
-    private ProgressDialog progressDialog;
     private Utente utente;
+
+    private LoadingDialog loadingDialog;
 
     public CambiaEmailController(CambiaEmailPage cambiaEmailPage, Context contextCambiaEmail) {
         this.cambiaEmailPage = cambiaEmailPage;
@@ -27,21 +30,27 @@ public class CambiaEmailController {
     }
 
     public void cambiaEmail(String email) {
-        if (isNetworkAvailable()) {
-            UtenteDAO utenteDAO = new UtenteDAO(contextCambiaEmail);
-            if (utenteDAO.updateEmailUtente(email)) {
-                CambiaEmailCognito cambiaEmailCognito = new CambiaEmailCognito(CambiaEmailController.this,contextCambiaEmail);
-                cambiaEmailCognito.modificaEmailCognito(utente.getNickname(),email);
+        if (!utente.getEmail().equals(email)) {
+            if (isNetworkAvailable()) {
+                UtenteDAO utenteDAO = new UtenteDAO(contextCambiaEmail);
+                if (utenteDAO.updateEmailUtente(email)) {
+                    CambiaEmailCognito cambiaEmailCognito = new CambiaEmailCognito(CambiaEmailController.this, contextCambiaEmail);
+                    cambiaEmailCognito.modificaEmailCognito(utente.getNickname(), email);
+                } else
+                    Toast.makeText(cambiaEmailPage, "Email già presente!", Toast.LENGTH_SHORT).show();
+            } else {
+                cancelLoadingDialog();
+                Toast.makeText(cambiaEmailPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
             }
-            else
-                Toast.makeText(cambiaEmailPage, "Email già presente!", Toast.LENGTH_SHORT).show();
         }
-        else
-            Toast.makeText(cambiaEmailPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+        else {
+            cancelLoadingDialog();
+            Toast.makeText(cambiaEmailPage, "Email uguale a quella attuale!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void cambiaEmailEffettuatoConSuccesso(String email) {
-        progressDialog.cancel();
+        cancelLoadingDialog();
         utente.setEmail(email);
         Intent intent = new Intent(contextCambiaEmail,VerificationCodePage.class);
         intent.putExtra("Username",utente.getNickname());
@@ -51,16 +60,18 @@ public class CambiaEmailController {
     }
 
     public void cambiaEmailFallito(Exception exception) {
-        progressDialog.cancel();
+        cancelLoadingDialog();
         Toast.makeText(cambiaEmailPage, "Operazione fallita: " + exception.getLocalizedMessage() , Toast.LENGTH_SHORT).show();
     }
 
-    public void openProgressDialog() {
-        progressDialog = ProgressDialog.show(contextCambiaEmail, "","Caricamento...", true);
+    public void openLoadingDialog(Activity activity) {
+        loadingDialog = new LoadingDialog(activity);
+        loadingDialog.startLoadingDialog();
     }
 
-    public void cancelProgressDialog() {
-        progressDialog.cancel();
+    public void cancelLoadingDialog() {
+        if (loadingDialog!=null)
+            loadingDialog.dismissDialog();
     }
 
     private boolean isNetworkAvailable() {

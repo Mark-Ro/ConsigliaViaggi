@@ -42,8 +42,10 @@ public class CambiaPasswordPage extends AppCompatActivity {
                     Toast.makeText(CambiaPasswordPage.this, "Password troppo corta!", Toast.LENGTH_SHORT).show();
                 else if (!editTextNuovaPassword.getText().toString().equals(editTextConfermaPassword.getText().toString()))
                     Toast.makeText(CambiaPasswordPage.this, "Le password non coincidono!", Toast.LENGTH_SHORT).show();
-                else
-                    cambiaPasswordController.cambiaPassword(editTextVecchiaPassword.getText().toString(),editTextNuovaPassword.getText().toString());
+                else {
+                    cambiaPasswordController.openLoadingDialog(CambiaPasswordPage.this);
+                    cambiaPasswordController.cambiaPassword(editTextVecchiaPassword.getText().toString(), editTextNuovaPassword.getText().toString());
+                }
             }
         });
     }

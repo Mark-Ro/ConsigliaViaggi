@@ -1,6 +1,6 @@
 package com.consigliaviaggi.Controller;
 
-import android.app.ProgressDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -10,16 +10,20 @@ import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.CambiaEmailPage;
 import com.consigliaviaggi.GUI.CambiaPasswordPage;
+import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.ProfiloPage;
 
 public class ProfiloController {
     private Context contextProfiloPage;
+    private Activity activityProfiloPage;
     private Utente utente;
-    private ProgressDialog progressDialog;
 
-    public ProfiloController(Context contextProfiloPage) {
+    private LoadingDialog loadingDialog;
+
+    public ProfiloController(Context contextProfiloPage, Activity activityProfiloPage) {
         this.contextProfiloPage = contextProfiloPage;
+        this.activityProfiloPage = activityProfiloPage;
         this.utente = Utente.getIstance();
     }
 
@@ -40,7 +44,7 @@ public class ProfiloController {
     public void updateTextViewsProfiloPage(ProfiloPage profiloPage) {
         utente = Utente.getIstance();
         if (utente.isCaricamentoUtente()==false) {
-            progressDialog = ProgressDialog.show(contextProfiloPage, "","Caricamento...", true);
+            openLoadingDialog(activityProfiloPage);
             RiaggiornaProfiloPage riaggiornaProfiloPage = new RiaggiornaProfiloPage(profiloPage);
             riaggiornaProfiloPage.start();
         }
@@ -61,7 +65,7 @@ public class ProfiloController {
             while (utente.isCaricamentoUtente()==false)
                 Log.i("PROFILO_CICLO", "Sono nel ciclo...");
             Log.i("THREAD_PROFILO","Uscito dal while");
-            progressDialog.cancel();
+            cancelLoadingDialog();
             profiloPage.finish();
             profiloPage.overridePendingTransition(0, 0);
             profiloPage.startActivity(profiloPage.getIntent());
@@ -95,5 +99,15 @@ public class ProfiloController {
     public void openCambiaEmailPage() {
         Intent intent = new Intent(contextProfiloPage, CambiaEmailPage.class);
         contextProfiloPage.startActivity(intent);
+    }
+
+    public void openLoadingDialog(Activity activity) {
+        loadingDialog = new LoadingDialog(activity);
+        loadingDialog.startLoadingDialog();
+    }
+
+    public void cancelLoadingDialog() {
+        if (loadingDialog!=null)
+            loadingDialog.dismissDialog();
     }
 }

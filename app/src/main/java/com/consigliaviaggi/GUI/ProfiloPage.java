@@ -35,7 +35,7 @@ public class ProfiloPage extends AppCompatActivity {
         bottoneCambiaPassword = findViewById(R.id.bottoneCambiaPassword);
         bottoneCambiaEmail = findViewById(R.id.bottoneCambiaEmail);
 
-        profiloController = new ProfiloController(ProfiloPage.this);
+        profiloController = new ProfiloController(ProfiloPage.this,ProfiloPage.this);
         setTextViews();
 
         profiloController.updateTextViewsProfiloPage(ProfiloPage.this);

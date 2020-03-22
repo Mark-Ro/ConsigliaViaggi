@@ -42,6 +42,7 @@ public class LoginPage extends AppCompatActivity {
                     Toast.makeText(LoginPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                 else {
                     loginController = new LoginController(LoginPage.this, editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                    loginController.openLoadingDialog(LoginPage.this);
                     loginController.effettuaLogin();
                 }
             }

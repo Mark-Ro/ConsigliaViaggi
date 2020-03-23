@@ -21,6 +21,7 @@ import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.LoginPage;
 import com.consigliaviaggi.GUI.ProfiloPage;
 import com.consigliaviaggi.GUI.RicercaPage;
+import com.consigliaviaggi.GUI.VerificationCodePage;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -36,7 +37,7 @@ public class MainActivityController {
     public MainActivityController(Context contextMainActivity) {
         this.contextMainActivity = contextMainActivity;
         this.utente = Utente.getIstance();
-        this.utenteDAO = new UtenteDAO(contextMainActivity);
+        this.utenteDAO = new UtenteDAO(contextMainActivity,MainActivityController.this);
     }
 
     public void openProfiloPage(){
@@ -80,8 +81,10 @@ public class MainActivityController {
         String username = sharedPreferences.getString(usernameSalvato, null);
         Log.i("LOAD_USERNAME","Username: " + username);
         utente = Utente.getIstance();
-        if (!utente.isUtenteAutenticato() && username!=null)
+        if (!utente.isUtenteAutenticato() && username!=null) {
+            utenteDAO.verificaEmailStatus(username);
             loadInformazioniUtente(username);
+        }
     }
 
     public void loadInformazioniUtente(String username) {
@@ -132,6 +135,16 @@ public class MainActivityController {
         request.setNickname(inizializza);
         ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryUtente(request);
         Log.i("MAIN_ACTIVITY",responseDetails.getResultQuery());
+    }
+
+    public void verificaEmailNonVerificata() {
+        SharedPreferences sharedPreferences = contextMainActivity.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String username = sharedPreferences.getString(usernameSalvato, null);
+        Intent intent = new Intent(contextMainActivity, VerificationCodePage.class);
+        intent.putExtra("Username",username);
+        intent.putExtra("Password","token");
+        intent.putExtra("ActivityChiamante","CambiaEmail");
+        contextMainActivity.startActivity(intent);
     }
 
     private boolean isNetworkAvailable() {

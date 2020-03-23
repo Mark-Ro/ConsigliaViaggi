@@ -13,13 +13,15 @@ import com.consigliaviaggi.GUI.LoadingDialog;
 public class VerificationCodeController {
 
     private Context contextVerificationCode;
+    private Activity activityVerificationCodePage;
     private VerificationCodeCognito verificationCodeCognito;
     private String username,password;
 
     private LoadingDialog loadingDialog;
 
-    public VerificationCodeController (Context contextVerificationCode, String username, String password) {
+    public VerificationCodeController (Context contextVerificationCode, Activity activityVerificationCodePage, String username, String password) {
         this.contextVerificationCode = contextVerificationCode;
+        this.activityVerificationCodePage = activityVerificationCodePage;
         verificationCodeCognito = new VerificationCodeCognito(VerificationCodeController.this,contextVerificationCode);
         this.username = username;
         this.password = password;
@@ -37,7 +39,7 @@ public class VerificationCodeController {
 
     public void verificaEffettuataConSuccesso() {
         cancelLoadingDialog();
-        LoginController loginController = new LoginController(contextVerificationCode,username,password);
+        LoginController loginController = new LoginController(contextVerificationCode,activityVerificationCodePage,username,password);
         loginController.effettuaLogin();
     }
 

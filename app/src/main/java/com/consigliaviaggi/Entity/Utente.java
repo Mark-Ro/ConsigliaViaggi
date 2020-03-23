@@ -6,8 +6,8 @@ public class Utente {
     private int numeroRecensioni;
     private String nickname,email,nome,cognome,statoAccount,nomePubblico;
     private float media;
-    private boolean utenteAutenticato,caricamentoUtente;
-
+    private boolean utenteAutenticato;
+    private boolean caricamentoUtente;
 
     private Utente() {
         this.utenteAutenticato = false;

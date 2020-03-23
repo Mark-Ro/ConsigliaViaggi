@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void gestisciSessioneUtente(String username) {
         if (username!=null) {
             mainActivityController.saveUsername(username);

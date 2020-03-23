@@ -20,6 +20,7 @@ public class LoginController {
 
     private Context contextLoginPage;
     private LoginCognito loginCognito;
+    private Activity activityVerificationCodePage;
     private LoadingDialog loadingDialog;
     String username,password;
 
@@ -35,6 +36,13 @@ public class LoginController {
 
     public LoginController(Context contextLoginPage) {
         this.contextLoginPage = contextLoginPage;
+    }
+
+    public LoginController(Context context, Activity activityVerificationCodePage, String username, String password) {
+        this.contextLoginPage = context;
+        this.activityVerificationCodePage = activityVerificationCodePage;
+        this.username = username;
+        this.password = password;
     }
 
     public LoginController(Context contextLoginPage, String username) {
@@ -58,6 +66,8 @@ public class LoginController {
         cancelLoadingDialog();
         Intent intent = new Intent(contextLoginPage, MainActivity.class);
         intent.putExtra("Username",username);
+        if (activityVerificationCodePage!=null)
+            activityVerificationCodePage.finish();
         contextLoginPage.startActivity(intent);
     }
 

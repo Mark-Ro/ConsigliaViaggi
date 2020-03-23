@@ -37,7 +37,7 @@ public class VerificationCodePage extends AppCompatActivity {
         bottoneVerificaCodice = findViewById(R.id.bottoneVerificaCodice);
         bottoneReinviaCodice = findViewById(R.id.bottoneReinviaCodice);
 
-        verificationCodeController = new VerificationCodeController(VerificationCodePage.this,username,password);
+        verificationCodeController = new VerificationCodeController(VerificationCodePage.this,VerificationCodePage.this,username,password);
 
         bottoneVerificaCodice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,5 +69,15 @@ public class VerificationCodePage extends AppCompatActivity {
 
         if (activityChiamante.equals("Login"))
             bottoneReinviaCodice.performClick();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Impossibile tornare indietro! Inserire il codice!", Toast.LENGTH_SHORT).show();
     }
 }

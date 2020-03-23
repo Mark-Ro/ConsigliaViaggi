@@ -1,27 +1,41 @@
 package com.consigliaviaggi.DAO;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
+import com.consigliaviaggi.Controller.MainActivityController;
 import com.consigliaviaggi.Entity.Utente;
 
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 public class UtenteDAO {
     private Utente utente;
     private CognitoSettings cognitoSettings;
     private Context context;
+    private MainActivityController mainActivityController;
 
     public UtenteDAO(Context context) {
         this.utente = Utente.getIstance();
         this.context = context;
+        this.cognitoSettings = new CognitoSettings(context);
+    }
+
+    public UtenteDAO(Context context, MainActivityController mainActivityController) {
+        this.utente = Utente.getIstance();
+        this.context = context;
+        this.mainActivityController = mainActivityController;
         this.cognitoSettings = new CognitoSettings(context);
     }
 
@@ -191,6 +205,33 @@ public class UtenteDAO {
     public void logoutCognito() {
         CognitoUser thisUser = cognitoSettings.getUserPool().getUser(utente.getNickname());
         thisUser.signOut();
+    }
+
+    final GetDetailsHandler getDetailsHandler = new GetDetailsHandler() {
+        @Override
+        public void onSuccess(CognitoUserDetails cognitoUserDetails) {
+            String valoreEmailVerificata=null;
+            Map<String,String> emailVerificata = cognitoUserDetails.getAttributes().getAttributes();
+            for (Map.Entry<String, String> entry : emailVerificata.entrySet()) {
+                Log.i("DETAILS_HANDLER_CICLO",entry.toString());
+                if (entry.getKey().equals("email_verified")) {
+                    valoreEmailVerificata = entry.getValue();
+                    if (valoreEmailVerificata.equals("false"))
+                        mainActivityController.verificaEmailNonVerificata();
+                    break;
+                }
+            }
+            Log.i("DETAILS_HANDLER",valoreEmailVerificata);
+        }
+
+        @Override
+        public void onFailure(Exception exception) {
+            Log.i("DETAILS_HANDLER",exception.getLocalizedMessage());
+        }
+    };
+
+    public void verificaEmailStatus(String username) {
+        cognitoSettings.getUserPool().getUser(username).getDetailsInBackground(getDetailsHandler);
     }
 }
 

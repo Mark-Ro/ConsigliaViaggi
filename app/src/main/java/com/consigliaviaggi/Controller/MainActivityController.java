@@ -85,6 +85,8 @@ public class MainActivityController {
             utenteDAO.verificaEmailStatus(username);
             loadInformazioniUtente(username);
         }
+        else
+            inizializzaLambda();
     }
 
     public void loadInformazioniUtente(String username) {

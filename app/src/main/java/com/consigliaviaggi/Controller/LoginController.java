@@ -1,7 +1,6 @@
 package com.consigliaviaggi.Controller;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -22,7 +21,7 @@ public class LoginController {
     private LoginCognito loginCognito;
     private Activity activityVerificationCodePage;
     private LoadingDialog loadingDialog;
-    String username,password;
+    private String username,password;
 
     public Context getContextLoginPage() {
         return contextLoginPage;
@@ -43,11 +42,6 @@ public class LoginController {
         this.activityVerificationCodePage = activityVerificationCodePage;
         this.username = username;
         this.password = password;
-    }
-
-    public LoginController(Context contextLoginPage, String username) {
-        this.contextLoginPage = contextLoginPage;
-        this.username = username;
     }
 
     public void effettuaLogin() {

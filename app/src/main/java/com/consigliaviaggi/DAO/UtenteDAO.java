@@ -1,7 +1,6 @@
 package com.consigliaviaggi.DAO;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -39,10 +38,6 @@ public class UtenteDAO {
         this.cognitoSettings = new CognitoSettings(context);
     }
 
-    private CognitoSettings getCognitoSettings() {
-        return cognitoSettings;
-    }
-
     public void getInformazioniUtente(String username) {
         utente.setUtenteAutenticato(true);
         Log.i("UTENTE_DAO","Nickname: " + username);
@@ -53,7 +48,6 @@ public class UtenteDAO {
 
         @Override
         protected Void doInBackground(String... strings) {
-            cognitoSettings = getCognitoSettings();
             CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
             LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
             InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
@@ -162,7 +156,6 @@ public class UtenteDAO {
 
         String inserimento = null, resultMessage = null;
 
-        cognitoSettings = getCognitoSettings();
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
         LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
         InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
@@ -187,7 +180,6 @@ public class UtenteDAO {
 
     public boolean updateEmailUtente(String email) {
         boolean risultato=false;
-        cognitoSettings = getCognitoSettings();
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
         LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
         InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);

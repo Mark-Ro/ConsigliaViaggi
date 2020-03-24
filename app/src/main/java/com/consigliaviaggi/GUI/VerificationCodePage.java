@@ -48,7 +48,7 @@ public class VerificationCodePage extends AppCompatActivity {
                     Toast.makeText(VerificationCodePage.this, "Verifica non riuscita: codice non corretto!", Toast.LENGTH_SHORT).show();
                 else if (!activityChiamante.equals("CambiaEmail")) {
                     verificationCodeController.openLoadingDialog(VerificationCodePage.this);
-                    verificationCodeController.verificaCodice(editTextCodice.getText().toString());
+                    verificationCodeController.verificaCodiceRegistrazione(editTextCodice.getText().toString());
                 }
                 else {
                     verificationCodeController.openLoadingDialog(VerificationCodePage.this);

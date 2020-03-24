@@ -19,7 +19,6 @@ public class RegistrazioneController {
 
     private Context context;
     private UtenteDAO utenteDAO;
-    private ProgressDialog progressDialog;
     private LoadingDialog loadingDialog;
 
     public RegistrazioneController(Context context) {

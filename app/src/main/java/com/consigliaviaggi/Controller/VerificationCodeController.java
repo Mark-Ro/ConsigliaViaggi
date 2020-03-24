@@ -27,14 +27,14 @@ public class VerificationCodeController {
         this.password = password;
     }
 
-    public void verificaCodice(String codice) {
+    public void verificaCodiceRegistrazione(String codice) {
 
         if (!isNetworkAvailable()) {
             cancelLoadingDialog();
             Toast.makeText(contextVerificationCode, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         }
         else
-            verificationCodeCognito.verificaCodiceCognito(username,codice);
+            verificationCodeCognito.verificaCodiceRegistrazioneCognito(username,codice);
     }
 
     public void verificaEffettuataConSuccesso() {
@@ -51,7 +51,7 @@ public class VerificationCodeController {
     public void effettuaResend() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        verificationCodeCognito.effettuaResendCognito(username);
+        verificationCodeCognito.effettuaResendRegistrazioneCognito(username);
     }
 
     public void resendEffettuatoConSuccesso(String email) {

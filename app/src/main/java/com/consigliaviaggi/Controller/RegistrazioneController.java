@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -26,27 +27,35 @@ public class RegistrazioneController {
         this.utenteDAO = new UtenteDAO(context);
     }
 
-    public void effettuaRegistrazione(String nome, String cognome, String email, String nickname, String password, boolean nomePubblico) {
-        if (isNetworkAvailable()) {
-            String resultInsert = utenteDAO.inserimentoUtente(nome, cognome, email, nickname, password, nomePubblico);
-            Log.i("REGISTRAZIONE_CONTROLLER",resultInsert);
-            if (resultInsert.contains("PRIMARY")) {
-                cancelLoadingDialog();
-                Toast.makeText(context, "Nickname già esistente!", Toast.LENGTH_SHORT).show();
+    public void effettuaRegistrazione(final String nome, final String cognome, final String email, final String nickname, final String password, final boolean nomePubblico) {
+
+        new AsyncTask<Void,Void,Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                if (isNetworkAvailable()) {
+                    String resultInsert = utenteDAO.inserimentoUtente(nome, cognome, email, nickname, password, nomePubblico);
+                    Log.i("REGISTRAZIONE_CONTROLLER",resultInsert);
+                    if (resultInsert.contains("PRIMARY")) {
+                        cancelLoadingDialog();
+                        Toast.makeText(context, "Nickname già esistente!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (resultInsert.contains("uniqueMail")) {
+                        cancelLoadingDialog();
+                        Toast.makeText(context, "Mail già esistente!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        RegistrazioneCognito registrazioneCognito = new RegistrazioneCognito(RegistrazioneController.this,context,nickname,password,email);
+                        registrazioneCognito.effettuaRegistrazioneCognito();
+                    }
+                }
+                else {
+                    cancelLoadingDialog();
+                    Toast.makeText(context, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+                }
+                return null;
             }
-            else if (resultInsert.contains("uniqueMail")) {
-                cancelLoadingDialog();
-                Toast.makeText(context, "Mail già esistente!", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                RegistrazioneCognito registrazioneCognito = new RegistrazioneCognito(RegistrazioneController.this,context,nickname,password,email);
-                registrazioneCognito.effettuaRegistrazioneCognito();
-            }
-        }
-        else {
-            cancelLoadingDialog();
-            Toast.makeText(context, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
-        }
+        }.execute();
     }
     
     public void registrazioneEffettuataConSuccesso(String nickname, String password, String email) {

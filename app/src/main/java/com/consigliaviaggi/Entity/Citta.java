@@ -1,6 +1,8 @@
 package com.consigliaviaggi.Entity;
 
-public class Citta {
+import java.io.Serializable;
+
+public class Citta implements Serializable {
 
     private int idCitta;
     private String nome,fotoCitta;

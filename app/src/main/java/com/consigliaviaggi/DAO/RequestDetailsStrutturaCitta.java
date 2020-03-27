@@ -2,7 +2,7 @@ package com.consigliaviaggi.DAO;
 
 public class RequestDetailsStrutturaCitta {
 
-    private String nomeStruttura,citta,minimoPrezzo,massimoPrezzo,voto;
+    private String nomeStruttura,citta,massimoPrezzo,voto;
 
     public String getNomeStruttura() {
         return nomeStruttura;
@@ -18,14 +18,6 @@ public class RequestDetailsStrutturaCitta {
 
     public void setCitta(String citta) {
         this.citta = citta;
-    }
-
-    public String getMinimoPrezzo() {
-        return minimoPrezzo;
-    }
-
-    public void setMinimoPrezzo(String minimoPrezzo) {
-        this.minimoPrezzo = minimoPrezzo;
     }
 
     public String getMassimoPrezzo() {

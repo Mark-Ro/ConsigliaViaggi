@@ -3,6 +3,7 @@ package com.consigliaviaggi.GUI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -26,7 +27,6 @@ public class RicercaPage extends AppCompatActivity {
     private Button bottoneAnnulla,bottoneRicerca;
 
     private RicercaController ricercaController;
-    private ArrayList<Struttura> listaStrutture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +105,30 @@ public class RicercaPage extends AppCompatActivity {
         bottoneRicerca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listaStrutture = ricercaController.getListaStrutture(autoCompleteTextNomeStruttura.getText().toString(),autoCompleteTextCitta.getText().toString(),0.0f,100.0f,Float.valueOf(spinnerRangeVoto.getSelectedItem().toString()));
+               if (!switchGPS.isChecked()) {
+                   if (autoCompleteTextCitta.getText().toString().isEmpty() && autoCompleteTextNomeStruttura.getText().toString().isEmpty())
+                       Toast.makeText(RicercaPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
+                   else {
+                       if (autoCompleteTextCitta.getText().toString().isEmpty())
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),"null",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()));
+                       else if (autoCompleteTextNomeStruttura.getText().toString().isEmpty())
+                           ricercaController.effettuaRicercaStrutture("null",autoCompleteTextCitta.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()));
+                       else {
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),autoCompleteTextCitta.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()));
+                       }
+                   }
+               }
+               else {
+                    //Da implementare nelle mie vicinanze
+               }
             }
         });
+    }
+
+    private float getPrezzoMassimoFromSpinner() {
+        String prezzoInput = spinnerRangePrezzo.getSelectedItem().toString();
+        prezzoInput = prezzoInput.substring(0,prezzoInput.length()-1);
+        Log.i("RICERCA_PAGE",prezzoInput);
+        return Float.parseFloat(prezzoInput);
     }
 }

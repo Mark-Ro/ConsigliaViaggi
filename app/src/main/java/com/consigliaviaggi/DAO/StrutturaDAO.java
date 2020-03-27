@@ -24,7 +24,7 @@ public class StrutturaDAO {
         cognitoSettings = new CognitoSettings(context);
     }
 
-    private String doQueryStruttureCitta(String nomeStruttura, String citta, float prezzoMinimo, float prezzoMassimo, float voto) {
+    private String doQueryStruttureCitta(String nomeStruttura, String citta, float prezzoMassimo, float voto) {
         String resultQuery;
 
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
@@ -34,7 +34,6 @@ public class StrutturaDAO {
         RequestDetailsStrutturaCitta request = new RequestDetailsStrutturaCitta();
         request.setNomeStruttura(nomeStruttura);
         request.setCitta(citta);
-        request.setMinimoPrezzo(String.valueOf(prezzoMinimo));
         request.setMassimoPrezzo(String.valueOf(prezzoMassimo));
         request.setVoto(String.valueOf(voto));
         ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryStrutturaCitta(request);
@@ -48,111 +47,120 @@ public class StrutturaDAO {
     }
 
     private ArrayList<Struttura> creazioneListaStruttureCittaFromQuery(String query) {
-        ArrayList<Struttura> listaStrutture = new ArrayList<>();
+        ArrayList<Struttura> listaStrutture=null;
         Citta citta=null;
         String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null;
         JSONObject jsonQuery = null;
 
-        try {
-            jsonQuery = new JSONObject(query);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        if (!query.equals("\n}")) {
 
-        boolean flag = false;
-        int i = 1;
-
-        while (flag == false) {
+            listaStrutture = new ArrayList<>();
 
             try {
-                idStruttura = (String) jsonQuery.get("IdStruttura" + String.valueOf(i));
+                jsonQuery = new JSONObject(query);
             } catch (JSONException e) {
-                flag = true;
+                e.printStackTrace();
             }
 
-            try {
-                nome = (String) jsonQuery.get("Nome" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+            boolean flag = false;
+            int i = 1;
 
-            try {
-                prezzo = (String) jsonQuery.get("Prezzo" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+            while (flag == false) {
 
-            try {
-                descrizione = (String) jsonQuery.get("Descrizione" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    idStruttura = (String) jsonQuery.get("IdStruttura" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            try {
-                latitudine = (String) jsonQuery.get("Latitudine" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    nome = (String) jsonQuery.get("Nome" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            try {
-                longitudine = (String) jsonQuery.get("Longitudine" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    prezzo = (String) jsonQuery.get("Prezzo" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            try {
-                tipoStruttura = (String) jsonQuery.get("Struttura" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    descrizione = (String) jsonQuery.get("Descrizione" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            try {
-                voto = (String) jsonQuery.get("Voto" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    latitudine = (String) jsonQuery.get("Latitudine" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            try {
-                fotoStruttura = (String) jsonQuery.get("FotoStruttura" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    longitudine = (String) jsonQuery.get("Longitudine" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            try {
-                numeroRecensioni = (String) jsonQuery.get("NumeroRecensioni" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    tipoStruttura = (String) jsonQuery.get("Struttura" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            try {
-                idCitta = (String) jsonQuery.get("IdCitta" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    voto = (String) jsonQuery.get("Voto" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            try {
-                nomeCitta = (String) jsonQuery.get("NomeCitta" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    fotoStruttura = (String) jsonQuery.get("FotoStruttura" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            try {
-                fotoCitta = (String) jsonQuery.get("ImmagineCitta" + String.valueOf(i));
-            } catch (JSONException e) {
-                flag = true;
-            }
+                try {
+                    numeroRecensioni = (String) jsonQuery.get("NumeroRecensioni" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
-            if (i==1)
-                citta = new Citta(Integer.parseInt(idCitta),nomeCitta,fotoCitta);
-            listaStrutture.add(new Struttura(Integer.parseInt(idStruttura),nome,Float.parseFloat(prezzo),descrizione,Double.parseDouble(latitudine),Double.parseDouble(longitudine),tipoStruttura,Float.parseFloat(voto),fotoStruttura,Integer.parseInt(numeroRecensioni),citta));
-            i++;
+                try {
+                    idCitta = (String) jsonQuery.get("IdCitta" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
+
+                try {
+                    nomeCitta = (String) jsonQuery.get("NomeCitta" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
+
+                try {
+                    fotoCitta = (String) jsonQuery.get("ImmagineCitta" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
+
+                if (i == 1)
+                    citta = new Citta(Integer.parseInt(idCitta), nomeCitta, fotoCitta);
+                if (flag==false) {
+
+                    listaStrutture.add(new Struttura(Integer.parseInt(idStruttura), nome, Float.parseFloat(prezzo), descrizione, Double.parseDouble(latitudine), Double.parseDouble(longitudine), tipoStruttura, Float.parseFloat(voto), fotoStruttura, Integer.parseInt(numeroRecensioni), citta, -1));
+                    Log.i("STRUTTURA_DAO","Nome: " + listaStrutture.get(i-1).getNomeStruttura());
+                }
+                i++;
+            }
         }
         return listaStrutture;
     }
 
-    public ArrayList<Struttura> getListaStruttureCittaFromDatabase(String nomeStruttura, String citta, float prezzoMinimo, float prezzoMassimo, float voto) {
+    public ArrayList<Struttura> getListaStruttureCittaFromDatabase(String nomeStruttura, String citta, float prezzoMassimo, float voto) {
 
-        String resultQuery = doQueryStruttureCitta(nomeStruttura,citta,prezzoMinimo,prezzoMassimo,voto);
+        String resultQuery = doQueryStruttureCitta(nomeStruttura,citta,prezzoMassimo,voto);
         ArrayList<Struttura> listaStrutture = creazioneListaStruttureCittaFromQuery(resultQuery);
         return listaStrutture;
     }

@@ -5,16 +5,16 @@ import java.io.Serializable;
 public class Struttura implements Serializable {
 
     private int idStruttura,numeroRecensioni;
-    private String nome,descrizione,tipoStruttura,fotoStruttura;
+    private String nomeStruttura,descrizione,tipoStruttura,fotoStruttura;
     private float prezzo,voto;
-    private double latitudine,longitudine;
+    private double latitudine,longitudine,distanza;
 
     private Citta citta;
 
-    public Struttura(int idStruttura, String nomeStruttura, float prezzo, String descrizione, double latitudine, double longitudine, String tipoStruttura, float voto, String fotoStruttura, int numeroRecensioni, Citta citta) {
+    public Struttura(int idStruttura, String nomeStruttura, float prezzo, String descrizione, double latitudine, double longitudine, String tipoStruttura, float voto, String fotoStruttura, int numeroRecensioni, Citta citta, double distanza) {
         this.idStruttura = idStruttura;
         this.numeroRecensioni = numeroRecensioni;
-        this.nome = nome;
+        this.nomeStruttura = nomeStruttura;
         this.descrizione = descrizione;
         this.tipoStruttura = tipoStruttura;
         this.fotoStruttura = fotoStruttura;
@@ -23,7 +23,9 @@ public class Struttura implements Serializable {
         this.latitudine = latitudine;
         this.longitudine = longitudine;
         this.citta = citta;
+        this.distanza = distanza;
     }
+
 
     public int getIdStruttura() {
         return idStruttura;
@@ -41,12 +43,12 @@ public class Struttura implements Serializable {
         this.numeroRecensioni = numeroRecensioni;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeStruttura() {
+        return nomeStruttura;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeStruttura(String nome) {
+        this.nomeStruttura = nome;
     }
 
     public String getDescrizione() {
@@ -103,6 +105,14 @@ public class Struttura implements Serializable {
 
     public void setLongitudine(double longitudine) {
         this.longitudine = longitudine;
+    }
+
+    public double getDistanza() {
+        return distanza;
+    }
+
+    public void setDistanza(double distanza) {
+        this.distanza = distanza;
     }
 
     public Citta getCitta() {

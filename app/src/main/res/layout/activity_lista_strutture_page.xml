@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GUI.ListaStrutturePage">
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleButtonRistorante"></ListView>
+
+    <ImageView
+        android:id="@+id/imageViewCitta"
+        android:layout_width="440dp"
+        android:layout_height="228dp"
+        android:background="@android:color/holo_blue_bright"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView31"
+        android:layout_width="0dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="156dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/opaco_nome_citta" />
+
+    <TextView
+        android:id="@+id/textViewNomeCitta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/myfont"
+        android:textColor="@android:color/black"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewCitta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.933"
+        tools:text="Città" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonHotel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/myfont"
+        android:textOff="Hotel"
+        android:textOn="Hotel"
+        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonAltro"
+        app:layout_constraintStart_toStartOf="parent"
+        android:theme="@style/AppTheme.Button"/>
+
+    <ToggleButton
+        android:id="@+id/toggleButtonRistorante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:fontFamily="@font/myfont"
+        android:textOff="Ristoranti"
+        android:textOn="Ristoranti"
+        android:theme="@style/AppTheme.Button"
+        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonAltro"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCitta"
+        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintStart_toEndOf="@+id/imageViewCitta" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonAltro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/myfont"
+        android:text="ToggleButton"
+        android:textOff="Altro"
+        android:textOn="Altro"
+        app:layout_constraintBottom_toTopOf="@+id/listView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonRistorante"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCitta"
+        android:theme="@style/AppTheme.Button"/>
+
+    <Button
+        android:id="@+id/buttonLenteRicerca"
+        android:layout_width="26dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/lente_ricerca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

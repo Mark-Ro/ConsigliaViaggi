@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="valori_range_prezzo">
-        <item>0-50€</item>
-        <item>50-100€</item>
-        <item>100-200€</item>
+        <item>50€</item>
+        <item>100€</item>
+        <item>200€</item>
+        <item>300€</item>
+        <item>oltre</item>
     </string-array>
 </resources>

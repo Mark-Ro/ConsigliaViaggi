@@ -110,11 +110,11 @@ public class RicercaPage extends AppCompatActivity {
                        Toast.makeText(RicercaPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                    else {
                        if (autoCompleteTextCitta.getText().toString().isEmpty())
-                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),"null",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()));
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),"null",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
                        else if (autoCompleteTextNomeStruttura.getText().toString().isEmpty())
-                           ricercaController.effettuaRicercaStrutture("null",autoCompleteTextCitta.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()));
+                           ricercaController.effettuaRicercaStrutture("null",autoCompleteTextCitta.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
                        else {
-                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),autoCompleteTextCitta.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()));
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),autoCompleteTextCitta.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
                        }
                    }
                }
@@ -130,5 +130,18 @@ public class RicercaPage extends AppCompatActivity {
         prezzoInput = prezzoInput.substring(0,prezzoInput.length()-1);
         Log.i("RICERCA_PAGE",prezzoInput);
         return Float.parseFloat(prezzoInput);
+    }
+
+    private String getTipoStruttura() {
+
+        String risultato=null;
+
+        if (switchHotel.isChecked())
+            risultato="Hotel";
+        else if (switchRistoranti.isChecked())
+            risultato="Ristorante";
+        else
+            risultato="Altro";
+        return risultato;
     }
 }

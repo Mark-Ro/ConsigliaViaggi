@@ -41,10 +41,10 @@ public class UtenteDAO {
     public void getInformazioniUtente(String username) {
         utente.setUtenteAutenticato(true);
         Log.i("UTENTE_DAO","Nickname: " + username);
-        new getInformazioniUtenteTask().doInBackground(username);
+        new GetInformazioniUtenteTask().doInBackground(username);
     }
 
-    private class getInformazioniUtenteTask extends AsyncTask<String, Void, Void> {
+    private class GetInformazioniUtenteTask extends AsyncTask<String, Void, Void> {
 
         @Override
         protected Void doInBackground(String... strings) {

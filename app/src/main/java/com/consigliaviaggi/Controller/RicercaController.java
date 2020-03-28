@@ -22,12 +22,14 @@ public class RicercaController {
         this.strutturaDAO = new StrutturaDAO(contextRicercaPage);
     }
 
-    public void effettuaRicercaStrutture(String nomeStruttura, String citta, float prezzoMassimo, float voto) {
+    public void effettuaRicercaStrutture(String nomeStruttura, String citta, float prezzoMassimo, float voto, String tipoStruttura) {
         ArrayList<Struttura> listaStrutture = strutturaDAO.getListaStruttureCittaFromDatabase(nomeStruttura,citta,prezzoMassimo,voto);
         if (listaStrutture!=null) {
             Log.i("RICERCA_CONTROLLER","Lista size: " + String.valueOf(listaStrutture.size()));
             Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);
             intent.putExtra("ListaStrutture",listaStrutture);
+            intent.putExtra("Citta",citta);
+            intent.putExtra("TipoStruttura",tipoStruttura);
             contextRicercaPage.startActivity(intent);
         }
 

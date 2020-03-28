@@ -2,6 +2,8 @@ package com.consigliaviaggi.GUI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,10 +16,9 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.consigliaviaggi.Controller.RicercaController;
-import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.R;
 
-import java.util.ArrayList;
+
 
 public class RicercaPage extends AppCompatActivity {
 
@@ -44,13 +45,20 @@ public class RicercaPage extends AppCompatActivity {
         bottoneAnnulla = findViewById(R.id.bottoneAnnulla);
         bottoneRicerca = findViewById(R.id.bottoneRicerca);
 
-        ricercaController = new RicercaController(RicercaPage.this);
+        ricercaController = new RicercaController(RicercaPage.this,RicercaPage.this);
 
         switchGPS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
+                if (isChecked) {
                     autoCompleteTextCitta.setEnabled(false);
+                    if (ricercaController.verificaCondizioniGPS())
+                        ricercaController.getCurrentLocation();
+                    else {
+                        switchGPS.setChecked(false);
+                        autoCompleteTextCitta.setEnabled(true);
+                        }
+                    }
                 else
                     autoCompleteTextCitta.setEnabled(true);
             }
@@ -119,7 +127,10 @@ public class RicercaPage extends AppCompatActivity {
                    }
                }
                else {
-                    //Da implementare nelle mie vicinanze
+                    if (autoCompleteTextNomeStruttura.getText().toString().isEmpty())
+                        ricercaController.effettuaRicercaStruttureConPosizione("null",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
+                    else
+                        ricercaController.effettuaRicercaStruttureConPosizione(autoCompleteTextNomeStruttura.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
                }
             }
         });
@@ -127,9 +138,15 @@ public class RicercaPage extends AppCompatActivity {
 
     private float getPrezzoMassimoFromSpinner() {
         String prezzoInput = spinnerRangePrezzo.getSelectedItem().toString();
-        prezzoInput = prezzoInput.substring(0,prezzoInput.length()-1);
-        Log.i("RICERCA_PAGE",prezzoInput);
-        return Float.parseFloat(prezzoInput);
+        float risultato;
+        if (prezzoInput.equals("oltre"))
+            risultato = 10000f;
+        else {
+            prezzoInput = prezzoInput.substring(0, prezzoInput.length() - 1);
+            Log.i("RICERCA_PAGE", prezzoInput);
+            risultato = Float.parseFloat(prezzoInput);
+        }
+        return risultato;
     }
 
     private String getTipoStruttura() {
@@ -144,4 +161,6 @@ public class RicercaPage extends AppCompatActivity {
             risultato="Altro";
         return risultato;
     }
+
+
 }

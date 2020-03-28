@@ -11,4 +11,6 @@ public interface InterfacciaLambda {
     ResponseDetailsUpdate funzioneLambdaUpdateUtente(RequestDetailsUpdateUtente requestDetailsUpdateUtente);
     @LambdaFunction
     ResponseDetailsQuery funzioneLambdaQueryStrutturaCitta(RequestDetailsStrutturaCitta requestDetailsStrutturaCitta);
+    @LambdaFunction
+    ResponseDetailsQuery funzioneLambdaQueryStrutturaGPS(RequestDetailsStrutturaGPS requestDetailsStrutturaCitta);
 }

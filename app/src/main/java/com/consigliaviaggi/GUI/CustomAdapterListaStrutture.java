@@ -55,17 +55,20 @@ public class CustomAdapterListaStrutture extends BaseAdapter {
         Picasso.get().load(arrayList.get(position).getFotoStruttura()).noFade().fit().centerCrop().into(viewHolder.imageViewStruttura);
         viewHolder.textViewNomeStruttura.setText(arrayList.get(position).getNomeStruttura());
         viewHolder.textViewVoto.setText(String.valueOf(arrayList.get(position).getVoto()));
+        if (arrayList.get(position).getDistanza()>=0)
+            viewHolder.textViewDistanza.setText(String.valueOf(arrayList.get(position).getDistanza()) + "m");
 
         return r;
     }
     class ViewHolder {
         ImageView imageViewStruttura;
-        TextView textViewNomeStruttura,textViewVoto;
+        TextView textViewNomeStruttura,textViewVoto,textViewDistanza;
 
         public ViewHolder(View view) {
             imageViewStruttura = view.findViewById(R.id.imageViewStruttura);
             textViewNomeStruttura = view.findViewById(R.id.textViewNomeStruttura);
             textViewVoto = view.findViewById(R.id.textViewVoto);
+            textViewDistanza = view.findViewById(R.id.textViewDistanza);
         }
     }
 }

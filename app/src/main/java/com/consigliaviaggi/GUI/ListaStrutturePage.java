@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.R;

@@ -131,7 +131,7 @@ public class MainActivityController {
     private void doQuery(String inizializza) {
         CognitoSettings cognitoSettings = new CognitoSettings(contextMainActivity);
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
-        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(contextMainActivity, Regions.US_WEST_2, cognitoProvider);
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(contextMainActivity, Regions.EU_CENTRAL_1, cognitoProvider);
         InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
         RequestDetailsUtenteQuery request = new RequestDetailsUtenteQuery();
         request.setNickname(inizializza);

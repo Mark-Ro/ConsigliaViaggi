@@ -49,7 +49,7 @@ public class UtenteDAO {
         @Override
         protected Void doInBackground(String... strings) {
             CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
-            LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
+            LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.EU_CENTRAL_1, cognitoProvider);
             InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
             String query = doQuery(interfacciaLambda, strings[0]);
             Log.i("UTENTE_DAO","Query: " + query);
@@ -157,7 +157,7 @@ public class UtenteDAO {
         String inserimento = null, resultMessage = null;
 
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
-        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.EU_CENTRAL_1, cognitoProvider);
         InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
 
         if (nomePubblico)
@@ -181,7 +181,7 @@ public class UtenteDAO {
     public boolean updateEmailUtente(String email) {
         boolean risultato=false;
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
-        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.EU_CENTRAL_1, cognitoProvider);
         InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
         RequestDetailsUpdateUtente request = new RequestDetailsUpdateUtente();
         request.setAttributo("email");

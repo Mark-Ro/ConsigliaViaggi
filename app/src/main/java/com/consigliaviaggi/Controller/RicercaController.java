@@ -43,9 +43,9 @@ public class RicercaController {
         this.strutturaDAO = new StrutturaDAO(contextRicercaPage);
     }
 
-    public void effettuaRicercaStrutture(String nomeStruttura, String citta, float prezzoMassimo, float voto, String tipoStruttura) {
+    public void effettuaRicercaStrutture(String nomeStruttura, String citta, String nazione, float prezzoMassimo, float voto, String tipoStruttura) {
         if (isNetworkAvailable()) {
-            ArrayList<Struttura> listaStrutture = strutturaDAO.getListaStruttureCittaFromDatabase(nomeStruttura, citta, prezzoMassimo, voto);
+            ArrayList<Struttura> listaStrutture = strutturaDAO.getListaStruttureCittaFromDatabase(nomeStruttura, citta, nazione, prezzoMassimo, voto);
             if (listaStrutture != null) {
                 Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
                 Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);

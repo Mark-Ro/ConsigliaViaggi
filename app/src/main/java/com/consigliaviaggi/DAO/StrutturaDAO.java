@@ -25,16 +25,17 @@ public class StrutturaDAO {
         cognitoSettings = new CognitoSettings(context);
     }
 
-    private String doQueryStruttureCitta(String nomeStruttura, String citta, float prezzoMassimo, float voto) {
+    private String doQueryStruttureCitta(String nomeStruttura, String citta, String nazione, float prezzoMassimo, float voto) {
         String resultQuery;
 
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
-        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.EU_CENTRAL_1, cognitoProvider);
         InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
 
         RequestDetailsStrutturaCitta request = new RequestDetailsStrutturaCitta();
         request.setNomeStruttura(nomeStruttura);
         request.setCitta(citta);
+        request.setNazione(nazione);
         request.setMassimoPrezzo(String.valueOf(prezzoMassimo));
         request.setVoto(String.valueOf(voto));
         ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryStrutturaCitta(request);
@@ -51,7 +52,7 @@ public class StrutturaDAO {
         String resultQuery;
 
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
-        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.US_WEST_2, cognitoProvider);
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.EU_CENTRAL_1, cognitoProvider);
         InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
 
         RequestDetailsStrutturaGPS request = new RequestDetailsStrutturaGPS();
@@ -75,7 +76,7 @@ public class StrutturaDAO {
     private ArrayList<Struttura> creazioneListaStruttureCittaFromQuery(String query) {
         ArrayList<Struttura> listaStrutture=null;
         Citta citta=null;
-        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null;
+        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null,nazione=null;
         JSONObject jsonQuery = null;
 
         if (!query.equals("\n}")) {
@@ -171,8 +172,14 @@ public class StrutturaDAO {
                     flag = true;
                 }
 
+                try {
+                    nazione = (String) jsonQuery.get("Nazione" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
+
                 if (i == 1)
-                    citta = new Citta(Integer.parseInt(idCitta), nomeCitta, fotoCitta);
+                    citta = new Citta(Integer.parseInt(idCitta), nomeCitta, fotoCitta,nazione);
                 if (flag==false) {
 
                     listaStrutture.add(new Struttura(Integer.parseInt(idStruttura), nome, Float.parseFloat(prezzo), descrizione, Double.parseDouble(latitudine), Double.parseDouble(longitudine), tipoStruttura, Float.parseFloat(voto), fotoStruttura, Integer.parseInt(numeroRecensioni), citta, -1));
@@ -187,7 +194,7 @@ public class StrutturaDAO {
     private ArrayList<Struttura> creazioneListaStruttureGPSFromQuery(String query, Location miaPosizione) {
         ArrayList<Struttura> listaStrutture=null;
         Citta citta=null;
-        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null;
+        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null,nazione=null;
         JSONObject jsonQuery = null;
 
         if (!query.equals("\n}")) {
@@ -283,8 +290,14 @@ public class StrutturaDAO {
                     flag = true;
                 }
 
+                try {
+                    nazione = (String) jsonQuery.get("Nazione" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
+
                 if (i == 1)
-                    citta = new Citta(Integer.parseInt(idCitta), nomeCitta, fotoCitta);
+                    citta = new Citta(Integer.parseInt(idCitta), nomeCitta, fotoCitta,nazione);
                 if (flag==false) {
                     Location locationStruttura = new Location("dummyprovider");
                     locationStruttura.setLatitude(Double.parseDouble(latitudine));
@@ -300,9 +313,9 @@ public class StrutturaDAO {
         return listaStrutture;
     }
 
-    public ArrayList<Struttura> getListaStruttureCittaFromDatabase(String nomeStruttura, String citta, float prezzoMassimo, float voto) {
+    public ArrayList<Struttura> getListaStruttureCittaFromDatabase(String nomeStruttura, String citta, String nazione, float prezzoMassimo, float voto) {
 
-        String resultQuery = doQueryStruttureCitta(nomeStruttura,citta,prezzoMassimo,voto);
+        String resultQuery = doQueryStruttureCitta(nomeStruttura,citta,nazione,prezzoMassimo,voto);
         ArrayList<Struttura> listaStrutture = creazioneListaStruttureCittaFromQuery(resultQuery);
         return listaStrutture;
     }

@@ -118,11 +118,11 @@ public class RicercaPage extends AppCompatActivity {
                        Toast.makeText(RicercaPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                    else {
                        if (autoCompleteTextCitta.getText().toString().isEmpty())
-                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),"null",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),"null","null",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
                        else if (autoCompleteTextNomeStruttura.getText().toString().isEmpty())
-                           ricercaController.effettuaRicercaStrutture("null",autoCompleteTextCitta.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
+                           ricercaController.effettuaRicercaStrutture("null",autoCompleteTextCitta.getText().toString(),"Italia",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
                        else {
-                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),autoCompleteTextCitta.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),autoCompleteTextCitta.getText().toString(),"Italia",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
                        }
                    }
                }

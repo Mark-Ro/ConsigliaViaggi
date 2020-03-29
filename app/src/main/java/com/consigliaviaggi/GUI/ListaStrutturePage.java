@@ -37,6 +37,8 @@ public class ListaStrutturePage extends AppCompatActivity {
         nomeCitta = intent.getStringExtra("Citta");
         tipoStruttura = intent.getStringExtra("TipoStruttura");
 
+
+        Log.i("LISTA_STRUTTURA_PAGE",nomeCitta);
         listView = findViewById(R.id.listView);
         textViewNomeCitta = findViewById(R.id.textViewNomeCitta);
         imageViewCitta = findViewById(R.id.imageViewCitta);

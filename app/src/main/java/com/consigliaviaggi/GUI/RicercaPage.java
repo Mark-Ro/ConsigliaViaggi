@@ -11,9 +11,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import android.widget.CompoundButton;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.consigliaviaggi.Controller.RicercaController;
 import com.consigliaviaggi.R;
@@ -23,9 +26,12 @@ import com.consigliaviaggi.R;
 public class RicercaPage extends AppCompatActivity {
 
     private AutoCompleteTextView autoCompleteTextCitta,autoCompleteTextNomeStruttura;
-    private Switch switchGPS,switchHotel,switchRistoranti,switchAltro;
-    private Spinner spinnerRangeVoto,spinnerRangePrezzo;
+    private TextView textViewRangePrezzo;
+    private Switch switchGPS;
+    private ToggleButton toggleButtonHotel,toggleButtonRistorante,toggleButtonAltro;
+    private Spinner spinnerRangeVoto;
     private Button bottoneAnnulla,bottoneRicerca;
+    private SeekBar seekBarPrezzoMassimo;
 
     private RicercaController ricercaController;
 
@@ -37,13 +43,15 @@ public class RicercaPage extends AppCompatActivity {
         autoCompleteTextCitta = findViewById(R.id.autoCompleteTextCitta);
         autoCompleteTextNomeStruttura = findViewById(R.id.autoCompleteTextNomeStruttura);
         switchGPS = findViewById(R.id.switchGPS);
-        switchHotel = findViewById(R.id.switchHotel);
-        switchRistoranti = findViewById(R.id.switchRistoranti);
-        switchAltro = findViewById(R.id.switchAltro);
+        toggleButtonHotel = findViewById(R.id.toggleButtonHotel);
+        toggleButtonRistorante = findViewById(R.id.toggleButtonRistorante);
+        toggleButtonAltro = findViewById(R.id.toggleButtonAltro);
         spinnerRangeVoto = findViewById(R.id.spinnerRangeVoto);
-        spinnerRangePrezzo = findViewById(R.id.spinnerRangePrezzo);
+        textViewRangePrezzo=findViewById(R.id.textViewRangePrezzo);
+        seekBarPrezzoMassimo=findViewById(R.id.seekBarPrezzoMassimo);
         bottoneAnnulla = findViewById(R.id.bottoneAnnulla);
         bottoneRicerca = findViewById(R.id.bottoneRicerca);
+        toggleButtonHotel.performClick();
 
         ricercaController = new RicercaController(RicercaPage.this,RicercaPage.this);
 
@@ -64,35 +72,35 @@ public class RicercaPage extends AppCompatActivity {
             }
         });
 
-        switchHotel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        toggleButtonHotel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    switchRistoranti.setChecked(false);
-                    switchAltro.setChecked(false);
-                    spinnerRangePrezzo.setEnabled(true);
+                    toggleButtonRistorante.setChecked(false);
+                    toggleButtonAltro.setChecked(false);
+                    seekBarPrezzoMassimo.setEnabled(true);
                 }
             }
         });
 
-        switchRistoranti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    switchHotel.setChecked(false);
-                    switchAltro.setChecked(false);
-                    spinnerRangePrezzo.setEnabled(false);
-                }
-            }
-        });
+       toggleButtonRistorante.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               if (isChecked) {
+                   toggleButtonHotel.setChecked(false);
+                   toggleButtonAltro.setChecked(false);
+                   seekBarPrezzoMassimo.setEnabled(false);
+               }
+           }
+       });
 
-        switchAltro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        toggleButtonAltro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    switchHotel.setChecked(false);
-                    switchRistoranti.setChecked(false);
-                    spinnerRangePrezzo.setEnabled(false);
+                    toggleButtonHotel.setChecked(false);
+                    toggleButtonRistorante.setChecked(false);
+                    seekBarPrezzoMassimo.setEnabled(false);
                 }
             }
         });
@@ -103,10 +111,27 @@ public class RicercaPage extends AppCompatActivity {
                 autoCompleteTextCitta.setText("");
                 autoCompleteTextNomeStruttura.setText("");
                 switchGPS.setChecked(false);
-                switchHotel.setChecked(false);
-                switchRistoranti.setChecked(false);
-                switchAltro.setChecked(false);
-                spinnerRangePrezzo.setEnabled(true);
+                toggleButtonHotel.setChecked(false);
+                toggleButtonRistorante.setChecked(false);
+                toggleButtonAltro.setChecked(false);
+                seekBarPrezzoMassimo.setEnabled(true);
+            }
+        });
+
+        seekBarPrezzoMassimo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                textViewRangePrezzo.setText(String.valueOf(progress)+"€");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 
@@ -136,8 +161,9 @@ public class RicercaPage extends AppCompatActivity {
         });
     }
 
+
     private float getPrezzoMassimoFromSpinner() {
-        String prezzoInput = spinnerRangePrezzo.getSelectedItem().toString();
+        String prezzoInput =textViewRangePrezzo.getText().toString();
         float risultato;
         if (prezzoInput.equals("oltre"))
             risultato = 10000f;
@@ -153,9 +179,9 @@ public class RicercaPage extends AppCompatActivity {
 
         String risultato=null;
 
-        if (switchHotel.isChecked())
+        if (toggleButtonHotel.isChecked())
             risultato="Hotel";
-        else if (switchRistoranti.isChecked())
+        else if (toggleButtonAltro.isChecked())
             risultato="Ristorante";
         else
             risultato="Altro";

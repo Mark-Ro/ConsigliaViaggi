@@ -182,9 +182,9 @@ public class RicercaPage extends AppCompatActivity {
         if (toggleButtonHotel.isChecked())
             risultato="Hotel";
         else if (toggleButtonAltro.isChecked())
-            risultato="Ristorante";
-        else
             risultato="Altro";
+        else
+            risultato="Ristorante";
         return risultato;
     }
 

@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GUI.ListaStrutturePage"></activity>
+        <activity
+            android:name=".GUI.ListaStrutturePage"
+            android:label="@string/title_activity_lista_strutture_page"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".GUI.CambiaEmailPage" />
         <activity android:name=".GUI.CambiaPasswordPage" />
         <activity android:name=".GUI.RecuperaPasswordPage" />

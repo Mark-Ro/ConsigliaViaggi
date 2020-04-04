@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.consigliaviaggi.DAO.CittaDAO;
 import com.consigliaviaggi.DAO.StrutturaDAO;
 import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.GUI.ListaStrutturePage;
@@ -176,6 +177,22 @@ public class RicercaController {
     public void cancelLoadingDialog() {
         if (loadingDialog!=null)
             loadingDialog.dismissDialog();
+    }
+
+    public String[] getArrayStringaCitta() {
+        ArrayList<String> listaStringheCitta;
+        String[] risultato=null;
+        if (isNetworkAvailable()) {
+
+            CittaDAO cittaDAO = new CittaDAO(contextRicercaPage);
+            listaStringheCitta = cittaDAO.getArrayCittaFromDatabase();
+            risultato = new String[listaStringheCitta.size()];
+            for (int i=0;i<listaStringheCitta.size();i++)
+                risultato[i] = listaStringheCitta.get(i);
+        }
+        else
+            Toast.makeText(contextRicercaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+        return risultato;
     }
 
     private boolean isNetworkAvailable() {

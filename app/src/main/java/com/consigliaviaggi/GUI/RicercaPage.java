@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
@@ -168,8 +170,26 @@ public class RicercaPage extends AppCompatActivity {
                }
             }
         });
-    }
 
+        new AsyncTask<Void,Void,Void>() {
+
+            private String[] arrayCitta;
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                arrayCitta = ricercaController.getArrayStringaCitta();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(RicercaPage.this, R.layout.autocompletetextview_item, R.id.text_view_list_item, arrayCitta);
+                autoCompleteTextCitta.setAdapter(adapter);
+            }
+        }.execute();
+
+    }
 
     private float getPrezzoMassimoFromSpinner() {
         String prezzoInput =textViewRangePrezzo.getText().toString();

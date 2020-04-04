@@ -95,7 +95,7 @@ public class MainActivityController {
             threadGetInformazioniUtente.start();
         }
         else
-            Toast.makeText(contextMainActivity, "Connessione internet non disponibile!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(contextMainActivity, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
     }
 
     private class ThreadGetInformazioniUtente extends Thread {
@@ -114,10 +114,14 @@ public class MainActivityController {
     }
 
     public void inizializzaLambda() {
-        if (utente.getNome()==null || utente.getNome().equals("")) {
-            ThreadInizializzaLambda threadInizializzaLambda = new ThreadInizializzaLambda();
-            threadInizializzaLambda.start();
+        if (isNetworkAvailable()) {
+            if (utente.getNome() == null || utente.getNome().equals("")) {
+                ThreadInizializzaLambda threadInizializzaLambda = new ThreadInizializzaLambda();
+                threadInizializzaLambda.start();
+            }
         }
+        else
+            Toast.makeText(contextMainActivity, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
     }
 
     private class ThreadInizializzaLambda extends Thread {

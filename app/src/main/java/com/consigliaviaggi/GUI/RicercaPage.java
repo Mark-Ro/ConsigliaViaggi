@@ -142,20 +142,29 @@ public class RicercaPage extends AppCompatActivity {
                    if (autoCompleteTextCitta.getText().toString().isEmpty() && autoCompleteTextNomeStruttura.getText().toString().isEmpty())
                        Toast.makeText(RicercaPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                    else {
-                       if (autoCompleteTextCitta.getText().toString().isEmpty())
-                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),"null","null",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
-                       else if (autoCompleteTextNomeStruttura.getText().toString().isEmpty())
-                           ricercaController.effettuaRicercaStrutture("null",autoCompleteTextCitta.getText().toString(),"Italia",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
+                       if (autoCompleteTextCitta.getText().toString().isEmpty()) {
+                           ricercaController.openLoadingDialog(RicercaPage.this);
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(), "null", "null", getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+                       }
+                       else if (autoCompleteTextNomeStruttura.getText().toString().isEmpty()) {
+                           ricercaController.openLoadingDialog(RicercaPage.this);
+                           ricercaController.effettuaRicercaStrutture("null", autoCompleteTextCitta.getText().toString(), "Italia", getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+                       }
                        else {
+                           ricercaController.openLoadingDialog(RicercaPage.this);
                            ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),autoCompleteTextCitta.getText().toString(),"Italia",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
                        }
                    }
                }
                else {
-                    if (autoCompleteTextNomeStruttura.getText().toString().isEmpty())
-                        ricercaController.effettuaRicercaStruttureConPosizione("null",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
-                    else
-                        ricercaController.effettuaRicercaStruttureConPosizione(autoCompleteTextNomeStruttura.getText().toString(),getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
+                    if (autoCompleteTextNomeStruttura.getText().toString().isEmpty()) {
+                        ricercaController.openLoadingDialog(RicercaPage.this);
+                        ricercaController.effettuaRicercaStruttureConPosizione("null", getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+                    }
+                    else {
+                        ricercaController.openLoadingDialog(RicercaPage.this);
+                        ricercaController.effettuaRicercaStruttureConPosizione(autoCompleteTextNomeStruttura.getText().toString(), getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+                    }
                }
             }
         });

@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import com.consigliaviaggi.DAO.StrutturaDAO;
 import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.GUI.ListaStrutturePage;
+import com.consigliaviaggi.GUI.LoadingDialog;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -34,7 +36,11 @@ public class RicercaController {
     private Activity activityRicercaPage;
     private StrutturaDAO strutturaDAO;
 
+    private LoadingDialog loadingDialog;
+
     private Location miaPosizione;
+
+    private ArrayList<Struttura> listaStrutture;
 
 
     public RicercaController(Context contextRicercaPage, Activity activityRicercaPage) {
@@ -43,46 +49,83 @@ public class RicercaController {
         this.strutturaDAO = new StrutturaDAO(contextRicercaPage);
     }
 
-    public void effettuaRicercaStrutture(String nomeStruttura, String citta, String nazione, float prezzoMassimo, float voto, String tipoStruttura) {
+    public void effettuaRicercaStrutture(final String nomeStruttura, final String citta, final String nazione, final float prezzoMassimo, final float voto, final String tipoStruttura) {
+
         if (isNetworkAvailable()) {
-            ArrayList<Struttura> listaStrutture = strutturaDAO.getListaStruttureCittaFromDatabase(nomeStruttura, citta, nazione, prezzoMassimo, voto);
-            if (listaStrutture != null) {
-                Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
-                Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);
-                intent.putExtra("ListaStrutture", listaStrutture);
-                intent.putExtra("Citta", citta);
-                intent.putExtra("TipoStruttura", tipoStruttura);
-                contextRicercaPage.startActivity(intent);
-            } else {
-                Log.i("RICERCA_CONTROLLER", "Lista vuota!");
-                Toast.makeText(contextRicercaPage, "Nessun risultato trovato!", Toast.LENGTH_SHORT).show();
-            }
+
+             new AsyncTask<Void,Void,Void>() {
+
+                 @Override
+                 protected Void doInBackground(Void... voids) {
+                     listaStrutture = strutturaDAO.getListaStruttureCittaFromDatabase(nomeStruttura, citta, nazione, prezzoMassimo, voto);
+                     return null;
+                 }
+
+                 @Override
+                 protected void onPostExecute(Void aVoid) {
+                     super.onPostExecute(aVoid);
+                     if (listaStrutture != null) {
+                         Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
+                         cancelLoadingDialog();
+                         Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);
+                         intent.putExtra("ListaStrutture", listaStrutture);
+                         intent.putExtra("Citta", citta);
+                         intent.putExtra("TipoStruttura", tipoStruttura);
+                         contextRicercaPage.startActivity(intent);
+                     } else {
+                         cancelLoadingDialog();
+                         Log.i("RICERCA_CONTROLLER", "Lista vuota!");
+                         Toast.makeText(contextRicercaPage, "Nessun risultato trovato!", Toast.LENGTH_SHORT).show();
+                     }
+                 }
+             }.execute();
         }
-        else
+        else {
+            cancelLoadingDialog();
             Toast.makeText(contextRicercaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void effettuaRicercaStruttureConPosizione(String nomeStruttura, float prezzoMassimo, float voto, String tipoStruttura) {
+    public void effettuaRicercaStruttureConPosizione(final String nomeStruttura, final float prezzoMassimo, final float voto, final String tipoStruttura) {
+
         if (isNetworkAvailable()) {
-            if (miaPosizione!=null) {
-                ArrayList<Struttura> listaStrutture = strutturaDAO.getListaStruttureGPSFromDatabase(nomeStruttura, miaPosizione, prezzoMassimo, voto);
-                if (listaStrutture != null) {
-                    Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
-                    Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);
-                    intent.putExtra("ListaStrutture", listaStrutture);
-                    intent.putExtra("Citta", listaStrutture.get(0).getCitta().getNome());
-                    intent.putExtra("TipoStruttura", tipoStruttura);
-                    contextRicercaPage.startActivity(intent);
-                } else {
-                    Log.i("RICERCA_CONTROLLER", "Lista vuota!");
-                    Toast.makeText(contextRicercaPage, "Nessun risultato trovato!", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else
+            if (miaPosizione != null) {
+                new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+
+                        listaStrutture = strutturaDAO.getListaStruttureGPSFromDatabase(nomeStruttura, miaPosizione, prezzoMassimo, voto);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        if (listaStrutture != null) {
+                            Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
+                            cancelLoadingDialog();
+                            Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);
+                            intent.putExtra("ListaStrutture", listaStrutture);
+                            intent.putExtra("Citta", listaStrutture.get(0).getCitta().getNome());
+                            intent.putExtra("TipoStruttura", tipoStruttura);
+                            contextRicercaPage.startActivity(intent);
+                        } else {
+                            cancelLoadingDialog();
+                            Log.i("RICERCA_CONTROLLER", "Lista vuota!");
+                            Toast.makeText(contextRicercaPage, "Nessun risultato trovato!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }.execute();
+            } else {
+                cancelLoadingDialog();
                 Toast.makeText(contextRicercaPage, "Posizione GPS non trovata! Riprovare!", Toast.LENGTH_SHORT).show();
+            }
         }
-        else
+        else {
+            cancelLoadingDialog();
             Toast.makeText(contextRicercaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void getCurrentLocation() {
@@ -123,6 +166,16 @@ public class RicercaController {
         else
             risultato=true;
         return risultato;
+    }
+
+    public void openLoadingDialog(Activity activity) {
+        loadingDialog = new LoadingDialog(activity);
+        loadingDialog.startLoadingDialog();
+    }
+
+    public void cancelLoadingDialog() {
+        if (loadingDialog!=null)
+            loadingDialog.dismissDialog();
     }
 
     private boolean isNetworkAvailable() {

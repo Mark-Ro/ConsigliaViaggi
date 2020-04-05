@@ -31,30 +31,42 @@ public class CambiaEmailController {
 
     public void cambiaEmail(final String email) {
 
-        new AsyncTask<Void,Void,Void>() {
+        if (!utente.getEmail().equals(email)) {
+            if (isNetworkAvailable()) {
+                new AsyncTask<Void,Void,Void>() {
 
-            @Override
-            protected Void doInBackground(Void... voids) {
-                if (!utente.getEmail().equals(email)) {
-                    if (isNetworkAvailable()) {
+                    private boolean emailPresente;
+
+                    @Override
+                    protected Void doInBackground(Void... voids) {
                         UtenteDAO utenteDAO = new UtenteDAO(contextCambiaEmail);
-                        if (utenteDAO.updateEmailUtente(email)) {
+                        emailPresente = utenteDAO.updateEmailUtente(email);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        if (emailPresente) {
                             CambiaEmailCognito cambiaEmailCognito = new CambiaEmailCognito(CambiaEmailController.this, contextCambiaEmail);
                             cambiaEmailCognito.modificaEmailCognito(utente.getNickname(), email);
-                        } else
+                        }
+                        else {
+                            cancelLoadingDialog();
                             Toast.makeText(cambiaEmailPage, "Email già presente!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        cancelLoadingDialog();
-                        Toast.makeText(cambiaEmailPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-                else {
-                    cancelLoadingDialog();
-                    Toast.makeText(cambiaEmailPage, "Email uguale a quella attuale!", Toast.LENGTH_SHORT).show();
-                }
-                return null;
+                }.execute();
             }
-        }.execute();
+            else {
+                cancelLoadingDialog();
+                Toast.makeText(cambiaEmailPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            cancelLoadingDialog();
+            Toast.makeText(cambiaEmailPage, "Email uguale a quella attuale!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void cambiaEmailEffettuatoConSuccesso(String email) {

@@ -241,39 +241,28 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewNomeProfilo"
         tools:text="Caricamento..." />
 
-    <TextView
-        android:id="@+id/textViewEmailProfilo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/myfont"
-        android:text="Caricamento..."
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/textView25"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCognomeProfilo"
-        tools:text="Caricamento..." />
 
     <TextView
         android:id="@+id/textViewNicknameProfilo"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="7dp"
         android:fontFamily="@font/myfont"
         android:text="Caricamento..."
         android:textColor="@android:color/black"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmailProfilo"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2"
         tools:text="Caricamento..." />
 
     <TextView
         android:id="@+id/textViewNumeroRecensioniProfilo"
         android:layout_width="121dp"
         android:layout_height="33dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/myfont"
         android:text="Caricamento..."
@@ -282,5 +271,42 @@
         app:layout_constraintStart_toEndOf="@+id/textView27"
         app:layout_constraintTop_toBottomOf="@+id/textViewNicknameProfilo"
         tools:text="Caricamento..." />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView2"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="124dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottoneCambiaEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewCognomeProfilo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCognomeProfilo"
+        app:layout_constraintVertical_bias="0.0">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewEmailProfilo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/myfont"
+                android:text="Caricamento..."
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                tools:text="Caricamento..." />
+
+
+        </RelativeLayout>
+    </HorizontalScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

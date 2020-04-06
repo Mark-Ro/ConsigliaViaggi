@@ -196,7 +196,7 @@
         android:background="@android:color/transparent"
         android:inputType="textPersonName"
         android:completionThreshold="1"
-        android:popupBackground="@color/colorAccent"
+        android:popupBackground="@drawable/sfondo_autocompletetext"
         app:layout_constraintBottom_toBottomOf="@+id/imageView18"
         app:layout_constraintEnd_toEndOf="@+id/imageView18"
         app:layout_constraintHorizontal_bias="0.515"

@@ -34,6 +34,7 @@ public class RicercaPage extends AppCompatActivity {
     private Spinner spinnerRangeVoto;
     private Button bottoneAnnulla,bottoneRicerca;
     private SeekBar seekBarPrezzoMassimo;
+    private ArrayAdapter<String> adapter;
 
     private RicercaController ricercaController;
 
@@ -140,7 +141,8 @@ public class RicercaPage extends AppCompatActivity {
         bottoneRicerca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if (!switchGPS.isChecked()) {
+                if (!switchGPS.isChecked()) {
+
                    if (autoCompleteTextCitta.getText().toString().isEmpty() && autoCompleteTextNomeStruttura.getText().toString().isEmpty())
                        Toast.makeText(RicercaPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                    else {
@@ -149,12 +151,15 @@ public class RicercaPage extends AppCompatActivity {
                            ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(), "null", "null", getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
                        }
                        else if (autoCompleteTextNomeStruttura.getText().toString().isEmpty()) {
+                           String[] cittaNazione = getCittaAndNazioneFromAutoCompleteTextView();
                            ricercaController.openLoadingDialog(RicercaPage.this);
-                           ricercaController.effettuaRicercaStrutture("null", autoCompleteTextCitta.getText().toString(), "Italia", getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+                           ricercaController.effettuaRicercaStrutture("null", cittaNazione[0], cittaNazione[1], getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+
                        }
                        else {
+                           String[] cittaNazione = getCittaAndNazioneFromAutoCompleteTextView();
                            ricercaController.openLoadingDialog(RicercaPage.this);
-                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),autoCompleteTextCitta.getText().toString(),"Italia",getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),cittaNazione[0],cittaNazione[1],getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
                        }
                    }
                }
@@ -184,7 +189,7 @@ public class RicercaPage extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(RicercaPage.this, R.layout.autocompletetextview_item, R.id.text_view_list_item, arrayCitta);
+                adapter = new ArrayAdapter<String>(RicercaPage.this, R.layout.autocompletetextview_item, R.id.text_view_list_item, arrayCitta);
                 autoCompleteTextCitta.setAdapter(adapter);
             }
         }.execute();
@@ -217,5 +222,27 @@ public class RicercaPage extends AppCompatActivity {
         return risultato;
     }
 
+    private String[] getCittaAndNazioneFromAutoCompleteTextView() {
+        String[] risultato = new String[2];
+        if (adapter!=null && !adapter.isEmpty()) {
+            String ricercaInput = adapter.getItem(0).toString();
+            if (ricercaInput != null) {
+                int indiceVirgola = ricercaInput.indexOf(",");
+                risultato[0] = ricercaInput.substring(0, indiceVirgola);
+                risultato[1] = ricercaInput.substring(indiceVirgola + 1);
+            }
+            else {
+                risultato[0] = "null";
+                risultato[1] = "null";
+            }
+        }
+        else {
+            risultato[0] = "null";
+            risultato[1] = "null";
+        }
 
+        Log.i("RICERCA_PAGE_CITTA_NAZIONE", risultato[0] + " " + risultato[1]);
+
+        return risultato;
+    }
 }

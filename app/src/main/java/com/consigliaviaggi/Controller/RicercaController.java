@@ -33,8 +33,8 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class RicercaController {
 
-    private Context contextRicercaPage;
     private Activity activityRicercaPage;
+    private Context contextRicercaPage;
     private StrutturaDAO strutturaDAO;
 
     private LoadingDialog loadingDialog;
@@ -44,9 +44,9 @@ public class RicercaController {
     private ArrayList<Struttura> listaStrutture;
 
 
-    public RicercaController(Context contextRicercaPage, Activity activityRicercaPage) {
-        this.contextRicercaPage = contextRicercaPage;
+    public RicercaController(Activity activityRicercaPage, Context contextRicercaPage) {
         this.activityRicercaPage = activityRicercaPage;
+        this.contextRicercaPage = contextRicercaPage;
         this.strutturaDAO = new StrutturaDAO(contextRicercaPage);
     }
 

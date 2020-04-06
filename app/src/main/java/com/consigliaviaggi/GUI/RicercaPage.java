@@ -92,6 +92,7 @@ public class RicercaPage extends AppCompatActivity {
                if (isChecked) {
                    toggleButtonHotel.setChecked(false);
                    toggleButtonAltro.setChecked(false);
+                    seekBarPrezzoMassimo.setProgress(3000);
                    seekBarPrezzoMassimo.setEnabled(false);
                }
            }
@@ -103,6 +104,7 @@ public class RicercaPage extends AppCompatActivity {
                 if (isChecked) {
                     toggleButtonHotel.setChecked(false);
                     toggleButtonRistorante.setChecked(false);
+                    seekBarPrezzoMassimo.setProgress(3000);
                     seekBarPrezzoMassimo.setEnabled(false);
                 }
             }

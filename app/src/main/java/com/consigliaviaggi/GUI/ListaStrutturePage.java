@@ -2,6 +2,7 @@ package com.consigliaviaggi.GUI;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.consigliaviaggi.Controller.ListaStrutturePageController;
@@ -44,9 +45,11 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
     private CoordinatorLayout coordinatorLayout;
     private AppBarLayout appBarLayout;
     private String nomeCitta,tipoStruttura;
-    private Button bottoneMenu;
+    private ToggleButton toggleButtonMenu;
     private ToggleButton toggleButtonHotel,toggleButtonRistorante,toggleButtonAltro;
     private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private View contentView;
 
     private ListaStrutturePageController listaStrutturePageController;
 
@@ -68,11 +71,12 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
         imageViewBarraCitta = findViewById(R.id.imageViewBarraCitta);
         coordinatorLayout=findViewById(R.id.coordinator_layout);
         appBarLayout=findViewById(R.id.app_bar);
-        bottoneMenu=findViewById(R.id.bottoneMenu);
+        toggleButtonMenu = findViewById(R.id.toggleButtonMenu);
         navigationView = findViewById(R.id.menulaterale);
         toggleButtonHotel = findViewById(R.id.toggleButtonHotel);
         toggleButtonRistorante = findViewById(R.id.toggleButtonRistorante);
         toggleButtonAltro = findViewById(R.id.toggleButtonAltro);
+        drawerLayout = findViewById(R.id.drawerlayout);
 
         navigationView.setNavigationItemSelectedListener(this);
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
@@ -152,17 +156,19 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
             }
         });
 
-        bottoneMenu.setOnClickListener(new View.OnClickListener() {
+        toggleButtonMenu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                DrawerLayout navDrawer = findViewById(R.id.drawerlayout);
-                if(!navDrawer.isDrawerOpen(GravityCompat.START)) navDrawer.openDrawer(GravityCompat.START);
-                else navDrawer.closeDrawer(GravityCompat.END);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    if (!drawerLayout.isDrawerOpen(GravityCompat.START))
+                        drawerLayout.openDrawer(GravityCompat.START);
+                }
             }
         });
 
         setCitta();
         inizializzaBottoni();
+        animazioneNavigationDrawer();
     }
 
     @Override
@@ -207,4 +213,31 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
             toggleButtonAltro.performClick();
     }
 
+    private void  animazioneNavigationDrawer(){
+        final float END_SCALE = 0.7f;
+        contentView  = findViewById(R.id.coordinator_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        drawerLayout.setScrimColor(Color.TRANSPARENT);
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public  void onDrawerOpened(View drawerView){
+                toggleButtonMenu.setChecked(true);
+            }
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                contentView.setScaleX(offsetScale);
+                contentView.setScaleY(offsetScale);
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                contentView.setTranslationX(xTranslation);
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                toggleButtonMenu.setChecked(false);
+            }
+        });
+    }
 }

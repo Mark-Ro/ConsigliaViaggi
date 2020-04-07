@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
 import com.consigliaviaggi.DAO.GalleryDAO;
 import com.consigliaviaggi.Entity.Gallery;
@@ -47,7 +49,14 @@ public class GalleryStrutturaController {
         zoomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         zoomDialog.setContentView(R.layout.zoom_image_dialog);
         zoomDialog.setTitle("Titolo Dialog");
+        Button bottoneChiudiDialog = zoomDialog.findViewById(R.id.buttonChiudiDialog);
         PhotoView photoView = zoomDialog.findViewById(R.id.photoView);
+        bottoneChiudiDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoomDialog.dismiss();
+            }
+        });
         Picasso.get().load(immagine).noFade().into(photoView);
         zoomDialog.show();
     }

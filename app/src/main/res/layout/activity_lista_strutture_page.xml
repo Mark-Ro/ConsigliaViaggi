@@ -47,7 +47,7 @@
     </com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/menulaterale"
+        android:id="@+id/menuLaterale"
         app:headerLayout="@layout/header_layout_menu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

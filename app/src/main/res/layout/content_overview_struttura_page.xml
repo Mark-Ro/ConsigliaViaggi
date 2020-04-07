@@ -45,9 +45,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/myfont"
-            android:text="Prezzo per Notte"
             android:textColor="@android:color/black"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            tools:text="Prezzo per Notte"/>
 
         <TextView
             android:id="@+id/textView38"
@@ -74,12 +74,11 @@
             android:textSize="25dp"
             tools:text="--€" />
 
-        <com.google.android.gms.maps.MapView
+        <com.consigliaviaggi.GUI.CustomMapView
             android:id="@+id/mapView"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="450dp"
             android:layout_below="@id/textView38"
-            android:layout_marginLeft="30dp"
             android:layout_marginTop="17dp"
             tools:layout_editor_absoluteX="45dp"
             tools:layout_editor_absoluteY="71dp" />

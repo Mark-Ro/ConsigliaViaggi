@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.consigliaviaggi.Controller.ListaStrutturePageController;
 import com.consigliaviaggi.Entity.Struttura;
+import com.google.android.gms.maps.MapView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,7 +45,6 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
     private TextView textViewNomeCitta;
     private ArrayList<Struttura> listaStrutture;
     private ImageView imageViewCitta,imageViewBarraCitta;
-    private CoordinatorLayout coordinatorLayout;
     private AppBarLayout appBarLayout;
     private String nomeCitta,tipoStruttura;
     private ToggleButton toggleButtonMenu;
@@ -52,6 +52,7 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private View contentView;
+    private MapView mapView;
 
     private ListaStrutturePageController listaStrutturePageController;
 
@@ -71,10 +72,9 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
         textViewNomeCitta = findViewById(R.id.textViewNomeCitta);
         imageViewCitta = findViewById(R.id.imageViewCitta);
         imageViewBarraCitta = findViewById(R.id.imageViewBarraCitta);
-        coordinatorLayout=findViewById(R.id.coordinator_layout);
         appBarLayout=findViewById(R.id.app_bar);
         toggleButtonMenu = findViewById(R.id.toggleButtonMenu);
-        navigationView = findViewById(R.id.menulaterale);
+        navigationView = findViewById(R.id.menuLaterale);
         toggleButtonHotel = findViewById(R.id.toggleButtonHotel);
         toggleButtonRistorante = findViewById(R.id.toggleButtonRistorante);
         toggleButtonAltro = findViewById(R.id.toggleButtonAltro);
@@ -225,7 +225,6 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
     private void  animazioneNavigationDrawer(){
         final float END_SCALE = 0.7f;
         contentView  = findViewById(R.id.coordinator_layout);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         drawerLayout.setScrimColor(Color.TRANSPARENT);
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override

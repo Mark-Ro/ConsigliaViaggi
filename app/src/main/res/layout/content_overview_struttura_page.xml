@@ -8,10 +8,82 @@
     tools:context=".GUI.OverviewStrutturaPage"
     tools:showIn="@layout/activity_overview_struttura_page">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@font/myfont"
+            android:text="Descrizione"
+            android:textColor="@android:color/black"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/textViewDescrizione_Overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView36"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/myfont"
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
+            tools:text="Descrizione"
+
+            />
+
+        <TextView
+            android:id="@+id/textViewTitoloPrezzo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewDescrizione_Overview"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/myfont"
+            android:text="Prezzo per Notte"
+            android:textColor="@android:color/black"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTitoloPrezzo"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/myfont"
+            android:text="Map"
+            android:textColor="@android:color/black"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/textViewPrezzo_Overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewDescrizione_Overview"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/myfont"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"
+            tools:text="--€" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="370dp"
+            android:layout_height="450dp"
+            android:layout_below="@id/textView38"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="17dp"
+            tools:layout_editor_absoluteX="45dp"
+            tools:layout_editor_absoluteY="71dp" />
+
+    </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -23,8 +23,6 @@ import android.widget.ToggleButton;
 import com.consigliaviaggi.Controller.RicercaController;
 import com.consigliaviaggi.R;
 
-
-
 public class RicercaPage extends AppCompatActivity {
 
     private AutoCompleteTextView autoCompleteTextCitta,autoCompleteTextNomeStruttura;

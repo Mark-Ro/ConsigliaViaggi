@@ -24,11 +24,13 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.consigliaviaggi.R;
@@ -163,6 +165,13 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
                     if (!drawerLayout.isDrawerOpen(GravityCompat.START))
                         drawerLayout.openDrawer(GravityCompat.START);
                 }
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                listaStrutturePageController.clickStruttura(position);
             }
         });
 

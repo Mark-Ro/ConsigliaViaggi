@@ -3,12 +3,14 @@ package com.consigliaviaggi.Controller;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.LoginPage;
 import com.consigliaviaggi.GUI.MainActivity;
+import com.consigliaviaggi.GUI.OverviewStrutturaPage;
 import com.consigliaviaggi.GUI.ProfiloPage;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 public class ListaStrutturePageController {
 
     private Activity activityListaStrutturePage;
-    private ArrayList<Struttura> listaStrutture;
+    private ArrayList<Struttura> listaStrutture,listaStruttureIntent;
 
     public ListaStrutturePageController(Activity activityListaStrutturePage, ArrayList<Struttura> listaStrutture) {
         this.activityListaStrutturePage = activityListaStrutturePage;
@@ -52,6 +54,7 @@ public class ListaStrutturePageController {
             if (listaStrutture.get(i).getTipoStruttura().equals("hotel"))
                 listaOutput.add(listaStrutture.get(i));
         }
+        listaStruttureIntent = listaOutput;
         return listaOutput;
     }
 
@@ -62,6 +65,7 @@ public class ListaStrutturePageController {
             if (listaStrutture.get(i).getTipoStruttura().equals("ristorante"))
                 listaOutput.add(listaStrutture.get(i));
         }
+        listaStruttureIntent = listaOutput;
         return listaOutput;
     }
 
@@ -72,6 +76,13 @@ public class ListaStrutturePageController {
             if (listaStrutture.get(i).getTipoStruttura().equals("altro"))
                 listaOutput.add(listaStrutture.get(i));
         }
+        listaStruttureIntent = listaOutput;
         return listaOutput;
+    }
+
+    public void clickStruttura(int posizione) {
+        Intent intent = new Intent(activityListaStrutturePage, OverviewStrutturaPage.class);
+        intent.putExtra("Struttura",listaStruttureIntent.get(posizione));
+        activityListaStrutturePage.startActivity(intent);
     }
 }

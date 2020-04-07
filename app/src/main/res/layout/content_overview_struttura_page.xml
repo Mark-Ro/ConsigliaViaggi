@@ -2,8 +2,8 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".GUI.OverviewStrutturaPage"
     tools:showIn="@layout/activity_overview_struttura_page">
@@ -77,7 +77,7 @@
         <com.consigliaviaggi.GUI.CustomMapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="500dp"
             android:layout_below="@id/textView38"
             android:layout_marginTop="17dp"
             tools:layout_editor_absoluteX="45dp"

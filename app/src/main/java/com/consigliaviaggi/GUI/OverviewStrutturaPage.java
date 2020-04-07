@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.consigliaviaggi.Controller.OverviewStrutturaController;
 import com.consigliaviaggi.Entity.Struttura;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.consigliaviaggi.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -39,9 +39,11 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private View contentView;
-    private ToggleButton toggleButtonMenu,toggleButtonOverview_Overview,toggleButtonGalleryOverview,toggleButtonRecensioniOverview;
+    private ToggleButton toggleButtonMenu,toggleButtonGalleryOverview,toggleButtonRecensioniOverview;
     private ImageView imageViewOverview;
     private TextView textViewNomeStrutturaOverview,textViewVotoOverview,textViewDescrizioneOverview,textViewTitoloPrezzo,textViewPrezzoOverview;
+
+    private OverviewStrutturaController overviewStrutturaController;
 
     private Struttura struttura;
 
@@ -62,7 +64,6 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
         navigationView = findViewById(R.id.menuLaterale);
         drawerLayout = findViewById(R.id.drawerLayoutOverview);
         toggleButtonMenu = findViewById(R.id.toggleButtonMenu);
-        toggleButtonOverview_Overview = findViewById(R.id.toggleButtonOverview_Overview);
         toggleButtonGalleryOverview = findViewById(R.id.toggleButtonGallery_Overview);
         toggleButtonRecensioniOverview = findViewById(R.id.toggleButtonRecensioni_Overview);
         imageViewOverview = findViewById(R.id.imageViewOverview);
@@ -73,12 +74,24 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
         textViewPrezzoOverview = findViewById(R.id.textViewPrezzo_Overview);
         mapView = findViewById(R.id.mapView);
 
+        overviewStrutturaController = new OverviewStrutturaController(this,this);
+
         toggleButtonMenu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     if (!drawerLayout.isDrawerOpen(GravityCompat.START))
                         drawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
+
+        toggleButtonGalleryOverview.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    toggleButtonGalleryOverview.setChecked(false);
+                    overviewStrutturaController.openGallery(struttura);
                 }
             }
         });

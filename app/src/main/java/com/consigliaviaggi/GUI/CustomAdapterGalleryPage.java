@@ -1,6 +1,7 @@
 package com.consigliaviaggi.GUI;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,20 +9,20 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.consigliaviaggi.Entity.Struttura;
+import com.consigliaviaggi.Entity.Gallery;
 import com.consigliaviaggi.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CustomAdapterListaStrutture extends BaseAdapter {
+public class CustomAdapterGalleryPage extends BaseAdapter {
 
     private Context context;
-    private ArrayList<Struttura> arrayList;
+    private ArrayList<Gallery> arrayList;
 
-    public CustomAdapterListaStrutture(Context context, ArrayList<Struttura> arrayList) {
+    public CustomAdapterGalleryPage(Context context, ArrayList<Gallery> listaGallery) {
         this.context = context;
-        this.arrayList = arrayList;
+        this.arrayList = listaGallery;
     }
 
     @Override
@@ -42,34 +43,26 @@ public class CustomAdapterListaStrutture extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View r=convertView;
-        ViewHolder viewHolder=null;
+        CustomAdapterGalleryPage.ViewHolder viewHolder=null;
         if (r==null) {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
-            r=layoutInflater.inflate(R.layout.strutture_listview_layout,null,true);
+            r=layoutInflater.inflate(R.layout.gallery_listview_layout,null,true);
             viewHolder = new ViewHolder(r);
             r.setTag(viewHolder);
         }
         else
             viewHolder = (ViewHolder) r.getTag();
 
-        Picasso.get().load(arrayList.get(position).getFotoStruttura()).noFade().fit().centerCrop().into(viewHolder.imageViewStruttura);
-        viewHolder.textViewNomeStruttura.setText(arrayList.get(position).getNomeStruttura());
-        viewHolder.textViewVoto.setText(String.valueOf(arrayList.get(position).getVoto()));
-        if (arrayList.get(position).getDistanza()>=0)
-            viewHolder.textViewDistanza.setText(String.valueOf(arrayList.get(position).getDistanza()) + "m");
-
+        Picasso.get().load(arrayList.get(position).getImmagine()).noFade().fit().centerCrop().into(viewHolder.imageViewGallery);
         return r;
     }
 
     class ViewHolder {
-        ImageView imageViewStruttura;
+        ImageView imageViewGallery;
         TextView textViewNomeStruttura,textViewVoto,textViewDistanza;
 
         public ViewHolder(View view) {
-            imageViewStruttura = view.findViewById(R.id.imageViewStruttura);
-            textViewNomeStruttura = view.findViewById(R.id.textViewNomeStruttura);
-            textViewVoto = view.findViewById(R.id.textViewVoto);
-            textViewDistanza = view.findViewById(R.id.textViewDistanza);
+            imageViewGallery = view.findViewById(R.id.imageViewListGallery);
         }
     }
 }

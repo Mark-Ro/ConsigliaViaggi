@@ -6,32 +6,31 @@ import android.util.Log;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
-import com.consigliaviaggi.Entity.Citta;
-import com.consigliaviaggi.Entity.Struttura;
+import com.consigliaviaggi.Entity.Gallery;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CittaDAO {
+public class GalleryDAO {
 
     private Context context;
     private CognitoSettings cognitoSettings;
 
-    public CittaDAO(Context context) {
+    public GalleryDAO(Context context) {
         this.context = context;
         cognitoSettings = new CognitoSettings(context);
     }
 
-    public ArrayList<String> getArrayCittaFromDatabase() {
-        ArrayList<String> listaStringheCitta;
-        String resultQuery = doQueryCitta();
-        listaStringheCitta = creazioneListaStringheCitta(resultQuery);
-        return listaStringheCitta;
+    public ArrayList<Gallery> getGalleryStrutturaFromDatabase(int idStruttura) {
+        ArrayList<Gallery> listaGallery;
+        String resultQuery = doQueryGallery(idStruttura);
+        listaGallery = creazioneListaGallery(resultQuery);
+        return listaGallery;
     }
 
-    private String doQueryCitta() {
+    private String doQueryGallery(int idStruttura) {
 
         String resultQuery;
 
@@ -40,26 +39,26 @@ public class CittaDAO {
         InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
 
         RequestDetailsTable request = new RequestDetailsTable();
-        request.setTable("citta");
-        ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryCitta(request);
+        request.setTable(String.valueOf(idStruttura));
+        ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryGallery(request);
         if (responseDetails != null)
             resultQuery = responseDetails.getResultQuery();
         else
             resultQuery = "Errore query";
 
-        Log.i("CITTA_DAO_QUERY",resultQuery);
+        Log.i("GALLERY_DAO_QUERY",resultQuery);
         return resultQuery;
     }
 
-    private ArrayList<String> creazioneListaStringheCitta(String query) {
-        ArrayList<String> listaStringheCitta=null;
-        String nome=null,nazione=null;
+    private ArrayList<Gallery> creazioneListaGallery(String query) {
+        ArrayList<Gallery> listaGallery=null;
+        String idGallery=null,immagine=null;
 
         JSONObject jsonQuery = null;
 
         if (!query.equals("\n}")) {
 
-            listaStringheCitta = new ArrayList<>();
+            listaGallery = new ArrayList<>();
 
             try {
                 jsonQuery = new JSONObject(query);
@@ -73,22 +72,22 @@ public class CittaDAO {
             while (flag == false) {
 
                 try {
-                    nome = (String) jsonQuery.get("Nome" + String.valueOf(i));
+                    idGallery = (String) jsonQuery.get("IdGallery" + String.valueOf(i));
                 } catch (JSONException e) {
                     flag = true;
                 }
 
                 try {
-                    nazione = (String) jsonQuery.get("Nazione" + String.valueOf(i));
+                    immagine = (String) jsonQuery.get("Immagine" + String.valueOf(i));
                 } catch (JSONException e) {
                     flag = true;
                 }
 
                 if (flag==false)
-                    listaStringheCitta.add(nome + "," + nazione);
+                    listaGallery.add(new Gallery(Integer.valueOf(idGallery),immagine));
                 i++;
             }
         }
-        return listaStringheCitta;
+        return listaGallery;
     }
 }

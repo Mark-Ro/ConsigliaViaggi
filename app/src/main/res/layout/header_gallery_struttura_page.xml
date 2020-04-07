@@ -60,7 +60,7 @@
         tools:text="5.0" />
 
     <ToggleButton
-        android:id="@+id/toggleButtonOverview_Gallery"
+        android:id="@+id/toggleButtonOverview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -68,11 +68,11 @@
         android:textOff="Overview"
         android:textOn="Overview"
         android:theme="@style/AppTheme.Button"
-        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni_Gallery"
+        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ToggleButton
-        android:id="@+id/toggleButtonGallery_Gallery"
+        android:id="@+id/toggleButtonGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -80,11 +80,11 @@
         android:textOff="Gallery"
         android:textOn="Gallery"
         android:theme="@style/Dead.Button"
-        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni_Gallery"
-        app:layout_constraintStart_toEndOf="@+id/toggleButtonOverview_Gallery" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonOverview" />
 
     <ToggleButton
-        android:id="@+id/toggleButtonRecensioni_Gallery"
+        android:id="@+id/toggleButtonRecensioni"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -97,7 +97,7 @@
         android:theme="@style/AppTheme.Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/toggleButtonGallery_Gallery"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonGallery"
         app:layout_constraintTop_toBottomOf="@+id/imageViewGallery" />
 
     <ToggleButton

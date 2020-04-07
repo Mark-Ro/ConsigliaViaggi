@@ -18,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -65,7 +66,7 @@ public class GalleryStrutturaPage extends AppCompatActivity {
 
         galleryStrutturaController = new GalleryStrutturaController(this,this);
 
-        ArrayList<Gallery> listaGallery = galleryStrutturaController.getGalleryStruttura(struttura);
+        final ArrayList<Gallery> listaGallery = galleryStrutturaController.getGalleryStruttura(struttura);
         Log.i("GALLERY_STRUTTURA_PAGE","ListaGallery size: " + listaGallery.size());
         CustomAdapterGalleryPage customAdapterGalleryPage = new CustomAdapterGalleryPage(this,listaGallery);
         listViewGallery.setAdapter(customAdapterGalleryPage);
@@ -87,6 +88,13 @@ public class GalleryStrutturaPage extends AppCompatActivity {
                     toggleButtonOverview.setChecked(false);
                     galleryStrutturaController.openOverview(struttura);
                 }
+            }
+        });
+
+        listViewGallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                galleryStrutturaController.zoomImageDialog(listaGallery.get(position).getImmagine());
             }
         });
 

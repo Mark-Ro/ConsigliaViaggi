@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <ImageView
+        android:id="@+id/imageViewRecensioni"
+        android:layout_width="440dp"
+        android:layout_height="228dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/black"
+        />
+
+    <ImageView
+        android:id="@+id/imageView32"
+        android:layout_width="0dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="150dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewRecensioni"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/opaco_nome_citta" />
+
+    <TextView
+        android:id="@+id/textViewNomeStrutturaRecensioni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="168dp"
+        android:textColor="@android:color/black"
+        android:textSize="25dp"
+        android:fontFamily="@font/myfont"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView32"
+        app:layout_constraintEnd_toEndOf="@+id/imageView32"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.181"
+        tools:text="Nome Struttura" />
+
+    <TextView
+        android:id="@+id/textViewVotoRecensioni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/myfont"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewRecensioni"
+        app:layout_constraintEnd_toEndOf="@+id/imageView32"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toEndOf="@+id/textViewNomeStrutturaRecensioni"
+        app:layout_constraintTop_toTopOf="@+id/imageView32"
+        app:layout_constraintVertical_bias="0.609"
+        tools:text="5.0" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonOverview_Recensioni"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/myfont"
+        android:textOff="Overview"
+        android:textOn="Overview"
+        android:theme="@style/AppTheme.Button"
+        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni_Recensioni"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonGallery_Recensioni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:fontFamily="@font/myfont"
+        android:textOff="Gallery"
+        android:textOn="Gallery"
+        android:theme="@style/AppTheme.Button"
+        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni_Recensioni"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonOverview_Recensioni" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonRecensioni_Recensioni"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/myfont"
+        android:text="ToggleButton"
+        android:textOff="Recensioni"
+        android:textOn="Recensioni"
+        android:theme="@style/Dead.Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonGallery_Recensioni"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewRecensioni" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonMenu"
+        android:layout_width="34dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/toggle_button_menu"
+        android:text="ToggleButton"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

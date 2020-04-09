@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".GUI.ListaStrutturePage"
+    tools:context=".GUI.GalleryStrutturaPage"
     android:id="@+id/drawerLayout">
     <com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout
         android:layout_width="wrap_content"

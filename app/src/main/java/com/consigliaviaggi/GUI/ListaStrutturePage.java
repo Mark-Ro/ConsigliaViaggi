@@ -109,7 +109,6 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
                     else
                         params.setScrollFlags(3);
                 }
-
             }
         });
 

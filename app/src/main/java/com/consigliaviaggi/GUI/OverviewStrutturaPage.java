@@ -96,6 +96,16 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
             }
         });
 
+        toggleButtonRecensioniOverview.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    toggleButtonRecensioniOverview.setChecked(false);
+                    overviewStrutturaController.openRecensioni(struttura);
+                }
+            }
+        });
+
         inizializzaViewOverviewStrutturaPage();
         animazioneNavigationDrawer();
         Bundle mapViewBundle = null;

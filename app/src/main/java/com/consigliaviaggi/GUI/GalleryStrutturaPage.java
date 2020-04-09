@@ -67,7 +67,6 @@ public class GalleryStrutturaPage extends AppCompatActivity {
         galleryStrutturaController = new GalleryStrutturaController(this,this);
 
         final ArrayList<Gallery> listaGallery = galleryStrutturaController.getGalleryStruttura(struttura);
-        Log.i("GALLERY_STRUTTURA_PAGE","ListaGallery size: " + listaGallery.size());
         CustomAdapterGalleryPage customAdapterGalleryPage = new CustomAdapterGalleryPage(this,listaGallery);
         listViewGallery.setAdapter(customAdapterGalleryPage);
 
@@ -95,6 +94,16 @@ public class GalleryStrutturaPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 galleryStrutturaController.zoomImageDialog(listaGallery.get(position).getImmagine());
+            }
+        });
+
+        toggleButtonRecensioni.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    toggleButtonRecensioni.setChecked(false);
+                    galleryStrutturaController.openRecensioni(struttura);
+                }
             }
         });
 

@@ -12,6 +12,7 @@ import com.consigliaviaggi.DAO.GalleryDAO;
 import com.consigliaviaggi.Entity.Gallery;
 import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.GUI.OverviewStrutturaPage;
+import com.consigliaviaggi.GUI.RecensioniStrutturaPage;
 import com.consigliaviaggi.R;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
@@ -38,6 +39,12 @@ public class GalleryStrutturaController {
         activityGalleryStrutturaPage.overridePendingTransition(0, 0);
     }
 
+    public void openRecensioni(Struttura struttura) {
+        Intent intent = new Intent(activityGalleryStrutturaPage, RecensioniStrutturaPage.class);
+        intent.putExtra("Struttura",struttura);
+        activityGalleryStrutturaPage.startActivity(intent);
+    }
+
     public ArrayList<Gallery> getGalleryStruttura(Struttura struttura) {
         GalleryDAO galleryDAO = new GalleryDAO(contextGalleryStrutturaPage);
         ArrayList<Gallery> listaGallery = galleryDAO.getGalleryStrutturaFromDatabase(struttura.getIdStruttura());
@@ -60,5 +67,4 @@ public class GalleryStrutturaController {
         Picasso.get().load(immagine).noFade().into(photoView);
         zoomDialog.show();
     }
-
 }

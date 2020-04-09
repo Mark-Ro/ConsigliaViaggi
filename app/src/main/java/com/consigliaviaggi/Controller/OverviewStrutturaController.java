@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.GUI.GalleryStrutturaPage;
+import com.consigliaviaggi.GUI.RecensioniStrutturaPage;
 
 public class OverviewStrutturaController {
 
@@ -24,6 +25,12 @@ public class OverviewStrutturaController {
         activityOverviewController.overridePendingTransition(0, 0);
         activityOverviewController.startActivity(intent);
         activityOverviewController.overridePendingTransition(0, 0);
+    }
+
+    public void openRecensioni(Struttura struttura) {
+        Intent intent = new Intent(activityOverviewController, RecensioniStrutturaPage.class);
+        intent.putExtra("Struttura",struttura);
+        activityOverviewController.startActivity(intent);
     }
 
 }

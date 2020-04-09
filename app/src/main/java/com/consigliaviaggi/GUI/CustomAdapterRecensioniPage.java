@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.consigliaviaggi.Entity.Recensione;
@@ -53,18 +55,68 @@ public class CustomAdapterRecensioniPage extends BaseAdapter {
 
         viewHolder.textViewNomeUtenteRecensione.setText(arrayList.get(position).getNomeUtente());
         viewHolder.textViewTestoRecensione.setText(arrayList.get(position).getTesto());
-        viewHolder.textViewVotoRecensioneAdapter.setText(String.valueOf(arrayList.get(position).getVoto()) + ".0");
+        RelativeLayout.LayoutParams layoutParams;
+        switch (arrayList.get(position).getVoto()){
+            case 1:
+                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_1_stella);
+                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(convertDpToPx(295),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
+                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
+                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
+
+                break;
+            case 2:
+                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_2_stelle);
+                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(convertDpToPx(275),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
+                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
+                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
+                break;
+            case 3:
+                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_3_stelle);
+                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(convertDpToPx(260),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
+                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
+                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
+                break;
+            case 4:
+                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_4_stelle);
+                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(convertDpToPx(240),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
+                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
+                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
+                break;
+            case 5:
+                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_5_stelle);
+                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(convertDpToPx(230),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
+                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
+                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
+                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
+                break;
+        }
+
         return r;
     }
 
     class ViewHolder {
-        TextView textViewNomeUtenteRecensione,textViewVotoRecensioneAdapter,textViewTestoRecensione;
+        TextView textViewNomeUtenteRecensione,textViewTestoRecensione;
+        ImageView imageViewStelle;
 
         public ViewHolder(View view) {
             textViewNomeUtenteRecensione = view.findViewById(R.id.textViewNomeUtenteRecensione);
-            textViewVotoRecensioneAdapter = view.findViewById(R.id.textViewVotoRecensioneAdapter);
+            imageViewStelle = view.findViewById(R.id.imageViewStelle);
             textViewTestoRecensione = view.findViewById(R.id.textViewTestoRecensione);
         }
+    }
+
+    private int convertDpToPx(float dp){
+        return (int)(dp*context.getResources().getDisplayMetrics().density);
+
     }
 
 }

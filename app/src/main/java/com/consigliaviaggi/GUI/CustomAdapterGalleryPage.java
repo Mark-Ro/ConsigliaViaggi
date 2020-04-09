@@ -57,7 +57,7 @@ public class CustomAdapterGalleryPage extends BaseAdapter {
         return r;
     }
 
-    class ViewHolder {
+    private class ViewHolder {
         ImageView imageViewGallery;
         TextView textViewNomeStruttura,textViewVoto,textViewDistanza;
 

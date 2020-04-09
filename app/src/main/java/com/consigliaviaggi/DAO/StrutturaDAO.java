@@ -74,14 +74,12 @@ public class StrutturaDAO {
     }
 
     private ArrayList<Struttura> creazioneListaStruttureCittaFromQuery(String query) {
-        ArrayList<Struttura> listaStrutture=null;
+        ArrayList<Struttura> listaStrutture = new ArrayList<>();
         Citta citta=null;
         String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null,nazione=null;
         JSONObject jsonQuery = null;
 
         if (!query.equals("\n}")) {
-
-            listaStrutture = new ArrayList<>();
 
             try {
                 jsonQuery = new JSONObject(query);
@@ -192,14 +190,12 @@ public class StrutturaDAO {
     }
 
     private ArrayList<Struttura> creazioneListaStruttureGPSFromQuery(String query, Location miaPosizione) {
-        ArrayList<Struttura> listaStrutture=null;
+        ArrayList<Struttura> listaStrutture = new ArrayList<>();
         Citta citta=null;
         String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null,nazione=null;
         JSONObject jsonQuery = null;
 
         if (!query.equals("\n}")) {
-
-            listaStrutture = new ArrayList<>();
 
             try {
                 jsonQuery = new JSONObject(query);

@@ -15,7 +15,7 @@
         >
 
         <TextView
-            android:id="@+id/textViewNomeUtenteRecensioni"
+            android:id="@+id/textViewNomeUtenteRecensione"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -28,7 +28,7 @@
             tools:text="Marco Romano"/>
 
         <TextView
-            android:id="@+id/textViewVotoRecensioni"
+            android:id="@+id/textViewVotoRecensioneAdapter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="250dp"
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/icon_user_login" />
         <TextView
-            android:id="@+id/textViewTestoRecensioni"
+            android:id="@+id/textViewTestoRecensione"
             android:layout_width="400dp"
             android:layout_height="200dp"
             tools:text="Ciao\nCiao"

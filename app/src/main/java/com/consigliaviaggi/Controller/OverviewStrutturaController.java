@@ -30,7 +30,10 @@ public class OverviewStrutturaController {
     public void openRecensioni(Struttura struttura) {
         Intent intent = new Intent(activityOverviewController, RecensioniStrutturaPage.class);
         intent.putExtra("Struttura",struttura);
+        activityOverviewController.finish();
+        activityOverviewController.overridePendingTransition(0, 0);
         activityOverviewController.startActivity(intent);
+        activityOverviewController.overridePendingTransition(0, 0);
     }
 
 }

@@ -42,7 +42,10 @@ public class GalleryStrutturaController {
     public void openRecensioni(Struttura struttura) {
         Intent intent = new Intent(activityGalleryStrutturaPage, RecensioniStrutturaPage.class);
         intent.putExtra("Struttura",struttura);
+        activityGalleryStrutturaPage.finish();
+        activityGalleryStrutturaPage.overridePendingTransition(0, 0);
         activityGalleryStrutturaPage.startActivity(intent);
+        activityGalleryStrutturaPage.overridePendingTransition(0, 0);
     }
 
     public ArrayList<Gallery> getGalleryStruttura(Struttura struttura) {

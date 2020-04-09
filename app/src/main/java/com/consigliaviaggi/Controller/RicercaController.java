@@ -65,7 +65,7 @@ public class RicercaController {
                  @Override
                  protected void onPostExecute(Void aVoid) {
                      super.onPostExecute(aVoid);
-                     if (listaStrutture != null) {
+                     if (!listaStrutture.isEmpty()) {
                          Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
                          cancelLoadingDialog();
                          Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);
@@ -103,7 +103,7 @@ public class RicercaController {
                     @Override
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
-                        if (listaStrutture != null) {
+                        if (!listaStrutture.isEmpty()) {
                             Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
                             cancelLoadingDialog();
                             Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);

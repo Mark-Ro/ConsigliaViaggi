@@ -6,31 +6,31 @@ import android.util.Log;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
-import com.consigliaviaggi.Entity.Gallery;
+import com.consigliaviaggi.Entity.Recensione;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class GalleryDAO {
+public class RecensioneDAO {
 
     private Context context;
     private CognitoSettings cognitoSettings;
 
-    public GalleryDAO(Context context) {
+    public RecensioneDAO(Context context) {
         this.context = context;
         cognitoSettings = new CognitoSettings(context);
     }
 
-    public ArrayList<Gallery> getGalleryStrutturaFromDatabase(int idStruttura) {
-        ArrayList<Gallery> listaGallery;
-        String resultQuery = doQueryGallery(idStruttura);
-        listaGallery = creazioneListaGallery(resultQuery);
-        return listaGallery;
+    public ArrayList<Recensione> getRecensioniStrutturaFromDatabase(int idStruttura) {
+        ArrayList<Recensione> listaRecensioni;
+        String resultQuery = doQueryRecensioni(idStruttura);
+        listaRecensioni = creazioneListaRecensioni(resultQuery);
+        return listaRecensioni;
     }
 
-    private String doQueryGallery(int idStruttura) {
+    private String doQueryRecensioni(int idStruttura) {
 
         String resultQuery;
 
@@ -40,19 +40,19 @@ public class GalleryDAO {
 
         RequestDetailsTable request = new RequestDetailsTable();
         request.setTable(String.valueOf(idStruttura));
-        ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryGallery(request);
+        ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryRecensioni(request);
         if (responseDetails != null)
             resultQuery = responseDetails.getResultQuery();
         else
             resultQuery = "Errore query";
 
-        Log.i("GALLERY_DAO_QUERY",resultQuery);
+        Log.i("RECENSIONI_DAO_QUERY",resultQuery);
         return resultQuery;
     }
 
-    private ArrayList<Gallery> creazioneListaGallery(String query) {
-        ArrayList<Gallery> listaGallery = new ArrayList<>();
-        String idGallery=null,immagine=null;
+    private ArrayList<Recensione> creazioneListaRecensioni(String query) {
+        ArrayList<Recensione> listaRecensioni = new ArrayList<>();
+        String testo=null,voto=null,nomeUtente=null;
 
         JSONObject jsonQuery = null;
 
@@ -70,22 +70,28 @@ public class GalleryDAO {
             while (flag == false) {
 
                 try {
-                    idGallery = (String) jsonQuery.get("IdGallery" + String.valueOf(i));
+                    testo = (String) jsonQuery.get("Testo" + String.valueOf(i));
                 } catch (JSONException e) {
                     flag = true;
                 }
 
                 try {
-                    immagine = (String) jsonQuery.get("Immagine" + String.valueOf(i));
+                    voto = (String) jsonQuery.get("Voto" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
+
+                try {
+                    nomeUtente = (String) jsonQuery.get("NomeUtente" + String.valueOf(i));
                 } catch (JSONException e) {
                     flag = true;
                 }
 
                 if (flag==false)
-                    listaGallery.add(new Gallery(Integer.valueOf(idGallery),immagine));
+                    listaRecensioni.add(new Recensione(testo,nomeUtente,Integer.parseInt(voto)));
                 i++;
             }
         }
-        return listaGallery;
+        return listaRecensioni;
     }
 }

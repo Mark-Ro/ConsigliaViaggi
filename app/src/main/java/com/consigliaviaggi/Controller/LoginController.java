@@ -79,6 +79,15 @@ public class LoginController {
 
     }
 
+    public void openHomePage() {
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(contextLoginPage,MainActivity.class);
+            contextLoginPage.startActivity(intent);
+        }
+        else
+            Toast.makeText(contextLoginPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+    }
+
     public void openRegistrazionePage() {
         if (isNetworkAvailable()) {
             Intent intent = new Intent(contextLoginPage, RegistrazionePage.class);

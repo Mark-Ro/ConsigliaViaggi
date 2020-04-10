@@ -1,5 +1,6 @@
 package com.consigliaviaggi.GUI;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import com.consigliaviaggi.Entity.Struttura;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -37,11 +39,13 @@ public class RecensioniStrutturaPage extends AppCompatActivity {
     private ImageView imageViewRecensioni;
     private TextView textViewNomeStrutturaRecensioni,textViewVotoRecensioni;
     private ToggleButton toggleButtonMenu,toggleButtonOverview,toggleButtonGallery;
+    private FloatingActionButton floatingActionButtonNuovaRecensione;
 
     private Struttura struttura;
 
     private ListView listViewRecensioni;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,7 @@ public class RecensioniStrutturaPage extends AppCompatActivity {
         imageViewRecensioni = findViewById(R.id.imageViewRecensioni);
         textViewNomeStrutturaRecensioni = findViewById(R.id.textViewNomeStrutturaRecensioni);
         textViewVotoRecensioni = findViewById(R.id.textViewVotoRecensioni);
+        floatingActionButtonNuovaRecensione = findViewById(R.id.floatingActionButtonNuovaRecensione);
 
         final RecensioniStrutturaController recensioniStrutturaController = new RecensioniStrutturaController(this,this);
         final ArrayList<Recensione> listaRecensioni = recensioniStrutturaController.getListaRecensioni(struttura);
@@ -106,6 +111,13 @@ public class RecensioniStrutturaPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 recensioniStrutturaController.openDialogRecensione(listaRecensioni.get(position).getTesto());
+            }
+        });
+
+        floatingActionButtonNuovaRecensione.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recensioniStrutturaController.openInserimentoRecensionePage(struttura);
             }
         });
 

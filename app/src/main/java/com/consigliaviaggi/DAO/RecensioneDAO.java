@@ -7,6 +7,7 @@ import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
 import com.consigliaviaggi.Entity.Recensione;
+import com.consigliaviaggi.Entity.Utente;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +53,7 @@ public class RecensioneDAO {
 
     private ArrayList<Recensione> creazioneListaRecensioni(String query) {
         ArrayList<Recensione> listaRecensioni = new ArrayList<>();
-        String testo=null,voto=null,nomeUtente=null;
+        String idRecensione=null,testo=null,voto=null,nomeUtente=null;
 
         JSONObject jsonQuery = null;
 
@@ -68,6 +69,12 @@ public class RecensioneDAO {
             int i = 1;
 
             while (flag == false) {
+
+                try {
+                    idRecensione = (String) jsonQuery.get("IdRecensione" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
 
                 try {
                     testo = (String) jsonQuery.get("Testo" + String.valueOf(i));
@@ -88,10 +95,35 @@ public class RecensioneDAO {
                 }
 
                 if (flag==false)
-                    listaRecensioni.add(new Recensione(testo,nomeUtente,Integer.parseInt(voto)));
+                    listaRecensioni.add(new Recensione(Integer.parseInt(idRecensione),testo,nomeUtente,Integer.parseInt(voto)));
                 i++;
             }
         }
         return listaRecensioni;
+    }
+
+    public String inserimentoRecensione(int idStruttura, String testo, String voto) {
+        String resultMessage = null;
+
+        CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.EU_CENTRAL_1, cognitoProvider);
+        InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
+
+        Utente utente = Utente.getIstance();
+        RequestDetailsRecensione request = new RequestDetailsRecensione();
+        request.setTesto(testo);
+        request.setIdStruttura(String.valueOf(idStruttura));
+        request.setVoto(String.valueOf(voto));
+        request.setNomeUtente(utente.getNomePubblico());
+        request.setIdUtente(utente.getNickname());
+        ResponseDetailsUpdate responseDetails = interfacciaLambda.funzioneLambdaInsertRecensione(request);
+        if (responseDetails != null)
+            resultMessage = responseDetails.getMessageReason();
+        else
+            resultMessage = "Errore insert";
+
+        Log.i("RECENSIONE_DAO",resultMessage);
+
+        return resultMessage;
     }
 }

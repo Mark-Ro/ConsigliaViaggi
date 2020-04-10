@@ -1,7 +1,10 @@
 package com.consigliaviaggi.Controller;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -81,8 +84,18 @@ public class ListaStrutturePageController {
     }
 
     public void clickStruttura(int posizione) {
-        Intent intent = new Intent(activityListaStrutturePage, OverviewStrutturaPage.class);
-        intent.putExtra("Struttura",listaStruttureIntent.get(posizione));
-        activityListaStrutturePage.startActivity(intent);
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(activityListaStrutturePage, OverviewStrutturaPage.class);
+            intent.putExtra("Struttura", listaStruttureIntent.get(posizione));
+            activityListaStrutturePage.startActivity(intent);
+        }
+        else
+            Toast.makeText(activityListaStrutturePage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) activityListaStrutturePage.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 }

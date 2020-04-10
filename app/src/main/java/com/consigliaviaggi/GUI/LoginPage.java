@@ -48,6 +48,13 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
+        bottoneHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginController.openHomePage();
+            }
+        });
+
         bottoneRegistrati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

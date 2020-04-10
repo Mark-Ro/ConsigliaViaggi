@@ -19,5 +19,7 @@ public interface InterfacciaLambda {
     ResponseDetailsQuery funzioneLambdaQueryGallery(RequestDetailsTable requestDetailsTable);
     @LambdaFunction
     ResponseDetailsQuery funzioneLambdaQueryRecensioni(RequestDetailsTable requestDetailsTable);
+    @LambdaFunction
+    ResponseDetailsUpdate funzioneLambdaInsertRecensione(RequestDetailsRecensione requestDetailsRecensione);
 
 }

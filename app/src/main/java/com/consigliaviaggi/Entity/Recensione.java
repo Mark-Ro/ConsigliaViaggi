@@ -3,9 +3,10 @@ package com.consigliaviaggi.Entity;
 public class Recensione {
 
     private String testo,nomeUtente;
-    private int voto;
+    private int idStruttura,voto;
 
-    public Recensione(String testo, String nomeUtente, int voto) {
+    public Recensione(int idStruttura, String testo, String nomeUtente, int voto) {
+        this.idStruttura = idStruttura;
         this.testo = testo;
         this.nomeUtente = nomeUtente;
         this.voto = voto;
@@ -25,6 +26,14 @@ public class Recensione {
 
     public void setNomeUtente(String nomeUtente) {
         this.nomeUtente = nomeUtente;
+    }
+
+    public int getIdStruttura() {
+        return idStruttura;
+    }
+
+    public void setIdStruttura(int idStruttura) {
+        this.idStruttura = idStruttura;
     }
 
     public int getVoto() {

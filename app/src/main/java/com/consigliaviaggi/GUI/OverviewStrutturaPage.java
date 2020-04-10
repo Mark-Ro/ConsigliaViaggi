@@ -147,7 +147,7 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
     private void inizializzaViewOverviewStrutturaPage() {
         Picasso.get().load(struttura.getFotoStruttura()).noFade().fit().centerCrop().into(imageViewOverview);
         textViewNomeStrutturaOverview.setText(struttura.getNomeStruttura());
-        textViewVotoOverview.setText(String.valueOf(struttura.getVoto()));
+        textViewVotoOverview.setText(String.valueOf(struttura.getVoto()).substring(0,3));
         textViewDescrizioneOverview.setText(struttura.getDescrizione());
         if (struttura.getPrezzo()>0) {
             textViewTitoloPrezzo.setText("Prezzo per notte");

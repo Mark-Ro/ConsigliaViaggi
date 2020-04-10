@@ -15,10 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".GUI.InserimentoRecensioniPage"></activity>
         <activity
             android:name=".GUI.RecensioniStrutturaPage"
             android:label="@string/title_activity_recensioni_struttura_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GUI.GalleryStrutturaPage"
             android:label="@string/title_activity_gallery_struttura_page"

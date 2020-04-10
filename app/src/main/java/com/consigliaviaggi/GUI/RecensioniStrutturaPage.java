@@ -144,7 +144,7 @@ public class RecensioniStrutturaPage extends AppCompatActivity {
     private void inizalizzaRecensioniStrutturaPage() {
         Picasso.get().load(struttura.getFotoStruttura()).noFade().fit().centerCrop().into(imageViewRecensioni);
         textViewNomeStrutturaRecensioni.setText(struttura.getNomeStruttura());
-        textViewVotoRecensioni.setText(String.valueOf(struttura.getVoto()));
+        textViewVotoRecensioni.setText(String.valueOf(struttura.getVoto()).substring(0,3));
     }
 
 }

@@ -142,6 +142,6 @@ public class GalleryStrutturaPage extends AppCompatActivity {
     private void inizalizzaGalleryStrutturaPage() {
         Picasso.get().load(struttura.getFotoStruttura()).noFade().fit().centerCrop().into(imageViewGallery);
         textViewNomeStrutturaGallery.setText(struttura.getNomeStruttura());
-        textViewVotoGallery.setText(String.valueOf(struttura.getVoto()));
+        textViewVotoGallery.setText(String.valueOf(struttura.getVoto()).substring(0,3));
     }
 }

@@ -56,47 +56,21 @@ public class CustomAdapterRecensioniPage extends BaseAdapter {
         viewHolder.textViewNomeUtenteRecensione.setText(arrayList.get(position).getNomeUtente());
         viewHolder.textViewTestoRecensione.setText(arrayList.get(position).getTesto());
         RelativeLayout.LayoutParams layoutParams;
-        switch (arrayList.get(position).getVoto()){
+        switch (arrayList.get(position).getVoto()) {
             case 1:
-                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_1_stella);
-                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(convertDpToPx(295),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
-                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
-                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
-
+                viewHolder.imageViewStelle.setImageResource(R.drawable.ic_1stelle);
                 break;
             case 2:
-                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_2_stelle);
-                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(convertDpToPx(275),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
-                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
-                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
+                viewHolder.imageViewStelle.setImageResource(R.drawable.ic_2stelle);
                 break;
             case 3:
-                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_3_stelle);
-                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(convertDpToPx(260),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
-                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
-                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
+                viewHolder.imageViewStelle.setImageResource(R.drawable.ic_3stelle);
                 break;
             case 4:
-                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_4_stelle);
-                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(convertDpToPx(240),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
-                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
-                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
+                viewHolder.imageViewStelle.setImageResource(R.drawable.ic_4stelle);
                 break;
             case 5:
-                viewHolder.imageViewStelle.setImageResource(R.drawable.icon_5_stelle);
-                layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(convertDpToPx(230),convertDpToPx(0),convertDpToPx(10),convertDpToPx(0));
-                layoutParams.addRule(RelativeLayout.BELOW, R.id.textViewTestoRecensione);
-                layoutParams.addRule(RelativeLayout.END_OF, R.id.textView);
-                viewHolder.imageViewStelle.setLayoutParams(layoutParams);
+                viewHolder.imageViewStelle.setImageResource(R.drawable.ic_5stelle);
                 break;
         }
 

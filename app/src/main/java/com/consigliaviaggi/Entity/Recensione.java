@@ -1,6 +1,8 @@
 package com.consigliaviaggi.Entity;
 
-public class Recensione {
+import java.io.Serializable;
+
+public class Recensione implements Serializable {
 
     private String testo,nomeUtente,nomeStruttura;
     private int idRecensione,voto;

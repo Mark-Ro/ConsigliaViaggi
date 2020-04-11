@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GUI.MieRecensioniPage"></activity>
+        <activity android:name=".GUI.GestioneMiaRecensionePage"></activity>
+        <activity android:name=".GUI.MieRecensioniPage" />
         <activity android:name=".GUI.InserimentoRecensionePage" />
         <activity
             android:name=".GUI.RecensioniStrutturaPage"

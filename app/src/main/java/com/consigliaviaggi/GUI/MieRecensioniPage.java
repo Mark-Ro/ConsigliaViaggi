@@ -3,6 +3,8 @@ package com.consigliaviaggi.GUI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.consigliaviaggi.Controller.MieRecensioniController;
@@ -22,11 +24,18 @@ public class MieRecensioniPage extends AppCompatActivity {
 
         listViewMieRecensioni = findViewById(R.id.listView);
 
-        MieRecensioniController mieRecensioniController = new MieRecensioniController(this,this);
+        final MieRecensioniController mieRecensioniController = new MieRecensioniController(this,this);
 
-        ArrayList<Recensione> listaMieRecensioni = mieRecensioniController.getMieRecensioni();
+        final ArrayList<Recensione> listaMieRecensioni = mieRecensioniController.getMieRecensioni();
 
         CustomAdapterMieRecensioniPage customAdapterMieRecensioniPage = new CustomAdapterMieRecensioniPage(this,listaMieRecensioni);
         listViewMieRecensioni.setAdapter(customAdapterMieRecensioniPage);
+
+        listViewMieRecensioni.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mieRecensioniController.openGestioneRecensionePage(listaMieRecensioni.get(position));
+            }
+        });
     }
 }

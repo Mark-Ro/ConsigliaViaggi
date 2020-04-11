@@ -12,6 +12,7 @@ import com.consigliaviaggi.GUI.CambiaEmailPage;
 import com.consigliaviaggi.GUI.CambiaPasswordPage;
 import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.MainActivity;
+import com.consigliaviaggi.GUI.MieRecensioniPage;
 import com.consigliaviaggi.GUI.ProfiloPage;
 
 public class ProfiloController {
@@ -98,6 +99,11 @@ public class ProfiloController {
 
     public void openCambiaEmailPage() {
         Intent intent = new Intent(contextProfiloPage, CambiaEmailPage.class);
+        contextProfiloPage.startActivity(intent);
+    }
+
+    public void openMieRecensioniPage() {
+        Intent intent = new Intent(contextProfiloPage, MieRecensioniPage.class);
         contextProfiloPage.startActivity(intent);
     }
 

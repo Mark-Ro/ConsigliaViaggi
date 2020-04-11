@@ -102,6 +102,7 @@ public class CustomAdapterListaStrutture extends BaseAdapter {
             textViewDistanza = view.findViewById(R.id.textViewDistanza);
         }
     }
+
     private String arrotondaNumero(float numero){
         int decimale= Integer.parseInt(String.valueOf(numero).substring(2,3));
         String risultato;

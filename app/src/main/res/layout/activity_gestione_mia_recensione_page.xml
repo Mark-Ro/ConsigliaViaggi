@@ -22,7 +22,7 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditTextGestisciRecensioni"
+        android:id="@+id/textInputEditTextGestisciRecensione"
         android:layout_width="0dp"
         android:layout_height="179dp"
         android:layout_marginStart="16dp"
@@ -37,7 +37,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/buttonokGestisciRecensione"
+        android:id="@+id/buttonGestisciRecensioneOk"
         android:layout_width="73dp"
         android:layout_height="68dp"
         android:layout_marginTop="76dp"
@@ -49,7 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditTextGestisciRecensioni" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditTextGestisciRecensione" />
 
     <TextView
         android:id="@+id/textView35"
@@ -62,7 +62,7 @@
         android:textColor="@android:color/black"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditTextGestisciRecensioni" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditTextGestisciRecensione" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -76,7 +76,7 @@
         android:secondaryProgressTint="@android:color/transparent"
         android:stepSize="1"
         app:layout_constraintStart_toEndOf="@+id/textView35"
-        app:layout_constraintTop_toBottomOf="@+id/textInputEditTextGestisciRecensioni" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditTextGestisciRecensione" />
 
     <Button
         android:id="@+id/buttonGestisciRecensioneElimina"
@@ -88,8 +88,8 @@
         android:textAllCaps="false"
         android:textColor="@android:color/black"
         android:textSize="20dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonokGestisciRecensione"
-        app:layout_constraintEnd_toStartOf="@+id/buttonokGestisciRecensione"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonGestisciRecensioneOk"
+        app:layout_constraintEnd_toStartOf="@+id/buttonGestisciRecensioneOk"
         app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent" />
 

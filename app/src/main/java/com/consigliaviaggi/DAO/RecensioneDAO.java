@@ -204,4 +204,27 @@ public class RecensioneDAO {
 
         return resultMessage;
     }
+
+    public String updateRecensione(int idRecensione, String testo, int voto) {
+        String resultMessage = null;
+
+        CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.EU_CENTRAL_1, cognitoProvider);
+        InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
+
+        Utente utente = Utente.getIstance();
+        RequestDetailsUpdateRecensione request = new RequestDetailsUpdateRecensione();
+        request.setIdRecensione(String.valueOf(idRecensione));
+        request.setTesto(testo);
+        request.setVoto(String.valueOf(voto));
+        ResponseDetailsUpdate responseDetails = interfacciaLambda.funzioneLambdaUpdateRecensione(request);
+        if (responseDetails != null)
+            resultMessage = responseDetails.getMessageReason();
+        else
+            resultMessage = "Errore update";
+
+        Log.i("RECENSIONE_DAO",resultMessage);
+
+        return resultMessage;
+    }
 }

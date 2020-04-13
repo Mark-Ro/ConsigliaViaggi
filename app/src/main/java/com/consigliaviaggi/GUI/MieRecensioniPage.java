@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.consigliaviaggi.Controller.MieRecensioniController;
 import com.consigliaviaggi.Entity.Recensione;
@@ -38,4 +39,20 @@ public class MieRecensioniPage extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        listViewMieRecensioni = findViewById(R.id.listView);
+
+        final MieRecensioniController mieRecensioniController = new MieRecensioniController(this,this);
+
+        final ArrayList<Recensione> listaMieRecensioni = mieRecensioniController.getMieRecensioni();
+
+        CustomAdapterMieRecensioniPage customAdapterMieRecensioniPage = new CustomAdapterMieRecensioniPage(this,listaMieRecensioni);
+        listViewMieRecensioni.setAdapter(customAdapterMieRecensioniPage);
+
+    }
+
 }

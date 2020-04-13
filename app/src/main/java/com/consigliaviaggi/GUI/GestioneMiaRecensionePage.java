@@ -38,7 +38,7 @@ public class GestioneMiaRecensionePage extends AppCompatActivity {
         textInputEditTextGestisciRecensione.setText(recensione.getTesto());
         ratingBar.setRating(recensione.getVoto());
 
-        final GestioneMiaRecensioneController gestioneMiaRecensioneController = new GestioneMiaRecensioneController(this);
+        final GestioneMiaRecensioneController gestioneMiaRecensioneController = new GestioneMiaRecensioneController(this,this);
 
         buttonGestisciRecensioneOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +51,13 @@ public class GestioneMiaRecensionePage extends AppCompatActivity {
                     gestioneMiaRecensioneController.openLoadingDialog(GestioneMiaRecensionePage.this);
                     gestioneMiaRecensioneController.updateRecensione(recensione.getIdRecensione(), textInputEditTextGestisciRecensione.getText().toString(), ratingBar.getRating());
                 }
+            }
+        });
+
+        buttonGestisciRecensioniElimina.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gestioneMiaRecensioneController.deleteRecensione(recensione.getIdRecensione());
             }
         });
     }

@@ -25,5 +25,7 @@ public interface InterfacciaLambda {
     ResponseDetailsQuery funzioneLambdaQueryMieRecensioni(RequestDetailsTable requestDetailsTable);
     @LambdaFunction
     ResponseDetailsUpdate funzioneLambdaUpdateRecensione(RequestDetailsUpdateRecensione requestDetailsUpdateRecensione);
+    @LambdaFunction
+    ResponseDetailsUpdate funzioneLambdaDeleteRecensione(RequestDetailsTable requestDetailsTable);
 
 }

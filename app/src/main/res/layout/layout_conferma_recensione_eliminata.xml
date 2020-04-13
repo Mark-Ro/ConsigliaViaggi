@@ -9,11 +9,11 @@
 
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/textViewResponso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/myfont"
-        android:text="Vuoi davvero eliminare la recensione?"
+        tools:text="Responso eliminazione recensione"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,29 +24,19 @@
         app:layout_constraintVertical_bias="0.048" />
 
     <Button
-        android:id="@+id/buttonConferma"
+        android:id="@+id/bottoneOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Conferma"
-        android:textColor="@android:color/white"
+        android:layout_marginTop="24dp"
         android:background="@drawable/sfondobottoneaccedi"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.885"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-    <Button
-        android:id="@+id/buttonAnnulla"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Annulla"
+        android:text="OK"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:background="@drawable/sfondo_bottone_elimina"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonConferma"
-        app:layout_constraintEnd_toStartOf="@+id/buttonConferma"
-        app:layout_constraintHorizontal_bias="0.813"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.767"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewResponso" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

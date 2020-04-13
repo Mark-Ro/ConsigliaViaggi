@@ -227,4 +227,24 @@ public class RecensioneDAO {
 
         return resultMessage;
     }
+
+    public String deleteRecensione(int idRecensione) {
+        String resultMessage = null;
+
+        CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
+        LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.EU_CENTRAL_1, cognitoProvider);
+        InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
+
+        RequestDetailsTable request = new RequestDetailsTable();
+        request.setTable(String.valueOf(idRecensione));
+        ResponseDetailsUpdate responseDetails = interfacciaLambda.funzioneLambdaDeleteRecensione(request);
+        if (responseDetails != null)
+            resultMessage = responseDetails.getMessageReason();
+        else
+            resultMessage = "Errore update";
+
+        Log.i("RECENSIONE_DAO",resultMessage);
+
+        return resultMessage;
+    }
 }

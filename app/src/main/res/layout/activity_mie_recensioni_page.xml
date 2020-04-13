@@ -21,11 +21,29 @@
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView41"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ListView>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="339dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/sfondo_ricerca"
+        android:queryHint="Nome Struttura"
+        android:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

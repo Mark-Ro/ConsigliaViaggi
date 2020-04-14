@@ -173,7 +173,7 @@ public class RecensioneDAO {
                 }
 
                 if (flag==false)
-                    listaRecensioni.add(new Recensione(Integer.parseInt(idRecensione),testo,Integer.parseInt(voto),nomeStruttura));
+                    listaRecensioni.add(new Recensione(Integer.parseInt(idRecensione),testo,nomeStruttura,Integer.parseInt(voto)));
                 i++;
             }
         }

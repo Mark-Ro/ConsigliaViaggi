@@ -3,6 +3,7 @@ package com.consigliaviaggi.Controller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.RecensioneDAO;
 import com.consigliaviaggi.Entity.Recensione;
@@ -32,5 +33,23 @@ public class MieRecensioniController {
         Intent intent = new Intent(contextMieRecensioniPage, GestioneMiaRecensionePage.class);
         intent.putExtra("Recensione",recensione);
         contextMieRecensioniPage.startActivity(intent);
+    }
+
+    public ArrayList<String> inizializzaSuggerimenti(ArrayList<Recensione> listaRecensioni){
+        ArrayList<String> risultatoSuggerimenti = new ArrayList<>();
+        for(int i=0;i<listaRecensioni.size();i++){
+            risultatoSuggerimenti.add(listaRecensioni.get(i).getNomeStruttura());
+        }
+        return  risultatoSuggerimenti;
+    }
+
+    public ArrayList<Recensione> ricercaRecensione(String parolaChiave,ArrayList<Recensione> listaRecensioni){
+        ArrayList<Recensione> resultSearch=new ArrayList<>();
+        for(int i=0;i<listaRecensioni.size();i++){
+            if(listaRecensioni.get(i).getNomeStruttura().contains(parolaChiave)){
+                resultSearch.add(listaRecensioni.get(i));
+            }
+        }
+        return resultSearch;
     }
 }

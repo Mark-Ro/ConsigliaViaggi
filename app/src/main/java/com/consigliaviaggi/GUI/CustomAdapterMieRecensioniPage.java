@@ -52,7 +52,7 @@ public class CustomAdapterMieRecensioniPage extends BaseAdapter {
         else
             viewHolder = (CustomAdapterMieRecensioniPage.ViewHolder) r.getTag();
 
-        viewHolder.textViewNomeStruttura.setText(arrayList.get(position).getNomeUtente());
+        viewHolder.textViewNomeStruttura.setText(arrayList.get(position).getNomeStruttura());
         viewHolder.textViewTestoRecensione.setText(arrayList.get(position).getTesto());
         switch (arrayList.get(position).getVoto()) {
             case 1:

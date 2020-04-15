@@ -72,6 +72,7 @@ public class ProfiloPage extends AppCompatActivity {
         bottoneMieRecensioni.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                profiloController.openLoadingDialog(ProfiloPage.this);
                 profiloController.openMieRecensioniPage();
             }
         });

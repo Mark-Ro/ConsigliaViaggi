@@ -1,13 +1,16 @@
 package com.consigliaviaggi.GUI;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.BaseColumns;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +35,7 @@ public class MieRecensioniPage extends AppCompatActivity {
 
     private ListView listViewMieRecensioni;
     private SearchView searchView;
-    private  MieRecensioniController mieRecensioniController;
+    private MieRecensioniController mieRecensioniController;
     private ArrayList<Recensione> listaMieRecensioni;
 
     @Override
@@ -40,16 +43,18 @@ public class MieRecensioniPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mie_recensioni_page);
 
+        Intent intent = getIntent();
+        listaMieRecensioni = (ArrayList<Recensione>) intent.getSerializableExtra("ListaMieRecensioni");
+
         listViewMieRecensioni = findViewById(R.id.listView);
         searchView=findViewById(R.id.searchView);
         mieRecensioniController = new MieRecensioniController(this,this);
-        ArrayList<String> listaSuggeriemnti = new ArrayList<>();
-        listaMieRecensioni = mieRecensioniController.getMieRecensioni();
-        listaSuggeriemnti = mieRecensioniController.inizializzaSuggerimenti(listaMieRecensioni);
+
+        ArrayList<String> listaSuggerimenti = new ArrayList<>();
+        listaSuggerimenti = mieRecensioniController.inizializzaSuggerimenti(listaMieRecensioni);
         CustomAdapterMieRecensioniPage customAdapterMieRecensioniPage = new CustomAdapterMieRecensioniPage(this,listaMieRecensioni);
         listViewMieRecensioni.setAdapter(customAdapterMieRecensioniPage);
-        addSuggestion(listaSuggeriemnti,searchView);
-
+        addSuggestion(listaSuggerimenti,searchView);
 
 
         listViewMieRecensioni.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,7 +81,7 @@ public class MieRecensioniPage extends AppCompatActivity {
 
     }
 
-    public void addSuggestion(final List<String> suggestions, final SearchView searchView){
+    public void addSuggestion(final List<String> suggestions, final SearchView searchView) {
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -131,7 +136,7 @@ public class MieRecensioniPage extends AppCompatActivity {
             }
         });
     }
-    private void effettuaRicerca(String query){
+    private void effettuaRicerca(String query) {
         if(!query.isEmpty()) {
             ArrayList<Recensione> listaRicerca = mieRecensioniController.ricercaRecensione(query, listaMieRecensioni);
             CustomAdapterMieRecensioniPage customAdapterMieRecensioniPage = new CustomAdapterMieRecensioniPage(this, listaRicerca);
@@ -146,9 +151,8 @@ public class MieRecensioniPage extends AppCompatActivity {
         }
     }
 
-    private void closeSearchView(){
-        int searchCloseButtonId = searchView.getContext().getResources()
-                .getIdentifier("android:id/search_close_btn", null, null);
+    private void closeSearchView() {
+        int searchCloseButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
         ImageView closeButton = (ImageView) this.searchView.findViewById(searchCloseButtonId);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override

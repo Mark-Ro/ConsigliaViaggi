@@ -3,10 +3,17 @@ package com.consigliaviaggi.Controller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.consigliaviaggi.DAO.RecensioneDAO;
 import com.consigliaviaggi.DAO.UtenteDAO;
+import com.consigliaviaggi.Entity.Recensione;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.CambiaEmailPage;
 import com.consigliaviaggi.GUI.CambiaPasswordPage;
@@ -14,6 +21,8 @@ import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.MieRecensioniPage;
 import com.consigliaviaggi.GUI.ProfiloPage;
+
+import java.util.ArrayList;
 
 public class ProfiloController {
     private Context contextProfiloPage;
@@ -87,6 +96,13 @@ public class ProfiloController {
         contextProfiloPage.startActivity(intent);
     }
 
+    private ArrayList<Recensione> getMieRecensioni() {
+        RecensioneDAO recensioneDAO = new RecensioneDAO(contextProfiloPage);
+        Utente utente = Utente.getIstance();
+        ArrayList<Recensione> listaMieRecensioni = recensioneDAO.getMieRecensioniFromDatabase(utente.getNickname());
+        return listaMieRecensioni;
+    }
+
     public void openCambiaPasswordPage() {
         Intent intent = new Intent(contextProfiloPage, CambiaPasswordPage.class);
         contextProfiloPage.startActivity(intent);
@@ -103,8 +119,29 @@ public class ProfiloController {
     }
 
     public void openMieRecensioniPage() {
-        Intent intent = new Intent(contextProfiloPage, MieRecensioniPage.class);
-        contextProfiloPage.startActivity(intent);
+        if (isNetworkAvailable()) {
+            new AsyncTask<Void,Void,Void>() {
+
+                private ArrayList<Recensione> listaMieRecensioni;
+
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    listaMieRecensioni = getMieRecensioni();
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    cancelLoadingDialog();
+                    Intent intent = new Intent(contextProfiloPage, MieRecensioniPage.class);
+                    intent.putExtra("ListaMieRecensioni",listaMieRecensioni);
+                    contextProfiloPage.startActivity(intent);
+                }
+            }.execute();
+        }
+        else
+            Toast.makeText(contextProfiloPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
     }
 
     public void openLoadingDialog(Activity activity) {
@@ -115,5 +152,11 @@ public class ProfiloController {
     public void cancelLoadingDialog() {
         if (loadingDialog!=null)
             loadingDialog.dismissDialog();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) contextProfiloPage.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 }

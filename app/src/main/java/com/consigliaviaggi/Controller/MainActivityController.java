@@ -1,13 +1,21 @@
 package com.consigliaviaggi.Controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
@@ -16,28 +24,55 @@ import com.consigliaviaggi.DAO.CognitoSettings;
 import com.consigliaviaggi.DAO.InterfacciaLambda;
 import com.consigliaviaggi.DAO.RequestDetailsUtenteQuery;
 import com.consigliaviaggi.DAO.ResponseDetailsQuery;
+import com.consigliaviaggi.DAO.StrutturaDAO;
 import com.consigliaviaggi.DAO.UtenteDAO;
+import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.Entity.Utente;
+import com.consigliaviaggi.GUI.ListaStrutturePage;
+import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.LoginPage;
 import com.consigliaviaggi.GUI.ProfiloPage;
 import com.consigliaviaggi.GUI.RicercaPage;
 import com.consigliaviaggi.GUI.VerificationCodePage;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 
+import java.util.ArrayList;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.Context.MODE_PRIVATE;
 
 public class MainActivityController {
 
+    private Activity activityMainActivity;
     private Context contextMainActivity;
     private Utente utente;
     private UtenteDAO utenteDAO;
 
+    private Location miaPosizione;
+
+    private LoadingDialog loadingDialog;
+
     private static final String SHARED_PREFS = "sharedPrefs";
     private static final String usernameSalvato = "username";
+
+    public MainActivityController(Activity activityMainActivity, Context contextMainActivity) {
+        this.activityMainActivity = activityMainActivity;
+        this.contextMainActivity = contextMainActivity;
+        this.utente = Utente.getIstance();
+        this.utenteDAO = new UtenteDAO(contextMainActivity,MainActivityController.this);
+    }
 
     public MainActivityController(Context contextMainActivity) {
         this.contextMainActivity = contextMainActivity;
         this.utente = Utente.getIstance();
         this.utenteDAO = new UtenteDAO(contextMainActivity,MainActivityController.this);
+    }
+
+    public Location getMiaPosizione() {
+        return miaPosizione;
     }
 
     public void openProfiloPage(){
@@ -151,6 +186,101 @@ public class MainActivityController {
         intent.putExtra("Password","token");
         intent.putExtra("ActivityChiamante","CambiaEmail");
         contextMainActivity.startActivity(intent);
+    }
+
+    public void effettuaRicercaStruttureConPosizione(final String nomeStruttura, final float prezzoMassimo, final float voto, final String tipoStruttura) {
+
+        if (isNetworkAvailable()) {
+            if (miaPosizione != null) {
+                new AsyncTask<Void, Void, Void>() {
+
+                    private ArrayList<Struttura> listaStrutture;
+
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        StrutturaDAO strutturaDAO = new StrutturaDAO(contextMainActivity);
+                        listaStrutture = strutturaDAO.getListaStruttureGPSFromDatabase(nomeStruttura, miaPosizione, prezzoMassimo, voto);
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        if (!listaStrutture.isEmpty()) {
+                            Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
+                            cancelLoadingDialog();
+                            Intent intent = new Intent(contextMainActivity, ListaStrutturePage.class);
+                            intent.putExtra("ListaStrutture", listaStrutture);
+                            intent.putExtra("Citta", listaStrutture.get(0).getCitta().getNome());
+                            intent.putExtra("TipoStruttura", tipoStruttura);
+                            contextMainActivity.startActivity(intent);
+                        } else {
+                            cancelLoadingDialog();
+                            Log.i("RICERCA_CONTROLLER", "Lista vuota!");
+                            Toast.makeText(contextMainActivity, "Nessun risultato trovato!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }.execute();
+            } else {
+                cancelLoadingDialog();
+                Toast.makeText(contextMainActivity, "Posizione GPS non trovata! Riprovare!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            cancelLoadingDialog();
+            Toast.makeText(contextMainActivity, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void getCurrentLocation() {
+        final LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(3000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationServices.getFusedLocationProviderClient(contextMainActivity).requestLocationUpdates(locationRequest, new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                LocationServices.getFusedLocationProviderClient(contextMainActivity).removeLocationUpdates(this);
+                if (locationResult!=null && locationResult.getLocations().size() > 0) {
+                    int latestLocationsIndex = locationResult.getLocations().size() - 1;
+                    double latitudine = locationResult.getLocations().get(latestLocationsIndex).getLatitude();
+                    double longitudine = locationResult.getLocations().get(latestLocationsIndex).getLongitude();
+
+                    miaPosizione = new Location("dummyprovider");
+                    miaPosizione.setLatitude(latitudine);
+                    miaPosizione.setLongitude(longitudine);
+
+                }
+            }
+        }, Looper.getMainLooper());
+    }
+
+    public boolean verificaCondizioniGPS() {      //Permessi e GPS abilitato
+        boolean risultato=false;
+        LocationManager locationManager = (LocationManager) contextMainActivity.getSystemService( Context.LOCATION_SERVICE );;
+        if (ContextCompat.checkSelfPermission(contextMainActivity, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activityMainActivity, new String[]{ACCESS_FINE_LOCATION}, 1);
+            if (ContextCompat.checkSelfPermission(contextMainActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                risultato=true;
+        }
+        else if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            Toast.makeText(contextMainActivity, "Devi abilitare il GPS!", Toast.LENGTH_SHORT).show();
+        else
+            risultato=true;
+        return risultato;
+    }
+
+
+    public void openLoadingDialog(Activity activity) {
+        loadingDialog = new LoadingDialog(activity);
+        loadingDialog.startLoadingDialog();
+    }
+
+    public void cancelLoadingDialog() {
+        if (loadingDialog!=null)
+            loadingDialog.dismissDialog();
     }
 
     private boolean isNetworkAvailable() {

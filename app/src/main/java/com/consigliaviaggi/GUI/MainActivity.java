@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mainActivityController.verificaCondizioniGPS()) {
                     mainActivityController.openLoadingDialog(MainActivity.this);
                     mainActivityController.getCurrentLocation();
-                    mainActivityController.effettuaRicercaStruttureConPosizione("null",3000,5,"Ristorante");
+                    mainActivityController.effettuaRicercaStruttureConPosizione("null",3000,0,"Ristorante");
                 }
             }
         });
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mainActivityController.verificaCondizioniGPS()) {
                     mainActivityController.openLoadingDialog(MainActivity.this);
                     mainActivityController.getCurrentLocation();
-                    mainActivityController.effettuaRicercaStruttureConPosizione("null",300,5,"Hotel");
+                    mainActivityController.effettuaRicercaStruttureConPosizione("null",300,0,"Hotel");
                 }
             }
         });
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mainActivityController.verificaCondizioniGPS()) {
                     mainActivityController.openLoadingDialog(MainActivity.this);
                     mainActivityController.getCurrentLocation();
-                    mainActivityController.effettuaRicercaStruttureConPosizione("null",300,5,"Altro");
+                    mainActivityController.effettuaRicercaStruttureConPosizione("null",300,0,"Altro");
                 }
             }
         });

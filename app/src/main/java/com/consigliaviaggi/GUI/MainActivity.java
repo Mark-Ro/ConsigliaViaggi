@@ -17,7 +17,7 @@ import com.consigliaviaggi.Controller.RicercaController;
 import com.consigliaviaggi.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Button bottoneRicerca,bottoneProfilo,bottoneHotel,bottoneRistoranti,bottoneAltro;
+    private Button bottoneRicerca,bottoneProfilo,bottoneHotel,bottoneRistoranti,bottoneAltro,bottoneMappa;
     private MainActivityController mainActivityController;
 
     private String username;
@@ -46,37 +46,26 @@ public class MainActivity extends AppCompatActivity {
         bottoneHotel = findViewById(R.id.bottoneHotel);
         bottoneRistoranti = findViewById(R.id.bottoneRistoranti);
         bottoneAltro = findViewById(R.id.bottoneAltro);
+        bottoneMappa = findViewById(R.id.bottoneMappa);
 
         bottoneRistoranti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivityController.verificaCondizioniGPS()) {
-                    mainActivityController.openLoadingDialog(MainActivity.this);
-                    mainActivityController.getCurrentLocation();
-                    mainActivityController.effettuaRicercaStruttureConPosizione("null",3000,0,"Ristorante");
-                }
+                mainActivityController.openStruttureVicine("Ristorante");
             }
         });
 
         bottoneHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivityController.verificaCondizioniGPS()) {
-                    mainActivityController.openLoadingDialog(MainActivity.this);
-                    mainActivityController.getCurrentLocation();
-                    mainActivityController.effettuaRicercaStruttureConPosizione("null",300,0,"Hotel");
-                }
+                mainActivityController.openStruttureVicine("Hotel");
             }
         });
 
         bottoneAltro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivityController.verificaCondizioniGPS()) {
-                    mainActivityController.openLoadingDialog(MainActivity.this);
-                    mainActivityController.getCurrentLocation();
-                    mainActivityController.effettuaRicercaStruttureConPosizione("null",300,0,"Altro");
-                }
+                mainActivityController.openStruttureVicine("Altro");
             }
         });
 
@@ -95,11 +84,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        bottoneMappa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivityController.openMappaPage();
+            }
+        });
+
         new AsyncTask<Void,Void,Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                if (mainActivityController.verificaCondizioniGPS())
+                if (mainActivityController.verificaCondizioniGPS() == 1)
                     mainActivityController.getCurrentLocation();
                 return null;
             }
@@ -114,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                if (mainActivityController.verificaCondizioniGPS())
+                if (mainActivityController.verificaCondizioniGPS() == 1)
                     mainActivityController.getCurrentLocation();
                 return null;
             }

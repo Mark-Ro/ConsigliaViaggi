@@ -31,6 +31,7 @@ import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.ListaStrutturePage;
 import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.LoginPage;
+import com.consigliaviaggi.GUI.MappaPage;
 import com.consigliaviaggi.GUI.ProfiloPage;
 import com.consigliaviaggi.GUI.RicercaPage;
 import com.consigliaviaggi.GUI.VerificationCodePage;
@@ -97,6 +98,15 @@ public class MainActivityController {
 
         if (isNetworkAvailable()) {
             Intent intent = new Intent(contextMainActivity, RicercaPage.class);
+            contextMainActivity.startActivity(intent);
+        }
+        else
+            Toast.makeText(contextMainActivity, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void openMappaPage() {
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(contextMainActivity, MappaPage.class);
             contextMainActivity.startActivity(intent);
         }
         else
@@ -257,19 +267,33 @@ public class MainActivityController {
         }, Looper.getMainLooper());
     }
 
-    public boolean verificaCondizioniGPS() {      //Permessi e GPS abilitato
-        boolean risultato=false;
+    public int verificaCondizioniGPS() {     //Permessi e GPS abilitato
+        int risultato = -1;
         LocationManager locationManager = (LocationManager) contextMainActivity.getSystemService( Context.LOCATION_SERVICE );;
         if (ContextCompat.checkSelfPermission(contextMainActivity, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activityMainActivity, new String[]{ACCESS_FINE_LOCATION}, 1);
             if (ContextCompat.checkSelfPermission(contextMainActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                risultato=true;
+                risultato = 1;
         }
-        else if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            Toast.makeText(contextMainActivity, "Devi abilitare il GPS!", Toast.LENGTH_SHORT).show();
+        else if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            risultato = 0;
+            Log.i("MAIN_ACTIVITY_CONTROLLER", "GPS DISABILITATO");
+        }
         else
-            risultato=true;
+            risultato = 1;
         return risultato;
+    }
+
+    public void openStruttureVicine(String tipoStruttura) {
+        if (verificaCondizioniGPS() == 1) {
+            openLoadingDialog(activityMainActivity);
+            getCurrentLocation();
+            effettuaRicercaStruttureConPosizione("null",3000,0,tipoStruttura);
+        }
+        else if (verificaCondizioniGPS() == 0)
+            Toast.makeText(activityMainActivity, "Devi abilitare il GPS!", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(activityMainActivity, "Sono necessari i permessi di geolocalizzazione!", Toast.LENGTH_SHORT).show();
     }
 
 

@@ -58,15 +58,16 @@ public class MappaController {
     }
 
     public ArrayList<String> getSuggerimenti(){
+        int i=0;
         ArrayList<String> risultatoSuggerimenti = new ArrayList<>();
         ArrayList<String> listaCitta;
         CittaDAO cittaDAO = new CittaDAO(contextMappaPage);
         listaCitta=cittaDAO.getArrayCittaFromDatabase();
-        for(int i=0;i<listaCitta.size();i++) {
+        for (i=0;i<listaCitta.size();i++) {
             if (!risultatoSuggerimenti.contains(listaCitta.get(i)))
                 risultatoSuggerimenti.add(listaCitta.get(i));
         }
-        for(int i=0;i<listaStrutture.size();i++) {
+        for (i=0; i<listaStrutture.size(); i++) {
             if (!risultatoSuggerimenti.contains(listaStrutture.get(i).getNomeStruttura()))
                 risultatoSuggerimenti.add(listaStrutture.get(i).getNomeStruttura());
         }
@@ -127,10 +128,15 @@ public class MappaController {
         boolean risultato=false;
         rimuoviOldPositions();
         if (listaStrutture!=null) {
-            MarkerOptions markerOptions = new MarkerOptions();
             for (int i=0;i<listaStrutture.size();i++) {
                 if (listaStrutture.get(i).getNomeStruttura().toLowerCase().equals(inputRicerca.toLowerCase())) {
                     risultato=true;
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    LatLng latLng = new LatLng(listaStrutture.get(i).getLatitudine(), listaStrutture.get(i).getLongitudine());
+                    markerOptions.position(latLng);
+                    markerOptions.title(inputRicerca);
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    listaOldLocations.add(googleMap.addMarker(markerOptions));
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(listaStrutture.get(i).getLatitudine(),listaStrutture.get(i).getLongitudine()), 20f));
                 }
             }
@@ -149,7 +155,7 @@ public class MappaController {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
-    public Struttura trovaStruttura(double latitudine,double longitudine) {
+    public Struttura trovaStruttura(double latitudine, double longitudine) {
         Struttura risultato=null;
         for (int i = 0; i < listaStrutture.size(); i++) {
             if (listaStrutture.get(i).getLatitudine() == latitudine && listaStrutture.get(i).getLongitudine() == longitudine) {
@@ -212,12 +218,11 @@ public class MappaController {
     private String arrotondaNumero(float numero){
         int decimale= Integer.parseInt(String.valueOf(numero).substring(2,3));
         String risultato;
-        if(decimale<5 || decimale>5){
+        if(decimale<5 || decimale>5)
             risultato=String.valueOf(Math.round(numero));
-        }
-        else{
+        else
             risultato=String.valueOf(numero).substring(0,3);
-        }
+
         return risultato;
     }
 }

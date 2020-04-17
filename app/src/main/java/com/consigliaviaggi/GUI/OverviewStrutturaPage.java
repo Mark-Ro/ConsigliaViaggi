@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -34,7 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-public class OverviewStrutturaPage extends AppCompatActivity implements OnMapReadyCallback {
+public class OverviewStrutturaPage extends AppCompatActivity implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -73,6 +74,7 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
         textViewTitoloPrezzo = findViewById(R.id.textViewTitoloPrezzo);
         textViewPrezzoOverview = findViewById(R.id.textViewPrezzo_Overview);
         mapView = findViewById(R.id.mapView);
+        navigationView.setNavigationItemSelectedListener(this);
 
         overviewStrutturaController = new OverviewStrutturaController(this,this);
 
@@ -229,5 +231,24 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home: {
+                overviewStrutturaController.openHomePage();
+                break;
+            }
+            case R.id.profilo: {
+                overviewStrutturaController.openProfiloPage();
+                break;
+            }
+            case R.id.mappa: {
+                overviewStrutturaController.openMappaPage();
+                break;
+            }
+        }
+        return false;
     }
 }

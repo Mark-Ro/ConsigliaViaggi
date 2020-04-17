@@ -1,24 +1,36 @@
 package com.consigliaviaggi.GUI;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 
 import com.consigliaviaggi.Controller.MainActivityController;
 import com.consigliaviaggi.Controller.RicercaController;
 import com.consigliaviaggi.R;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     private Button bottoneRicerca,bottoneProfilo,bottoneHotel,bottoneRistoranti,bottoneAltro,bottoneMappa;
     private MainActivityController mainActivityController;
+    private ToggleButton toggleButtonMenu;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private View contentView;
 
     private String username;
 
@@ -47,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         bottoneRistoranti = findViewById(R.id.bottoneRistoranti);
         bottoneAltro = findViewById(R.id.bottoneAltro);
         bottoneMappa = findViewById(R.id.bottoneMappa);
+        toggleButtonMenu = findViewById(R.id.toggleButtonMenu);
+        navigationView = findViewById(R.id.menuLaterale);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView.setNavigationItemSelectedListener(this);
 
         bottoneRistoranti.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +107,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        toggleButtonMenu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    if (!drawerLayout.isDrawerOpen(GravityCompat.START))
+                        drawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
+
         new AsyncTask<Void,Void,Void>() {
 
             @Override
@@ -100,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         }.execute();
+        animazioneNavigationDrawer();
     }
 
     @Override
@@ -125,5 +152,45 @@ public class MainActivity extends AppCompatActivity {
         else
             mainActivityController.loadUsername();
     }
+    private void  animazioneNavigationDrawer(){
+        final float END_SCALE = 0.7f;
+        contentView  = findViewById(R.id.coordinator_layout);
+        drawerLayout.setScrimColor(Color.TRANSPARENT);
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public  void onDrawerOpened(View drawerView){
+                toggleButtonMenu.setChecked(true);
+            }
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                contentView.setScaleX(offsetScale);
+                contentView.setScaleY(offsetScale);
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                contentView.setTranslationX(xTranslation);
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                toggleButtonMenu.setChecked(false);
+            }
+        });
+    }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profilo: {
+                mainActivityController.openProfiloPage();
+                break;
+            }
+            case R.id.mappa: {
+                mainActivityController.openMappaPage();
+                break;
+            }
+        }
+        return false;
+    }
 }

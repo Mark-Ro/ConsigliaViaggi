@@ -19,6 +19,7 @@ import com.consigliaviaggi.GUI.CambiaEmailPage;
 import com.consigliaviaggi.GUI.CambiaPasswordPage;
 import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.MainActivity;
+import com.consigliaviaggi.GUI.MappaPage;
 import com.consigliaviaggi.GUI.MieRecensioniPage;
 import com.consigliaviaggi.GUI.ProfiloPage;
 
@@ -116,6 +117,14 @@ public class ProfiloController {
     public void openCambiaEmailPage() {
         Intent intent = new Intent(contextProfiloPage, CambiaEmailPage.class);
         contextProfiloPage.startActivity(intent);
+    }
+    public void openMappaPage() {
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(contextProfiloPage, MappaPage.class);
+            contextProfiloPage.startActivity(intent);
+        }
+        else
+            Toast.makeText(contextProfiloPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
     }
 
     public void openMieRecensioniPage() {

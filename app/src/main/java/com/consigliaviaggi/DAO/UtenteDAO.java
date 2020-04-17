@@ -93,6 +93,7 @@ public class UtenteDAO {
             try {
                 nickname = (String) jsonQuery.get("Nickname" + String.valueOf(i));
                 utente.setNickname(nickname);
+
             } catch (JSONException e) {
                 flag = true;
             }

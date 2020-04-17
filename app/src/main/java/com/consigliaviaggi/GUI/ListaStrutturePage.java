@@ -47,6 +47,7 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
     private ImageView imageViewCitta,imageViewBarraCitta;
     private AppBarLayout appBarLayout;
     private String nomeCitta,tipoStruttura;
+    private Button buttonLenteRicerca;
     private ToggleButton toggleButtonMenu;
     private ToggleButton toggleButtonHotel,toggleButtonRistorante,toggleButtonAltro;
     private NavigationView navigationView;
@@ -79,12 +80,12 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
         toggleButtonRistorante = findViewById(R.id.toggleButtonRistorante);
         toggleButtonAltro = findViewById(R.id.toggleButtonAltro);
         drawerLayout = findViewById(R.id.drawerlayout);
+        buttonLenteRicerca = findViewById(R.id.buttonLenteRicerca);
 
         navigationView.setNavigationItemSelectedListener(this);
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         final AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) collapsingToolbarLayout.getLayoutParams();
 
-        navigationView.setNavigationItemSelectedListener(this);
 
         listaStrutturePageController = new ListaStrutturePageController(ListaStrutturePage.this,listaStrutture);
 
@@ -168,6 +169,13 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
             }
         });
 
+        buttonLenteRicerca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listaStrutturePageController.openRicercaPage();
+            }
+        });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -193,7 +201,7 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
                 break;
             }
             case R.id.mappa: {
-                listaStrutturePageController.openMappa();
+                listaStrutturePageController.openMappaPage();
                 break;
             }
         }

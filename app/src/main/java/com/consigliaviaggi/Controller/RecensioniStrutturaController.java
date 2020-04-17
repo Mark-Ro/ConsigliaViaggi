@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +17,11 @@ import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.GalleryStrutturaPage;
 import com.consigliaviaggi.GUI.InserimentoRecensionePage;
+import com.consigliaviaggi.GUI.LoginPage;
+import com.consigliaviaggi.GUI.MainActivity;
+import com.consigliaviaggi.GUI.MappaPage;
 import com.consigliaviaggi.GUI.OverviewStrutturaPage;
+import com.consigliaviaggi.GUI.ProfiloPage;
 import com.consigliaviaggi.R;
 
 import java.util.ArrayList;
@@ -62,6 +67,34 @@ public class RecensioniStrutturaController {
         }
         else
             Toast.makeText(activityRecensioniStrutturaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void openHomePage() {
+        Log.i("LISTA_STRUTTURE_PAGE_CONTROLLER","Entrato in openHomePage");
+        Intent intent = new Intent(activityRecensioniStrutturaPage.getApplicationContext(), MainActivity.class);
+        activityRecensioniStrutturaPage.startActivity(intent);
+    }
+
+    public void openProfiloPage() {
+        Log.i("LISTA_STRUTTURE_PAGE_CONTROLLER","Entrato in profilo");
+        Intent intent;
+        Utente utente = Utente.getIstance();
+        if (utente.isUtenteAutenticato())
+            intent = new Intent(activityRecensioniStrutturaPage, ProfiloPage.class);
+        else
+            intent = new Intent(activityRecensioniStrutturaPage, LoginPage.class);
+
+        activityRecensioniStrutturaPage.startActivity(intent);
+    }
+
+    public void openMappaPage() {
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(activityRecensioniStrutturaPage, MappaPage.class);
+            activityRecensioniStrutturaPage.startActivity(intent);
+        }
+        else
+            Toast.makeText(activityRecensioniStrutturaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+
     }
 
     public void openDialogRecensione(String testoRecensione) {

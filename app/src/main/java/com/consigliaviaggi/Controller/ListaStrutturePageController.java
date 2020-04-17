@@ -13,8 +13,10 @@ import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.LoginPage;
 import com.consigliaviaggi.GUI.MainActivity;
+import com.consigliaviaggi.GUI.MappaPage;
 import com.consigliaviaggi.GUI.OverviewStrutturaPage;
 import com.consigliaviaggi.GUI.ProfiloPage;
+import com.consigliaviaggi.GUI.RicercaPage;
 
 import java.util.ArrayList;
 
@@ -46,8 +48,23 @@ public class ListaStrutturePageController {
         activityListaStrutturePage.startActivity(intent);
     }
 
-    public void openMappa() {
-        //Da implementare
+    public void openMappaPage() {
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(activityListaStrutturePage, MappaPage.class);
+            activityListaStrutturePage.startActivity(intent);
+        }
+        else
+            Toast.makeText(activityListaStrutturePage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+
+    }
+    public void openRicercaPage() {
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(activityListaStrutturePage, RicercaPage.class);
+            activityListaStrutturePage.startActivity(intent);
+        }
+        else
+            Toast.makeText(activityListaStrutturePage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+
     }
 
     public ArrayList<Struttura> selezionaStruttureHotel() {

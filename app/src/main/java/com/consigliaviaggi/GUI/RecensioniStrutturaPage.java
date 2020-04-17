@@ -13,11 +13,14 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -31,7 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class RecensioniStrutturaPage extends AppCompatActivity {
+public class RecensioniStrutturaPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -40,6 +43,7 @@ public class RecensioniStrutturaPage extends AppCompatActivity {
     private TextView textViewNomeStrutturaRecensioni,textViewVotoRecensioni;
     private ToggleButton toggleButtonMenu,toggleButtonOverview,toggleButtonGallery;
     private FloatingActionButton floatingActionButtonNuovaRecensione;
+    RecensioniStrutturaController recensioniStrutturaController;
 
     private Struttura struttura;
 
@@ -69,8 +73,9 @@ public class RecensioniStrutturaPage extends AppCompatActivity {
         textViewNomeStrutturaRecensioni = findViewById(R.id.textViewNomeStrutturaRecensioni);
         textViewVotoRecensioni = findViewById(R.id.textViewVotoRecensioni);
         floatingActionButtonNuovaRecensione = findViewById(R.id.floatingActionButtonNuovaRecensione);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        final RecensioniStrutturaController recensioniStrutturaController = new RecensioniStrutturaController(this,this);
+        recensioniStrutturaController = new RecensioniStrutturaController(this,this);
         final ArrayList<Recensione> listaRecensioni = recensioniStrutturaController.getListaRecensioni(struttura);
 
         CustomAdapterRecensioniPage customAdapterRecensioniPage = new CustomAdapterRecensioniPage(this,listaRecensioni);
@@ -159,4 +164,22 @@ public class RecensioniStrutturaPage extends AppCompatActivity {
         textViewVotoRecensioni.setText(String.valueOf(struttura.getVoto()).substring(0,3));
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home: {
+                recensioniStrutturaController.openHomePage();
+                break;
+            }
+            case R.id.profilo: {
+                recensioniStrutturaController.openProfiloPage();
+                break;
+            }
+            case R.id.mappa: {
+                recensioniStrutturaController.openMappaPage();
+                break;
+            }
+        }
+        return false;
+    }
 }

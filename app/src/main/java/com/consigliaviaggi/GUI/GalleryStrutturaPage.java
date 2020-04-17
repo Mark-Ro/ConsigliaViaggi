@@ -11,12 +11,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -30,7 +32,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class GalleryStrutturaPage extends AppCompatActivity {
+public class GalleryStrutturaPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -63,6 +65,7 @@ public class GalleryStrutturaPage extends AppCompatActivity {
         textViewNomeStrutturaGallery = findViewById(R.id.textViewNomeStrutturaGallery);
         textViewVotoGallery = findViewById(R.id.textViewVotoGallery);
         listViewGallery = findViewById(R.id.listViewGallery);
+        navigationView.setNavigationItemSelectedListener(this);
 
         galleryStrutturaController = new GalleryStrutturaController(this,this);
 
@@ -143,5 +146,24 @@ public class GalleryStrutturaPage extends AppCompatActivity {
         Picasso.get().load(struttura.getFotoStruttura()).noFade().fit().centerCrop().into(imageViewGallery);
         textViewNomeStrutturaGallery.setText(struttura.getNomeStruttura());
         textViewVotoGallery.setText(String.valueOf(struttura.getVoto()).substring(0,3));
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home: {
+                galleryStrutturaController.openHomePage();
+                break;
+            }
+            case R.id.profilo: {
+                galleryStrutturaController.openProfiloPage();
+                break;
+            }
+            case R.id.mappa: {
+                galleryStrutturaController.openMappaPage();
+                break;
+            }
+        }
+        return false;
     }
 }

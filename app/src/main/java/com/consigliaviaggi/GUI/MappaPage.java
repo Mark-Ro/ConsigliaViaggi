@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
@@ -13,9 +14,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
@@ -37,12 +41,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MappaPage extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class MappaPage extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
     private GoogleMap googleMap;
     private SupportMapFragment mapFragment;
@@ -52,6 +57,9 @@ public class MappaPage extends FragmentActivity implements OnMapReadyCallback, G
     private Location lastLocation;
     private Marker currentUserLocationMarker;
     private static final int Request_User_Location_Code = 99;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private View contentView;
 
     private MappaController mappaController;
 
@@ -71,11 +79,15 @@ public class MappaPage extends FragmentActivity implements OnMapReadyCallback, G
 
         searchView = findViewById(R.id.searchView);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
+        navigationView = findViewById(R.id.menuLaterale);
+        drawerLayout = findViewById(R.id.drawerlayout);
+        navigationView.setNavigationItemSelectedListener(this);
 
         mappaController = new MappaController(this,this);
 
         mapFragment.getMapAsync(this);
 
+        animazioneNavigationDrawer();
 
 
     }
@@ -198,5 +210,49 @@ public class MappaPage extends FragmentActivity implements OnMapReadyCallback, G
         });
     }
 
+    private void  animazioneNavigationDrawer(){
+        final float END_SCALE = 0.7f;
+        contentView  = findViewById(R.id.coordinator_layout);
+        drawerLayout.setScrimColor(Color.TRANSPARENT);
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public  void onDrawerOpened(View drawerView){
 
+            }
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                contentView.setScaleX(offsetScale);
+                contentView.setScaleY(offsetScale);
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                contentView.setTranslationX(xTranslation);
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.home: {
+                mappaController.openHomePage();
+                break;
+            }
+            case R.id.profilo: {
+                mappaController.openProfiloPage();
+                break;
+            }
+            case R.id.mappa: {
+                mappaController.openMappaPage();
+                break;
+            }
+        }
+        return false;
+    }
 }

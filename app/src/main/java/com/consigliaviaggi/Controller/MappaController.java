@@ -19,8 +19,12 @@ import android.widget.Toast;
 import com.consigliaviaggi.DAO.CittaDAO;
 import com.consigliaviaggi.DAO.StrutturaDAO;
 import com.consigliaviaggi.Entity.Struttura;
+import com.consigliaviaggi.Entity.Utente;
+import com.consigliaviaggi.GUI.LoginPage;
+import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.MappaPage;
 import com.consigliaviaggi.GUI.OverviewStrutturaPage;
+import com.consigliaviaggi.GUI.ProfiloPage;
 import com.consigliaviaggi.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -224,5 +228,32 @@ public class MappaController {
             risultato=String.valueOf(numero).substring(0,3);
 
         return risultato;
+    }
+    public void openHomePage() {
+        Log.i("LISTA_STRUTTURE_PAGE_CONTROLLER","Entrato in openHomePage");
+        Intent intent = new Intent(contextMappaPage.getApplicationContext(), MainActivity.class);
+        contextMappaPage.startActivity(intent);
+    }
+
+    public void openProfiloPage() {
+        Log.i("LISTA_STRUTTURE_PAGE_CONTROLLER","Entrato in profilo");
+        Intent intent;
+        Utente utente = Utente.getIstance();
+        if (utente.isUtenteAutenticato())
+            intent = new Intent(contextMappaPage, ProfiloPage.class);
+        else
+            intent = new Intent(contextMappaPage, LoginPage.class);
+
+        contextMappaPage.startActivity(intent);
+    }
+
+    public void openMappaPage() {
+        if (isNetworkAvailable()) {
+            Intent intent = new Intent(contextMappaPage, MappaPage.class);
+            contextMappaPage.startActivity(intent);
+        }
+        else
+            Toast.makeText(contextMappaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+
     }
 }

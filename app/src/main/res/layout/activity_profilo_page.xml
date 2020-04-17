@@ -1,312 +1,342 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GUI.ProfiloPage">
+    android:fitsSystemWindows="true"
+    tools:context=".GUI.ProfiloPage"
+    android:id="@+id/drawerLayout">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/coordinator_layout">
 
-    <Button
-        android:id="@+id/bottoneProfilo"
-        android:layout_width="47dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/iconprofileblu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView27"
-        app:layout_constraintVertical_bias="1.0" />
+        <Button
+            android:id="@+id/bottoneProfilo"
+            android:layout_width="47dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/iconprofileblu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView27"
+            app:layout_constraintVertical_bias="1.0" />
 
-    <ImageView
-        android:id="@+id/imageView27"
-        android:layout_width="518dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.998"
-        app:srcCompat="@drawable/sfondobianco" />
+        <ImageView
+            android:id="@+id/imageView27"
+            android:layout_width="518dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.522"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.998"
+            app:srcCompat="@drawable/sfondobianco" />
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/myfont"
-        android:text="Il mio profilo"
-        android:textColor="@android:color/black"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView25"
-        android:layout_width="187dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15"
-        app:srcCompat="@drawable/bigiconprofile" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/myfont"
-        android:text="Nome"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView25" />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/myfont"
-        android:text="Cognome"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/myfont"
-        android:text="Email"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-    <TextView
-        android:id="@+id/textView26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/myfont"
-        android:text="Nickname"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-    <TextView
-        android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/myfont"
-        android:text="N.Recensioni"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:fontFamily="@font/myfont"
-        android:text="Logout"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/bottoneLogout"
-        app:layout_constraintEnd_toStartOf="@+id/bottoneLogout"
-        app:layout_constraintHorizontal_bias="0.981"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/bottoneLogout"
-        android:layout_width="38dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/iconlogout"
-        android:enabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/imageView27"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottoneCambiaPassword"
-        app:layout_constraintVertical_bias="0.204" />
-
-    <Button
-        android:id="@+id/bottoneCambiaPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/transparent"
-        android:fontFamily="@font/myfont"
-        android:text="Cambia password"
-        android:textAllCaps="false"
-        android:textColor="@color/Bluscuro"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27" />
-
-    <Button
-        android:id="@+id/bottoneMieRecensioni"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:background="@android:color/transparent"
-        android:fontFamily="@font/myfont"
-        android:text="MieRecensioni"
-        android:textAllCaps="false"
-        android:textColor="@color/Bluscuro"
-        android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/bottoneLogout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/bottoneCambiaEmail"
-        android:layout_width="137dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="24dp"
-        android:background="@android:color/transparent"
-        android:fontFamily="@font/myfont"
-        android:text="Cambia Email"
-        android:textAllCaps="false"
-        android:textColor="@color/Bluscuro"
-        android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/bottoneCambiaPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/bottoneCambiaPassword" />
-
-    <Button
-        android:id="@+id/bottoneMappa"
-        android:layout_width="36dp"
-        android:layout_height="41dp"
-        android:layout_marginEnd="116dp"
-        android:background="@drawable/iconmap"
-        app:layout_constraintBaseline_toBaselineOf="@+id/bottoneProfilo"
-        app:layout_constraintEnd_toStartOf="@+id/bottoneProfilo" />
-
-    <Button
-        android:id="@+id/bottoneHome"
-        android:layout_width="47dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="28dp"
-        android:background="@drawable/iconhomegray"
-        app:layout_constraintBaseline_toBaselineOf="@+id/bottoneMappa"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewNomeProfilo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/myfont"
-        android:text="Caricamento..."
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/imageView25"
-        tools:text="Caricamento..." />
-
-    <TextView
-        android:id="@+id/textViewCognomeProfilo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/myfont"
-        android:text="Caricamento..."
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNomeProfilo"
-        tools:text="Caricamento..." />
-
-
-    <TextView
-        android:id="@+id/textViewNicknameProfilo"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/myfont"
-        android:text="Caricamento..."
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2"
-        tools:text="Caricamento..." />
-
-    <TextView
-        android:id="@+id/textViewNumeroRecensioniProfilo"
-        android:layout_width="121dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="21dp"
-        android:fontFamily="@font/myfont"
-        android:text="Caricamento..."
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/textView27"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNicknameProfilo"
-        tools:text="Caricamento..." />
-
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView2"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="124dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottoneCambiaEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textViewCognomeProfilo"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCognomeProfilo"
-        app:layout_constraintVertical_bias="0.0">
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/textView15"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/myfont"
+            android:text="Il mio profilo"
+            android:textColor="@android:color/black"
+            android:textSize="50sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewEmailProfilo"
-                android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imageView25"
+            android:layout_width="187dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            app:srcCompat="@drawable/bigiconprofile" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/myfont"
+            android:text="Nome"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView25" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/myfont"
+            android:text="Cognome"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/myfont"
+            android:text="Email"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/myfont"
+            android:text="Nickname"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/myfont"
+            android:text="N.Recensioni"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:fontFamily="@font/myfont"
+            android:text="Logout"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/bottoneLogout"
+            app:layout_constraintEnd_toStartOf="@+id/bottoneLogout"
+            app:layout_constraintHorizontal_bias="0.981"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/bottoneLogout"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/iconlogout"
+            android:enabled="false"
+            app:layout_constraintBottom_toTopOf="@+id/imageView27"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottoneCambiaPassword"
+            app:layout_constraintVertical_bias="0.204" />
+
+        <Button
+            android:id="@+id/bottoneCambiaPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/myfont"
+            android:text="Cambia password"
+            android:textAllCaps="false"
+            android:textColor="@color/Bluscuro"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+        <Button
+            android:id="@+id/bottoneMieRecensioni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/myfont"
+            android:text="MieRecensioni"
+            android:textAllCaps="false"
+            android:textColor="@color/Bluscuro"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/bottoneLogout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/bottoneCambiaEmail"
+            android:layout_width="137dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="24dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/myfont"
+            android:text="Cambia Email"
+            android:textAllCaps="false"
+            android:textColor="@color/Bluscuro"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/bottoneCambiaPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/bottoneCambiaPassword" />
+        <ToggleButton
+            android:id="@+id/toggleButtonMenu"
+            android:layout_width="34dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/toggle_button_menu"
+            android:text="ToggleButton"
+            android:textOff=""
+            android:textOn=""
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bottoneMappa"
+            android:layout_width="36dp"
+            android:layout_height="41dp"
+            android:layout_marginEnd="116dp"
+            android:background="@drawable/iconmap"
+            app:layout_constraintBaseline_toBaselineOf="@+id/bottoneProfilo"
+            app:layout_constraintEnd_toStartOf="@+id/bottoneProfilo" />
+
+        <Button
+            android:id="@+id/bottoneHome"
+            android:layout_width="47dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="28dp"
+            android:background="@drawable/iconhomegray"
+            app:layout_constraintBaseline_toBaselineOf="@+id/bottoneMappa"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewNomeProfilo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/myfont"
+            android:text="Caricamento..."
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/imageView25"
+            tools:text="Caricamento..." />
+
+        <TextView
+            android:id="@+id/textViewCognomeProfilo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/myfont"
+            android:text="Caricamento..."
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNomeProfilo"
+            tools:text="Caricamento..." />
+
+
+        <TextView
+            android:id="@+id/textViewNicknameProfilo"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/myfont"
+            android:text="Caricamento..."
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView26"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2"
+            tools:text="Caricamento..." />
+
+        <TextView
+            android:id="@+id/textViewNumeroRecensioniProfilo"
+            android:layout_width="121dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="21dp"
+            android:fontFamily="@font/myfont"
+            android:text="Caricamento..."
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNicknameProfilo"
+            tools:text="Caricamento..." />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView2"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="124dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottoneCambiaEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewCognomeProfilo"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCognomeProfilo"
+            app:layout_constraintVertical_bias="0.0">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                android:fontFamily="@font/myfont"
-                android:text="Caricamento..."
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                tools:text="Caricamento..." />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewEmailProfilo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="@font/myfont"
+                    android:text="Caricamento..."
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    tools:text="Caricamento..." />
 
 
-        </RelativeLayout>
-    </HorizontalScrollView>
+            </RelativeLayout>
+        </HorizontalScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/menuLaterale"
+        app:headerLayout="@layout/header_layout_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/menu">
+
+    </com.google.android.material.navigation.NavigationView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

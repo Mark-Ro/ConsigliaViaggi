@@ -42,7 +42,7 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
     private View contentView;
     private ToggleButton toggleButtonMenu,toggleButtonGalleryOverview,toggleButtonRecensioniOverview;
     private ImageView imageViewOverview;
-    private TextView textViewNomeStrutturaOverview,textViewVotoOverview,textViewDescrizioneOverview,textViewTitoloPrezzo,textViewPrezzoOverview;
+    private TextView textViewNomeStrutturaOverview,textViewVotoOverview,textViewDescrizioneOverview,textViewTitoloPrezzo,textViewPrezzoOverview,textViewNomeVia;
 
     private OverviewStrutturaController overviewStrutturaController;
 
@@ -73,6 +73,7 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
         textViewDescrizioneOverview = findViewById(R.id.textViewDescrizione_Overview);
         textViewTitoloPrezzo = findViewById(R.id.textViewTitoloPrezzo);
         textViewPrezzoOverview = findViewById(R.id.textViewPrezzo_Overview);
+        textViewNomeVia=findViewById(R.id.textViewNomeVia);
         mapView = findViewById(R.id.mapView);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -151,6 +152,7 @@ public class OverviewStrutturaPage extends AppCompatActivity implements OnMapRea
         textViewNomeStrutturaOverview.setText(struttura.getNomeStruttura());
         textViewVotoOverview.setText(String.valueOf(struttura.getVoto()).substring(0,3));
         textViewDescrizioneOverview.setText(struttura.getDescrizione());
+        textViewNomeVia.setText(struttura.getIndirizzo());
         if (struttura.getPrezzo()>0) {
             textViewTitoloPrezzo.setText("Prezzo per notte");
             textViewPrezzoOverview.setText(String.valueOf(struttura.getPrezzo()) + "€");

@@ -100,7 +100,7 @@ public class ListaStrutturePageController {
         return listaOutput;
     }
 
-    public void clickStruttura(int posizione) {
+    public void openOverviewStrutturaPage(int posizione) {
         if (isNetworkAvailable()) {
             Intent intent = new Intent(activityListaStrutturePage, OverviewStrutturaPage.class);
             intent.putExtra("Struttura", listaStruttureIntent.get(posizione));

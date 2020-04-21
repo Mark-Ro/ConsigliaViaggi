@@ -97,7 +97,7 @@ public class StrutturaDAO {
     private ArrayList<Struttura> creazioneListaStruttureMappaFromQuery(String query) {
         ArrayList<Struttura> listaStrutture = new ArrayList<>();
         Citta citta=null;
-        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null;
+        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,indirizzo=null;
         JSONObject jsonQuery = null;
 
         if (!query.equals("\n}")) {
@@ -173,9 +173,15 @@ public class StrutturaDAO {
                     flag = true;
                 }
 
+                try {
+                    indirizzo = (String) jsonQuery.get("Indirizzo" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
+
                 if (flag==false) {
 
-                    listaStrutture.add(new Struttura(Integer.parseInt(idStruttura), nome, Float.parseFloat(prezzo), descrizione, Double.parseDouble(latitudine), Double.parseDouble(longitudine), tipoStruttura, Float.parseFloat(voto), fotoStruttura, Integer.parseInt(numeroRecensioni), null, -1));
+                    listaStrutture.add(new Struttura(Integer.parseInt(idStruttura), nome, Float.parseFloat(prezzo), descrizione, Double.parseDouble(latitudine), Double.parseDouble(longitudine), tipoStruttura, Float.parseFloat(voto), fotoStruttura, Integer.parseInt(numeroRecensioni), null, -1, indirizzo));
                     Log.i("STRUTTURA_DAO","Nome: " + listaStrutture.get(i-1).getNomeStruttura());
                 }
                 i++;
@@ -187,7 +193,7 @@ public class StrutturaDAO {
     private ArrayList<Struttura> creazioneListaStruttureCittaFromQuery(String query) {
         ArrayList<Struttura> listaStrutture = new ArrayList<>();
         Citta citta=null;
-        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null,nazione=null;
+        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null,nazione=null,indirizzo=null;
         JSONObject jsonQuery = null;
 
         if (!query.equals("\n}")) {
@@ -287,11 +293,17 @@ public class StrutturaDAO {
                     flag = true;
                 }
 
+                try {
+                    indirizzo = (String) jsonQuery.get("Indirizzo" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
+
                 if (i == 1)
                     citta = new Citta(Integer.parseInt(idCitta), nomeCitta, fotoCitta,nazione);
                 if (flag==false) {
 
-                    listaStrutture.add(new Struttura(Integer.parseInt(idStruttura), nome, Float.parseFloat(prezzo), descrizione, Double.parseDouble(latitudine), Double.parseDouble(longitudine), tipoStruttura, Float.parseFloat(voto), fotoStruttura, Integer.parseInt(numeroRecensioni), citta, -1));
+                    listaStrutture.add(new Struttura(Integer.parseInt(idStruttura), nome, Float.parseFloat(prezzo), descrizione, Double.parseDouble(latitudine), Double.parseDouble(longitudine), tipoStruttura, Float.parseFloat(voto), fotoStruttura, Integer.parseInt(numeroRecensioni), citta, -1,indirizzo));
                     Log.i("STRUTTURA_DAO","Nome: " + listaStrutture.get(i-1).getNomeStruttura());
                 }
                 i++;
@@ -303,7 +315,7 @@ public class StrutturaDAO {
     private ArrayList<Struttura> creazioneListaStruttureGPSFromQuery(String query, Location miaPosizione) {
         ArrayList<Struttura> listaStrutture = new ArrayList<>();
         Citta citta=null;
-        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null,nazione=null;
+        String idStruttura=null,nome=null,prezzo=null,descrizione=null,latitudine=null,longitudine=null,tipoStruttura=null,voto=null,fotoStruttura=null,numeroRecensioni=null,idCitta=null,nomeCitta=null,fotoCitta=null,nazione=null,indirizzo=null;
         JSONObject jsonQuery = null;
 
         if (!query.equals("\n}")) {
@@ -399,6 +411,12 @@ public class StrutturaDAO {
 
                 try {
                     nazione = (String) jsonQuery.get("Nazione" + String.valueOf(i));
+                } catch (JSONException e) {
+                    flag = true;
+                }
+
+                try {
+                    indirizzo = (String) jsonQuery.get("Indirizzo" + String.valueOf(i));
                 } catch (JSONException e) {
                     flag = true;
                 }
@@ -411,7 +429,7 @@ public class StrutturaDAO {
                     locationStruttura.setLongitude(Double.parseDouble(longitudine));
                     double distanza = miaPosizione.distanceTo(locationStruttura);
                     if (distanza<=500)
-                        listaStrutture.add(new Struttura(Integer.parseInt(idStruttura), nome, Float.parseFloat(prezzo), descrizione, Double.parseDouble(latitudine), Double.parseDouble(longitudine), tipoStruttura, Float.parseFloat(voto), fotoStruttura, Integer.parseInt(numeroRecensioni), citta, Math.round(distanza)));
+                        listaStrutture.add(new Struttura(Integer.parseInt(idStruttura), nome, Float.parseFloat(prezzo), descrizione, Double.parseDouble(latitudine), Double.parseDouble(longitudine), tipoStruttura, Float.parseFloat(voto), fotoStruttura, Integer.parseInt(numeroRecensioni), citta, Math.round(distanza),indirizzo));
                     Log.i("STRUTTURA_DAO","Nome: " + nome + ", distanza: " + distanza);
                 }
                 i++;

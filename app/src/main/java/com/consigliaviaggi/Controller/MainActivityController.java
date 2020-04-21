@@ -127,6 +127,7 @@ public class MainActivityController {
         Log.i("LOAD_USERNAME","Username: " + username);
         utente = Utente.getIstance();
         if (!utente.isUtenteAutenticato() && username!=null) {
+            //verificaUtenteBanned();
             utenteDAO.verificaEmailStatus(username);
             loadInformazioniUtente(username);
         }

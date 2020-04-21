@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class Struttura implements Serializable {
 
     private int idStruttura,numeroRecensioni;
-    private String nomeStruttura,descrizione,tipoStruttura,fotoStruttura;
+    private String nomeStruttura,descrizione,tipoStruttura,fotoStruttura,indirizzo;
     private float prezzo,voto;
     private double latitudine,longitudine,distanza;
 
     private Citta citta;
 
-    public Struttura(int idStruttura, String nomeStruttura, float prezzo, String descrizione, double latitudine, double longitudine, String tipoStruttura, float voto, String fotoStruttura, int numeroRecensioni, Citta citta, double distanza) {
+    public Struttura(int idStruttura, String nomeStruttura, float prezzo, String descrizione, double latitudine, double longitudine, String tipoStruttura, float voto, String fotoStruttura, int numeroRecensioni, Citta citta, double distanza, String indirizzo) {
         this.idStruttura = idStruttura;
         this.numeroRecensioni = numeroRecensioni;
         this.nomeStruttura = nomeStruttura;
@@ -24,6 +24,7 @@ public class Struttura implements Serializable {
         this.longitudine = longitudine;
         this.citta = citta;
         this.distanza = distanza;
+        this.indirizzo = indirizzo;
     }
 
 
@@ -121,5 +122,13 @@ public class Struttura implements Serializable {
 
     public void setCitta(Citta citta) {
         this.citta = citta;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
     }
 }

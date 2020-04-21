@@ -179,7 +179,7 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listaStrutturePageController.clickStruttura(position);
+                listaStrutturePageController.openOverviewStrutturaPage(position);
             }
         });
 

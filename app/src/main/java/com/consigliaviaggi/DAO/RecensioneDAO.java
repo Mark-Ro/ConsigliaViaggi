@@ -95,7 +95,7 @@ public class RecensioneDAO {
                 }
 
                 if (flag==false)
-                    listaRecensioni.add(new Recensione(Integer.parseInt(idRecensione),testo,nomeUtente,Integer.parseInt(voto)));
+                    listaRecensioni.add(new Recensione(Integer.parseInt(idRecensione), testo, Integer.parseInt(voto),nomeUtente));
                 i++;
             }
         }

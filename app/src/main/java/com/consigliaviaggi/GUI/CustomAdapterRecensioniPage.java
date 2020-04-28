@@ -1,6 +1,7 @@
 package com.consigliaviaggi.GUI;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,8 @@ public class CustomAdapterRecensioniPage extends BaseAdapter {
 
         viewHolder.textViewNomeUtenteRecensione.setText(arrayList.get(position).getNomeUtente());
         viewHolder.textViewTestoRecensione.setText(arrayList.get(position).getTesto());
+        if(arrayList.get(position)!=null)
+            Log.i("nome pubblico",arrayList.get(position).getNomeUtente());
         RelativeLayout.LayoutParams layoutParams;
         switch (arrayList.get(position).getVoto()) {
             case 1:

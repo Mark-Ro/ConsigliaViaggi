@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.RecensioneDAO;
@@ -26,6 +27,7 @@ public class MieRecensioniController {
 
     public void openGestioneRecensionePage(Recensione recensione) {
         Intent intent = new Intent(contextMieRecensioniPage, GestioneMiaRecensionePage.class);
+        Log.i("MIE_RECENSIONI_CONTROLLER","TESTO: " + recensione.getTesto());
         intent.putExtra("Recensione",recensione);
         contextMieRecensioniPage.startActivity(intent);
     }

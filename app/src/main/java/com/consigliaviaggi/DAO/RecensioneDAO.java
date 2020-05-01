@@ -243,7 +243,8 @@ public class RecensioneDAO {
         else
             resultMessage = "Errore update";
 
-        Log.i("RECENSIONE_DAO",resultMessage);
+        if (resultMessage!=null)
+            Log.i("RECENSIONE_DAO",resultMessage);
 
         return resultMessage;
     }

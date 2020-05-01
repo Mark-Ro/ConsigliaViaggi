@@ -129,7 +129,8 @@ public class GestioneMiaRecensioneController {
         bottoneOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (resultUpdate.contains("Successfully")) {
+                if (resultUpdate!=null && resultUpdate.contains("Successfully")) {
+                    responseDialog.dismiss();
                     activityGestioneMiaRecensionePage.overridePendingTransition(0, 0);
                     activityGestioneMiaRecensionePage.finish();
                     activityGestioneMiaRecensionePage.overridePendingTransition(0, 0);

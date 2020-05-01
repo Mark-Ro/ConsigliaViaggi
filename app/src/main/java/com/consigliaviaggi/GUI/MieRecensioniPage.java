@@ -9,9 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.StrictMode;
 import android.provider.BaseColumns;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -43,8 +46,12 @@ public class MieRecensioniPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mie_recensioni_page);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         Intent intent = getIntent();
         listaMieRecensioni = (ArrayList<Recensione>) intent.getSerializableExtra("ListaMieRecensioni");
+
 
         listViewMieRecensioni = findViewById(R.id.listView);
         searchView=findViewById(R.id.searchView);
@@ -60,6 +67,7 @@ public class MieRecensioniPage extends AppCompatActivity {
         listViewMieRecensioni.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("MIE_RECENSIONI_PAGE","Position: " + position);
                 mieRecensioniController.openGestioneRecensionePage(listaMieRecensioni.get(position));
             }
         });
@@ -69,16 +77,25 @@ public class MieRecensioniPage extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-
-        listViewMieRecensioni = findViewById(R.id.listView);
-
         final MieRecensioniController mieRecensioniController = new MieRecensioniController(this,this);
+        new AsyncTask<Void,Void,Void>() {
 
-        final ArrayList<Recensione> listaMieRecensioni = mieRecensioniController.getMieRecensioni();
+            @Override
+            protected Void doInBackground(Void... voids) {
+                listaMieRecensioni = mieRecensioniController.getMieRecensioni();
+                return null;
+            }
 
-        CustomAdapterMieRecensioniPage customAdapterMieRecensioniPage = new CustomAdapterMieRecensioniPage(this,listaMieRecensioni);
-        listViewMieRecensioni.setAdapter(customAdapterMieRecensioniPage);
-
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                ArrayList<String> listaSuggerimenti = new ArrayList<>();
+                listaSuggerimenti = mieRecensioniController.inizializzaSuggerimenti(listaMieRecensioni);
+                CustomAdapterMieRecensioniPage customAdapterMieRecensioniPage = new CustomAdapterMieRecensioniPage(MieRecensioniPage.this,listaMieRecensioni);
+                listViewMieRecensioni.setAdapter(customAdapterMieRecensioniPage);
+                addSuggestion(listaSuggerimenti,searchView);
+            }
+        }.execute();
     }
 
     public void addSuggestion(final List<String> suggestions, final SearchView searchView) {

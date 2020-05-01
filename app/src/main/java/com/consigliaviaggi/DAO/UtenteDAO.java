@@ -160,16 +160,15 @@ public class UtenteDAO {
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
         LambdaInvokerFactory lambdaInvokerFactory = new LambdaInvokerFactory(context, Regions.EU_CENTRAL_1, cognitoProvider);
         InterfacciaLambda interfacciaLambda = lambdaInvokerFactory.build(InterfacciaLambda.class);
-
-        if (nomePubblico)
-            inserimento = "'" + nickname + "'," + "'" + email + "'," + "'" + nome + "'," + "'" + cognome + "'," + "'unbanned','0.0','0','" + nickname + "'";
-        else
-            inserimento = "'" + nickname + "'," + "'" + email + "'," + "'" + nome + "'," + "'" + cognome + "'," + "'unbanned','0.0','0','" + nome + " " + cognome + "'";
-
-        Log.i("UTENTE_DAO", "Insert: " + inserimento);
-
         RequestDetailsUtenteInsert request = new RequestDetailsUtenteInsert();
-        request.setInserimento(inserimento);
+        request.setNome(nome);
+        request.setCognome(cognome);
+        request.setEmail(email);
+        request.setNickname(nickname);
+        if (nomePubblico)
+            request.setNomePubblico(nickname);
+        else
+            request.setNomePubblico(nome + " " + cognome);
         ResponseDetailsUpdate responseDetails = interfacciaLambda.funzioneLambdaInserimentoUtente(request);
         if (responseDetails != null)
             resultMessage = responseDetails.getMessageReason();

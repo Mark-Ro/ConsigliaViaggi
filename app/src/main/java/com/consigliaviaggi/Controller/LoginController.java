@@ -50,8 +50,8 @@ public class LoginController {
         StrictMode.setThreadPolicy(policy);
 
         if (isNetworkAvailable()) {
-            loginCognito = new LoginCognito(LoginController.this, username, password);
-            loginCognito.effettuaLoginCognito();
+            loginCognito = new LoginCognito(LoginController.this);
+            loginCognito.effettuaLoginCognito(username,password);
         }
         else
             Toast.makeText(contextLoginPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();

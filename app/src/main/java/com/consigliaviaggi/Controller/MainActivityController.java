@@ -22,6 +22,7 @@ import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
 import com.consigliaviaggi.DAO.CognitoSettings;
 import com.consigliaviaggi.DAO.InterfacciaLambda;
+import com.consigliaviaggi.DAO.LoginCognito;
 import com.consigliaviaggi.DAO.RequestDetailsUtenteQuery;
 import com.consigliaviaggi.DAO.ResponseDetailsQuery;
 import com.consigliaviaggi.DAO.StrutturaDAO;
@@ -127,9 +128,11 @@ public class MainActivityController {
         Log.i("LOAD_USERNAME","Username: " + username);
         utente = Utente.getIstance();
         if (!utente.isUtenteAutenticato() && username!=null) {
-            //verificaUtenteBanned();
-            utenteDAO.verificaEmailStatus(username);
-            loadInformazioniUtente(username);
+            LoginCognito loginCognito = new LoginCognito(contextMainActivity);
+            if (loginCognito.isUserLoggable(username,"token")) {
+                utenteDAO.verificaEmailStatus(username);
+                loadInformazioniUtente(username);
+            }
         }
         else
             inizializzaLambda();

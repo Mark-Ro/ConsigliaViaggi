@@ -189,8 +189,10 @@ public class RicercaPage extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                adapter = new ArrayAdapter<String>(RicercaPage.this, R.layout.autocompletetextview_item, R.id.text_view_list_item, arrayCitta);
-                autoCompleteTextCitta.setAdapter(adapter);
+                if (arrayCitta!=null) {
+                    adapter = new ArrayAdapter<String>(RicercaPage.this, R.layout.autocompletetextview_item, R.id.text_view_list_item, arrayCitta);
+                    autoCompleteTextCitta.setAdapter(adapter);
+                }
             }
         }.execute();
 

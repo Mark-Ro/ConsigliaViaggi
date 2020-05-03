@@ -186,9 +186,11 @@ public class RicercaController {
 
             CittaDAO cittaDAO = new CittaDAO(contextRicercaPage);
             listaStringheCitta = cittaDAO.getArrayCittaFromDatabase();
-            risultato = new String[listaStringheCitta.size()];
-            for (int i=0;i<listaStringheCitta.size();i++)
-                risultato[i] = listaStringheCitta.get(i);
+            if(listaStringheCitta!=null) {
+                risultato = new String[listaStringheCitta.size()];
+                for (int i = 0; i < listaStringheCitta.size(); i++)
+                    risultato[i] = listaStringheCitta.get(i);
+            }
         }
         else
             Toast.makeText(contextRicercaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();

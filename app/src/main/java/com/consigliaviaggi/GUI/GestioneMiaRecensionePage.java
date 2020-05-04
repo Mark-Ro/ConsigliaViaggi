@@ -43,6 +43,7 @@ public class GestioneMiaRecensionePage extends AppCompatActivity {
         buttonGestisciRecensioneOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                textInputEditTextGestisciRecensione.setText(textInputEditTextGestisciRecensione.getText().toString().trim());
                 if (textInputEditTextGestisciRecensione.getText().toString().isEmpty())
                     Toast.makeText(GestioneMiaRecensionePage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                 else if (ratingBar.getRating()<1)

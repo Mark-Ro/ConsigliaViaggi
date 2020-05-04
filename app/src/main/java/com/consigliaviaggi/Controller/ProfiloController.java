@@ -142,6 +142,7 @@ public class ProfiloController {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
+                    utente.setNumeroRecensioni(listaMieRecensioni.size());
                     cancelLoadingDialog();
                     Intent intent = new Intent(contextProfiloPage, MieRecensioniPage.class);
                     intent.putExtra("ListaMieRecensioni",listaMieRecensioni);

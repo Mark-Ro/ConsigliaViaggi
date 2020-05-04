@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.consigliaviaggi.Controller.MieRecensioniController;
 import com.consigliaviaggi.Entity.Recensione;
+import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.R;
 
 import java.util.ArrayList;
@@ -72,6 +73,7 @@ public class MieRecensioniPage extends AppCompatActivity {
             }
         });
         closeSearchView();
+
     }
 
     @Override
@@ -91,6 +93,8 @@ public class MieRecensioniPage extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 ArrayList<String> listaSuggerimenti = new ArrayList<>();
                 listaSuggerimenti = mieRecensioniController.inizializzaSuggerimenti(listaMieRecensioni);
+                Utente utente = Utente.getIstance();
+                utente.setNumeroRecensioni(listaMieRecensioni.size());
                 CustomAdapterMieRecensioniPage customAdapterMieRecensioniPage = new CustomAdapterMieRecensioniPage(MieRecensioniPage.this,listaMieRecensioni);
                 listViewMieRecensioni.setAdapter(customAdapterMieRecensioniPage);
                 addSuggestion(listaSuggerimenti,searchView);

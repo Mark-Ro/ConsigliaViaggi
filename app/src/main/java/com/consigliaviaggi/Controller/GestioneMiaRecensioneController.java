@@ -22,9 +22,12 @@ public class GestioneMiaRecensioneController {
     private Context contextGestioneMiaRecensionePage;
     private LoadingDialog loadingDialog;
 
+    private RecensioneDAO recensioneDAO;
+
     public GestioneMiaRecensioneController(Activity activityGestioneMiaRecensionePage, Context contextGestioneMiaRecensionePage) {
         this.activityGestioneMiaRecensionePage = activityGestioneMiaRecensionePage;
         this.contextGestioneMiaRecensionePage = contextGestioneMiaRecensionePage;
+        this.recensioneDAO = new RecensioneDAO(contextGestioneMiaRecensionePage);
     }
 
     public void updateRecensione(final int idRecensione, final String testo, final float voto) {
@@ -35,8 +38,7 @@ public class GestioneMiaRecensioneController {
 
                 @Override
                 protected Void doInBackground(Void... voids) {
-                    RecensioneDAO recensioneDAO = new RecensioneDAO(contextGestioneMiaRecensionePage);
-                    resultUpdate = recensioneDAO.updateRecensione(idRecensione, testo, (int) voto);
+                    resultUpdate = recensioneDAO.updateRecensioneFromDatabase(idRecensione, testo, (int) voto);
                     return null;
                 }
 
@@ -54,7 +56,7 @@ public class GestioneMiaRecensioneController {
         }
     }
 
-    private void cancellaRecensione(final int idRecensione) {
+    private void deleteRecensioneTask(final int idRecensione) {
         if (isNetworkAvailable()) {
             new AsyncTask<Void,Void,Void>() {
 
@@ -62,8 +64,7 @@ public class GestioneMiaRecensioneController {
 
                 @Override
                 protected Void doInBackground(Void... voids) {
-                    RecensioneDAO recensioneDAO = new RecensioneDAO(contextGestioneMiaRecensionePage);
-                    resultUpdate = recensioneDAO.deleteRecensione(idRecensione);
+                    resultUpdate = recensioneDAO.deleteRecensioneFromDatabase(idRecensione);
                     return null;
                 }
 
@@ -101,7 +102,7 @@ public class GestioneMiaRecensioneController {
             public void onClick(View v) {
                 deleteRecensioniDialog.dismiss();
                 openLoadingDialog(activityGestioneMiaRecensionePage);
-                cancellaRecensione(idRecensione);
+                deleteRecensioneTask(idRecensione);
             }
         });
 

@@ -206,7 +206,7 @@ public class RecensioneDAO {
         return resultMessage;
     }
 
-    public String updateRecensione(int idRecensione, String testo, int voto) {
+    public String updateRecensioneFromDatabase(int idRecensione, String testo, int voto) {
         String resultMessage = null;
 
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();
@@ -229,7 +229,7 @@ public class RecensioneDAO {
         return resultMessage;
     }
 
-    public String deleteRecensione(int idRecensione) {
+    public String deleteRecensioneFromDatabase(int idRecensione) {
         String resultMessage = null;
 
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();

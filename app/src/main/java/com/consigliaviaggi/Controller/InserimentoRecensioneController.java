@@ -32,7 +32,7 @@ public class InserimentoRecensioneController {
                 @Override
                 protected Void doInBackground(Void... voids) {
                     RecensioneDAO recensioneDAO = new RecensioneDAO(contextInserimentoRecensionePage);
-                    risultatoInserimento = recensioneDAO.inserimentoRecensione(struttura.getIdStruttura(),testo,String.valueOf((int)voto));
+                    risultatoInserimento = recensioneDAO.inserimentoRecensione(struttura.getIdStruttura(),testo,(int)voto);
                     return null;
                 }
 

@@ -181,7 +181,7 @@ public class RecensioneDAO {
         return listaRecensioni;
     }
 
-    public String inserimentoRecensione(int idStruttura, String testo, String voto) {
+    public String inserimentoRecensione(int idStruttura, String testo, int voto) {
         String resultMessage = null;
 
         CognitoCachingCredentialsProvider cognitoProvider = cognitoSettings.getCredentialsProvider();

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
+import com.consigliaviaggi.Cognito.CognitoSettings;
 import com.consigliaviaggi.Entity.Gallery;
 
 import org.json.JSONException;

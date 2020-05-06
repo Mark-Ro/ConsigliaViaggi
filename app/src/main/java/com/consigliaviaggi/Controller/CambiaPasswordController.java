@@ -6,7 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
 
-import com.consigliaviaggi.DAO.CambiaPasswordCognito;
+import com.consigliaviaggi.Cognito.CambiaPasswordCognito;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.CambiaPasswordPage;
 import com.consigliaviaggi.GUI.LoadingDialog;

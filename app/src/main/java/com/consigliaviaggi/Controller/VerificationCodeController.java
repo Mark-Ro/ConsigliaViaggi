@@ -7,7 +7,7 @@ import android.net.NetworkInfo;
 import android.os.StrictMode;
 import android.widget.Toast;
 
-import com.consigliaviaggi.DAO.VerificationCodeCognito;
+import com.consigliaviaggi.Cognito.VerificationCodeCognito;
 import com.consigliaviaggi.GUI.LoadingDialog;
 
 public class VerificationCodeController {

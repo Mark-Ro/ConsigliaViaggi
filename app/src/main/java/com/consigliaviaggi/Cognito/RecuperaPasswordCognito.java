@@ -1,8 +1,7 @@
-package com.consigliaviaggi.DAO;
+package com.consigliaviaggi.Cognito;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;

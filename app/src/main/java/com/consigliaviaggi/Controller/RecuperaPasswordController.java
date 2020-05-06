@@ -1,17 +1,13 @@
 package com.consigliaviaggi.Controller;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.consigliaviaggi.DAO.RecuperaPasswordCognito;
+import com.consigliaviaggi.Cognito.RecuperaPasswordCognito;
 import com.consigliaviaggi.GUI.LoadingDialog;
-import com.consigliaviaggi.GUI.LoginPage;
 import com.consigliaviaggi.GUI.RecuperaPasswordPage;
 
 public class RecuperaPasswordController {

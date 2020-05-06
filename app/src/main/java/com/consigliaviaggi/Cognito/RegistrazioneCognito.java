@@ -1,4 +1,4 @@
-package com.consigliaviaggi.DAO;
+package com.consigliaviaggi.Cognito;
 
 import android.content.Context;
 import android.util.Log;

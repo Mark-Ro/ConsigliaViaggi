@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.consigliaviaggi.DAO.CambiaEmailCognito;
+import com.consigliaviaggi.Cognito.CambiaEmailCognito;
 import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.CambiaEmailPage;

@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 import android.os.StrictMode;
 import android.widget.Toast;
 
-import com.consigliaviaggi.DAO.LoginCognito;
+import com.consigliaviaggi.Cognito.LoginCognito;
 import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.MappaPage;

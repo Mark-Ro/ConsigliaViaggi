@@ -1,17 +1,15 @@
 package com.consigliaviaggi.Controller;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.consigliaviaggi.DAO.RegistrazioneCognito;
+import com.consigliaviaggi.Cognito.RegistrazioneCognito;
 import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.VerificationCodePage;

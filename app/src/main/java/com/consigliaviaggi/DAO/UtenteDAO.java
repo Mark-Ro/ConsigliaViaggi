@@ -10,6 +10,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
+import com.consigliaviaggi.Cognito.CognitoSettings;
 import com.consigliaviaggi.Controller.MainActivityController;
 import com.consigliaviaggi.Entity.Utente;
 

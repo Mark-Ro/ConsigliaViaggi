@@ -61,7 +61,7 @@ public class MappaController {
         return listaStrutture;
     }
 
-    public ArrayList<String> getSuggerimenti(){
+    public ArrayList<String> getSuggerimenti() {
         int i=0;
         ArrayList<String> risultatoSuggerimenti = new ArrayList<>();
         ArrayList<String> listaCitta;
@@ -108,7 +108,7 @@ public class MappaController {
         List<Address> addressList = null;
         Geocoder geocoder = new Geocoder(contextMappaPage);
 
-        rimuoviOldPositions();
+        removeOldPositions();
         try {
             addressList = geocoder.getFromLocationName(inputRicerca, 1);
         } catch (IOException e) {
@@ -130,7 +130,7 @@ public class MappaController {
 
     private boolean ricercaStrutturaNelDatabase(String inputRicerca, GoogleMap googleMap) {
         boolean risultato=false;
-        rimuoviOldPositions();
+        removeOldPositions();
         if (listaStrutture!=null) {
             for (int i=0;i<listaStrutture.size();i++) {
                 if (listaStrutture.get(i).getNomeStruttura().toLowerCase().equals(inputRicerca.toLowerCase())) {
@@ -148,7 +148,7 @@ public class MappaController {
         return risultato;
     }
 
-    public void rimuoviOldPositions() {
+    public void removeOldPositions() {
         for (int i=0;i<listaOldLocations.size();i++)
             listaOldLocations.get(i).remove();
         listaOldLocations.clear();
@@ -245,15 +245,5 @@ public class MappaController {
             intent = new Intent(contextMappaPage, LoginPage.class);
 
         contextMappaPage.startActivity(intent);
-    }
-
-    public void openMappaPage() {
-        if (isNetworkAvailable()) {
-            Intent intent = new Intent(contextMappaPage, MappaPage.class);
-            contextMappaPage.startActivity(intent);
-        }
-        else
-            Toast.makeText(contextMappaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
-
     }
 }

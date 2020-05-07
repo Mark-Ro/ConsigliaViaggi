@@ -76,7 +76,6 @@ public class MappaPage extends FragmentActivity implements OnMapReadyCallback, G
         Configuration config = new Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
-
         searchView = findViewById(R.id.searchView);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
         navigationView = findViewById(R.id.menuLaterale);
@@ -155,7 +154,7 @@ public class MappaPage extends FragmentActivity implements OnMapReadyCallback, G
         googleApiClient.connect();
     }
 
-    public void addSuggestion(final List<String> suggestions, final SearchView searchView) {
+    private void addSuggestion(final List<String> suggestions, final SearchView searchView) {
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -246,10 +245,6 @@ public class MappaPage extends FragmentActivity implements OnMapReadyCallback, G
             }
             case R.id.profilo: {
                 mappaController.openProfiloPage();
-                break;
-            }
-            case R.id.mappa: {
-                mappaController.openMappaPage();
                 break;
             }
         }

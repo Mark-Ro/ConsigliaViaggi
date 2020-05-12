@@ -46,7 +46,7 @@ public class GestioneMiaRecensioneController {
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     cancelLoadingDialog();
-                    Toast.makeText(contextGestioneMiaRecensionePage, resultUpdate, Toast.LENGTH_SHORT).show();
+                    mostraDialogResponso(resultUpdate);
                 }
             }.execute();
         }

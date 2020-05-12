@@ -40,12 +40,18 @@ public class InserimentoRecensioneController {
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     cancelLoadingDialog();
+                    activityInserimentoRecensionePage.overridePendingTransition(0, 0);
+                    activityInserimentoRecensionePage.finish();
+                    activityInserimentoRecensionePage.overridePendingTransition(0, 0);
                     Toast.makeText(activityInserimentoRecensionePage, risultatoInserimento, Toast.LENGTH_SHORT).show();
                 }
             }.execute();
         }
         else {
             cancelLoadingDialog();
+            activityInserimentoRecensionePage.overridePendingTransition(0, 0);
+            activityInserimentoRecensionePage.finish();
+            activityInserimentoRecensionePage.overridePendingTransition(0, 0);
             Toast.makeText(activityInserimentoRecensionePage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         }
     }

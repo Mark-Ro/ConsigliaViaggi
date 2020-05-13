@@ -43,7 +43,7 @@ public class RegistrazionePage extends AppCompatActivity {
         bottoneConferma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editTextNome.getText().toString().isEmpty() || editTextCognome.getText().toString().isEmpty() || editTextEmail.getText().toString().isEmpty() || editTextNickname.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty() || editTextConfermaPassword.getText().toString().isEmpty())
+                if (editTextNome.getText().toString().isEmpty() || isBlank(editTextNome.getText().toString()) || editTextCognome.getText().toString().isEmpty() || isBlank(editTextCognome.getText().toString()) || editTextEmail.getText().toString().isEmpty() || editTextNickname.getText().toString().isEmpty() || isBlank(editTextNickname.getText().toString()) || editTextPassword.getText().toString().isEmpty() || isBlank(editTextPassword.getText().toString()) || editTextConfermaPassword.getText().toString().isEmpty() || isBlank(editTextConfermaPassword.getText().toString()) )
                     Toast.makeText(RegistrazionePage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                 else if (!editTextEmail.getText().toString().contains("@") || !editTextEmail.getText().toString().contains("."))
                     Toast.makeText(RegistrazionePage.this, "Inserire una email valida!", Toast.LENGTH_SHORT).show();
@@ -72,4 +72,9 @@ public class RegistrazionePage extends AppCompatActivity {
         });
 
     }
+
+    private boolean isBlank(String string) {
+        return string == null || string.trim().length() == 0;
+    }
+
 }

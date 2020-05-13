@@ -44,7 +44,12 @@ public class CambiaPasswordController {
 
     public void cambiaPasswordFallito(Exception exception) {
         cancelLoadingDialog();
-        Toast.makeText(contextCambiaPassword, "Operazione fallita: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        if(exception.getLocalizedMessage().contains("Incorrect username or password"))
+            Toast.makeText(contextCambiaPassword, "Vecchia password non corretta!", Toast.LENGTH_SHORT).show();
+        else if(exception.getLocalizedMessage().contains("failed to satisfy constraint"))
+            Toast.makeText(contextCambiaPassword, "Formato password non corretto!", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(contextCambiaPassword, "Operazione fallita: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
     public void openLoadingDialog(Activity activity) {

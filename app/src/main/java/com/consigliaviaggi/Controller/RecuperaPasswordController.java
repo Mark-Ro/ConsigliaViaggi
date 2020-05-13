@@ -44,7 +44,10 @@ public class RecuperaPasswordController {
 
     public void operazioneFallita(Exception exception) {
         cancelLoadingDialog();
-        Toast.makeText(contextRecuperaPassword, "Operazione fallita: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        if(exception.getLocalizedMessage().contains("Invalid verification code"))
+            Toast.makeText(contextRecuperaPassword, "Codice errato!", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(contextRecuperaPassword, "Operazione fallita: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
     public void resettaPassword(String codice, String password) {

@@ -75,6 +75,10 @@ public class LoginController {
             intent.putExtra("ActivityChiamante","Login");
             contextLoginPage.startActivity(intent);
         }
+        else if(exception.getLocalizedMessage().contains("User is disabled"))
+            Toast.makeText(contextLoginPage, "Utente bannato", Toast.LENGTH_SHORT).show();
+        else if(exception.getLocalizedMessage().contains("Incorrect username or password"))
+            Toast.makeText(contextLoginPage, "Credenziali errate", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(contextLoginPage, "Login fallito: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
 

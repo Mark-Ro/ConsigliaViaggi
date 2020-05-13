@@ -49,6 +49,8 @@ public class RecuperaPasswordPage extends AppCompatActivity {
             public void onClick(View v) {
                 if (editTextCodice.getText().toString().isEmpty() || editTextNuovaPassword.getText().toString().isEmpty())
                     Toast.makeText(RecuperaPasswordPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
+                else if(editTextNuovaPassword.getText().toString().length()<8)
+                    Toast.makeText(RecuperaPasswordPage.this, "Password troppo corta!", Toast.LENGTH_SHORT).show();
                 else {
                     recuperaPasswordController.openLoadingDialog(RecuperaPasswordPage.this);
                     recuperaPasswordController.resettaPassword(editTextCodice.getText().toString(), editTextNuovaPassword.getText().toString());

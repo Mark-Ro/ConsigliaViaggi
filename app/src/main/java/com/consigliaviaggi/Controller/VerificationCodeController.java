@@ -45,7 +45,10 @@ public class VerificationCodeController {
 
     public void verificaFallita(Exception exception) {
         cancelLoadingDialog();
-        Toast.makeText(contextVerificationCode, "Errore: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        if(exception.getLocalizedMessage().contains("Invalid verification code"))
+            Toast.makeText(contextVerificationCode, "Verifica non riuscita: codice non corretto!", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(contextVerificationCode, "Errore: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
     public void effettuaResend() {

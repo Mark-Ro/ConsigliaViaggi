@@ -125,7 +125,10 @@ public class GestioneMiaRecensioneController {
         responseDialog.setContentView(R.layout.layout_conferma_recensione_eliminata);
         responseDialog.setTitle("Responso eliminazione recensione");
         TextView textViewResponso = responseDialog.findViewById(R.id.textViewResponso);
-        textViewResponso.setText(resultUpdate);
+        if(resultUpdate.contains("Successfully"))
+            textViewResponso.setText("Operazione avvenuta con successo!");
+        else
+            textViewResponso.setText("Operazione fallita!");
         Button bottoneOk = responseDialog.findViewById(R.id.bottoneOk);
         bottoneOk.setOnClickListener(new View.OnClickListener() {
             @Override

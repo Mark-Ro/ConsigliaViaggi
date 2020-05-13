@@ -2,7 +2,9 @@ package com.consigliaviaggi.DAO;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
@@ -40,7 +42,13 @@ public class CittaDAO {
 
         RequestDetailsTable request = new RequestDetailsTable();
         request.setTable("citta");
-        ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryCitta(request);
+        ResponseDetailsQuery responseDetails=null;
+        try {
+            responseDetails = interfacciaLambda.funzioneLambdaQueryCitta(request);
+        }
+        catch (AmazonClientException exception){
+            
+        }
         if (responseDetails != null)
             resultQuery = responseDetails.getResultQuery();
         else

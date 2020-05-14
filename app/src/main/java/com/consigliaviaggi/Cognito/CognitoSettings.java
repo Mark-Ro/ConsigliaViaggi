@@ -40,6 +40,6 @@ public class CognitoSettings {
     }
 
     public CognitoCachingCredentialsProvider getCredentialsProvider() {
-        return new CognitoCachingCredentialsProvider(context.getApplicationContext(),identityPoolId,cognitoRegion);
+        return new CognitoCachingCredentialsProvider(context,identityPoolId,cognitoRegion);
     }
 }

@@ -129,7 +129,7 @@ public class RicercaController {
         }
     }
 
-    public void getCurrentLocation() {
+    public void setCurrentLocation() {
         final LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(3000);

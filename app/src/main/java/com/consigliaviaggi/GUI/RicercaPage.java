@@ -62,7 +62,7 @@ public class RicercaPage extends AppCompatActivity {
                 if (isChecked) {
                     autoCompleteTextCitta.setEnabled(false);
                     if (ricercaController.verificaCondizioniGPS())
-                        ricercaController.getCurrentLocation();
+                        ricercaController.setCurrentLocation();
                     else {
                         switchGPS.setChecked(false);
                         autoCompleteTextCitta.setEnabled(true);

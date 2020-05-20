@@ -35,19 +35,19 @@ public class CambiaEmailController {
             if (isNetworkAvailable()) {
                 new AsyncTask<Void,Void,Void>() {
 
-                    private boolean emailPresente;
+                    private boolean emailDisponibile;
 
                     @Override
                     protected Void doInBackground(Void... voids) {
                         UtenteDAO utenteDAO = new UtenteDAO(contextCambiaEmail);
-                        emailPresente = utenteDAO.updateEmailUtente(email);
+                        emailDisponibile = utenteDAO.updateEmailUtente(email);
                         return null;
                     }
 
                     @Override
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
-                        if (emailPresente) {
+                        if (emailDisponibile) {
                             CambiaEmailCognito cambiaEmailCognito = new CambiaEmailCognito(CambiaEmailController.this, contextCambiaEmail);
                             cambiaEmailCognito.modificaEmailCognito(utente.getNickname(), email);
                         }

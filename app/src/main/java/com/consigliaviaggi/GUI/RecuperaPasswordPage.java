@@ -38,7 +38,7 @@ public class RecuperaPasswordPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!editTextUsername.getText().toString().isEmpty())
-                    recuperaPasswordController.riceviCodice(editTextUsername.getText().toString());
+                    recuperaPasswordController.riceviCodiceViaEmail(editTextUsername.getText().toString());
                 else
                     Toast.makeText(RecuperaPasswordPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
             }

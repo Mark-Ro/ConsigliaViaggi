@@ -24,7 +24,7 @@ public class RecuperaPasswordController {
         this.recuperaPasswordCognito = new RecuperaPasswordCognito(RecuperaPasswordController.this,contextRecuperaPassword);
     }
 
-    public void riceviCodice(String username) {
+    public void riceviCodiceViaEmail(String username) {
         if (isNetworkAvailable()) {
             recuperaPasswordCognito.riceviCodiceCognito(username);
         }

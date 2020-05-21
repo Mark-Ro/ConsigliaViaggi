@@ -195,7 +195,7 @@ public class UtenteDAO {
         return risultato;
     }
 
-    public void logoutCognito() {
+    public void logout() {
         CognitoUser thisUser = cognitoSettings.getUserPool().getUser(utente.getNickname());
         thisUser.signOut();
     }

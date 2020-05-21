@@ -86,7 +86,7 @@ public class ProfiloController {
 
     public void logout() {
         UtenteDAO utenteDAO = new UtenteDAO(contextProfiloPage);
-        utenteDAO.logoutCognito();
+        utenteDAO.logout();
         utente.resettaUtente();
         MainActivityController mainActivityController = new MainActivityController(contextProfiloPage);
         mainActivityController.saveUsername(null);

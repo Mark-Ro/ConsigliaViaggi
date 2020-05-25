@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -75,8 +76,11 @@ public class InserimentoRecensioneController {
         responseDialog.setContentView(R.layout.layout_conferma_recensione_eliminata);
         responseDialog.setTitle("Responso eliminazione recensione");
         TextView textViewResponso = responseDialog.findViewById(R.id.textViewResponso);
+        Log.i("INSERIMENTO_RECENSIONE",resultUpdate);
         if(resultUpdate.contains("Successfully"))
             textViewResponso.setText("Recensione Inserita con successo!");
+        else if (resultUpdate.contains("bannato"))
+            textViewResponso.setText("Utente bannato");
         else
             textViewResponso.setText("Struttura già recensita!");
         Button bottoneOk = responseDialog.findViewById(R.id.bottoneOk);

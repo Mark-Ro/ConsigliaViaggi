@@ -47,7 +47,7 @@ public class CittaDAO {
             responseDetails = interfacciaLambda.funzioneLambdaQueryCitta(request);
         }
         catch (AmazonClientException exception){
-            
+            Toast.makeText(context, "Server non raggiungibile!", Toast.LENGTH_SHORT).show();
         }
         if (responseDetails != null)
             resultQuery = responseDetails.getResultQuery();

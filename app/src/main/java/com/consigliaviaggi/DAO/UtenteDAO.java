@@ -3,7 +3,9 @@ package com.consigliaviaggi.DAO;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
@@ -69,7 +71,12 @@ public class UtenteDAO {
         String query;
         RequestDetailsUtenteQuery request = new RequestDetailsUtenteQuery();
         request.setNickname(username);
-        ResponseDetailsQuery responseDetails = interfacciaLambda.funzioneLambdaQueryUtente(request);
+        ResponseDetailsQuery responseDetails=null;
+        try {
+            responseDetails = interfacciaLambda.funzioneLambdaQueryUtente(request);
+        }
+        catch (AmazonClientException exception){
+        }
         if (responseDetails != null)
             query = responseDetails.getResultQuery();
         else

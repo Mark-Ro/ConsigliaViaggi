@@ -1,6 +1,7 @@
 package com.consigliaviaggi.GUI;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,13 +21,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.consigliaviaggi.R;
@@ -42,9 +48,9 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
     private ImageView imageViewRecensioni;
     private TextView textViewNomeStrutturaRecensioni,textViewVotoRecensioni;
     private ToggleButton toggleButtonMenu,toggleButtonOverview,toggleButtonGallery;
-    private FloatingActionButton floatingActionButtonNuovaRecensione;
-    RecensioniStrutturaController recensioniStrutturaController;
-
+    private FloatingActionButton floatingActionButtonNuovaRecensione,floatingActionButtonFiltroRecensioni;
+    private RecensioniStrutturaController recensioniStrutturaController;
+    private ArrayList<Recensione> listaRecensioni;
     private Struttura struttura;
 
     private ListView listViewRecensioni;
@@ -73,10 +79,11 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
         textViewNomeStrutturaRecensioni = findViewById(R.id.textViewNomeStrutturaRecensioni);
         textViewVotoRecensioni = findViewById(R.id.textViewVotoRecensioni);
         floatingActionButtonNuovaRecensione = findViewById(R.id.floatingActionButtonNuovaRecensione);
+        floatingActionButtonFiltroRecensioni = findViewById(R.id.floatingActionButtonFilter);
         navigationView.setNavigationItemSelectedListener(this);
 
         recensioniStrutturaController = new RecensioniStrutturaController(this,this);
-        final ArrayList<Recensione> listaRecensioni = recensioniStrutturaController.getListaRecensioni(struttura);
+        listaRecensioni = recensioniStrutturaController.getListaRecensioni(struttura);
 
         CustomAdapterRecensioniPage customAdapterRecensioniPage = new CustomAdapterRecensioniPage(this,listaRecensioni);
         listViewRecensioni.setAdapter(customAdapterRecensioniPage);
@@ -126,6 +133,12 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
             }
         });
 
+        floatingActionButtonFiltroRecensioni.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialogFiltriRecensione();
+            }
+        });
         inizalizzaRecensioniStrutturaPage();
         animazioneNavigationDrawer();
 
@@ -181,5 +194,47 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
             }
         }
         return false;
+    }
+
+    public void openDialogFiltriRecensione() {
+        final Dialog dialogRecensione = new Dialog(this);
+        final ArrayList<Recensione> listaRecensioniFiltrata = new ArrayList<>();
+        dialogRecensione.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogRecensione.setContentView(R.layout.layout_filtri_recensioni);
+        dialogRecensione.setTitle("Titolo Dialog");
+        final RatingBar mratingBar = dialogRecensione.findViewById(R.id.ratingBar);
+        Button buttonApplicaFiltro = dialogRecensione.findViewById(R.id.buttonApplicaFiltri);
+        Button buttonAnnullaFiltro = dialogRecensione.findViewById(R.id.buttonAnnullaFiltri);
+        mratingBar.setRating(1f);
+        mratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if(rating<1) {
+                    mratingBar.setRating(1);
+                }
+            }
+            });
+        buttonApplicaFiltro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (Recensione elem : listaRecensioni) {
+                    if (elem.getVoto() == mratingBar.getRating()) {
+                        listaRecensioniFiltrata.add(elem);
+                    }
+                }
+                CustomAdapterRecensioniPage customAdapterRecensioniPage = new CustomAdapterRecensioniPage(RecensioniStrutturaPage.this,listaRecensioniFiltrata);
+                listViewRecensioni.setAdapter(customAdapterRecensioniPage);
+                dialogRecensione.dismiss();
+            }
+        });
+        buttonAnnullaFiltro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomAdapterRecensioniPage customAdapterRecensioniPage = new CustomAdapterRecensioniPage(RecensioniStrutturaPage.this,listaRecensioni);
+                listViewRecensioni.setAdapter(customAdapterRecensioniPage);
+                dialogRecensione.dismiss();
+            }
+        });
+        dialogRecensione.show();
     }
 }

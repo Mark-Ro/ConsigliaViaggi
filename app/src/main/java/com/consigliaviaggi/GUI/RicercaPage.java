@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import android.widget.CompoundButton;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -29,7 +30,7 @@ public class RicercaPage extends AppCompatActivity {
     private TextView textViewRangePrezzo;
     private Switch switchGPS;
     private ToggleButton toggleButtonHotel,toggleButtonRistorante,toggleButtonAltro;
-    private Spinner spinnerRangeVoto;
+    private RatingBar ratingBar;
     private Button bottoneAnnulla,bottoneRicerca;
     private SeekBar seekBarPrezzoMassimo;
     private ArrayAdapter<String> adapter;
@@ -47,7 +48,7 @@ public class RicercaPage extends AppCompatActivity {
         toggleButtonHotel = findViewById(R.id.toggleButtonHotel);
         toggleButtonRistorante = findViewById(R.id.toggleButtonRistorante);
         toggleButtonAltro = findViewById(R.id.toggleButtonAltro);
-        spinnerRangeVoto = findViewById(R.id.spinnerRangeVoto);
+        ratingBar = findViewById(R.id.ratingBar);
         textViewRangePrezzo=findViewById(R.id.textViewRangePrezzo);
         seekBarPrezzoMassimo=findViewById(R.id.seekBarPrezzoMassimo);
         bottoneAnnulla = findViewById(R.id.bottoneAnnulla);
@@ -148,29 +149,29 @@ public class RicercaPage extends AppCompatActivity {
                    else {
                        if (autoCompleteTextCitta.getText().toString().isEmpty()) {
                            ricercaController.openLoadingDialog(RicercaPage.this);
-                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(), "null", "null", getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(), "null", "null", getPrezzoMassimoFromSpinner(), ratingBar.getRating(), getTipoStruttura());
                        }
                        else if (autoCompleteTextNomeStruttura.getText().toString().isEmpty()) {
                            String[] cittaNazione = getCittaAndNazioneFromAutoCompleteTextView();
                            ricercaController.openLoadingDialog(RicercaPage.this);
-                           ricercaController.effettuaRicercaStrutture("null", cittaNazione[0], cittaNazione[1], getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+                           ricercaController.effettuaRicercaStrutture("null", cittaNazione[0], cittaNazione[1], getPrezzoMassimoFromSpinner(),ratingBar.getRating() , getTipoStruttura());
 
                        }
                        else {
                            String[] cittaNazione = getCittaAndNazioneFromAutoCompleteTextView();
                            ricercaController.openLoadingDialog(RicercaPage.this);
-                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),cittaNazione[0],cittaNazione[1],getPrezzoMassimoFromSpinner(),Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()),getTipoStruttura());
+                           ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(),cittaNazione[0],cittaNazione[1],getPrezzoMassimoFromSpinner(),ratingBar.getRating(),getTipoStruttura());
                        }
                    }
                }
                else {
                     if (autoCompleteTextNomeStruttura.getText().toString().isEmpty()) {
                         ricercaController.openLoadingDialog(RicercaPage.this);
-                        ricercaController.effettuaRicercaStruttureConPosizione("null", getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+                        ricercaController.effettuaRicercaStruttureConPosizione("null", getPrezzoMassimoFromSpinner(), ratingBar.getRating(), getTipoStruttura());
                     }
                     else {
                         ricercaController.openLoadingDialog(RicercaPage.this);
-                        ricercaController.effettuaRicercaStruttureConPosizione(autoCompleteTextNomeStruttura.getText().toString(), getPrezzoMassimoFromSpinner(), Float.parseFloat(spinnerRangeVoto.getSelectedItem().toString()), getTipoStruttura());
+                        ricercaController.effettuaRicercaStruttureConPosizione(autoCompleteTextNomeStruttura.getText().toString(), getPrezzoMassimoFromSpinner(), ratingBar.getRating(), getTipoStruttura());
                     }
                }
             }

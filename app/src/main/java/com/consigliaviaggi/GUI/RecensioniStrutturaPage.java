@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.consigliaviaggi.Controller.RecensioniStrutturaController;
@@ -202,6 +203,7 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
         dialogRecensione.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogRecensione.setContentView(R.layout.layout_filtri_recensioni);
         dialogRecensione.setTitle("Titolo Dialog");
+        dialogRecensione.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         final RatingBar mratingBar = dialogRecensione.findViewById(R.id.ratingBar);
         Button buttonApplicaFiltro = dialogRecensione.findViewById(R.id.buttonApplicaFiltri);
         Button buttonAnnullaFiltro = dialogRecensione.findViewById(R.id.buttonAnnullaFiltri);

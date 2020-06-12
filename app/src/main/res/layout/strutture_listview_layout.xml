@@ -13,8 +13,9 @@
         android:background="#FFFFFF"
         android:padding="15dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewStruttura"
+            app:shapeAppearanceOverlay="@style/onlyonecorner"
             android:layout_width="400dp"
             android:layout_height="200dp"
             android:padding="5dp"

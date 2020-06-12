@@ -1,77 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="5dp">
-    <ImageView
-        android:id="@+id/imageViewStelle"
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:layout_alignEnd="@id/imageView"
-        app:srcCompat="@drawable/icon_4_stelle"
-        android:layout_below="@id/imageView"/>
+        android:background="@drawable/popup_background"
+        android:padding="30dp">
 
-    <TextView
-        android:id="@+id/textViewNomeStrutturaMappa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/myfont"
-        android:textColor="@android:color/black"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.071"
-        tools:text="Nome struttuta" />
+            <ImageView
+            android:id="@+id/imageViewStelle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_alignEnd="@id/imageView"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/textView19"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/icon_4_stelle" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="268dp"
-        android:layout_height="186dp"
-        android:layout_below="@id/textViewNomeStrutturaMappa"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp" />
+        <TextView
+            android:id="@+id/textViewNomeStrutturaMappa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/myfont"
+            android:textColor="@android:color/black"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.071"
+            tools:text="Nome struttuta" />
 
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/myfont"
-        android:textColor="@android:color/black"
-        android:text="Voto"
-        android:layout_below="@id/imageView"
-        android:textSize="20dp"
-       />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageView"
+                android:layout_width="268dp"
+                android:layout_height="186dp"
+                android:layout_below="@id/textViewNomeStrutturaMappa"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                app:shapeAppearanceOverlay="@style/onlyonecorner" />
 
-    <Button
-        android:id="@+id/buttonStrutturaMappa"
-        android:layout_width="129dp"
-        android:layout_height="47dp"
-        android:background="@android:color/holo_blue_dark"
-        android:text="Vai alla struttura"
-        android:textAllCaps="false"
-        android:fontFamily="@font/myfont"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        android:layout_below="@id/imageViewStelle"
-        android:layout_marginTop="30dp"
-        android:layout_alignEnd="@id/imageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19"
-        app:layout_constraintVertical_bias="0.107" />
+            <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/myfont"
+            android:text="Voto"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
 
-
+        <Button
+            android:id="@+id/buttonStrutturaMappa"
+            android:layout_width="129dp"
+            android:layout_height="47dp"
+            android:layout_below="@id/imageViewStelle"
+            android:layout_alignEnd="@id/imageView"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/holo_blue_dark"
+            android:fontFamily="@font/myfont"
+            android:text="Vai alla struttura"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19"
+            app:layout_constraintVertical_bias="0.107" />
 </RelativeLayout>
+

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.ConnectivityManager;
@@ -172,6 +174,7 @@ public class MappaController {
         Dialog dialogStrutturaMappa;
         dialogStrutturaMappa = new Dialog(contextMappaPage);
         dialogStrutturaMappa.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogStrutturaMappa.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogStrutturaMappa.setContentView(R.layout.dialog_struttura_mappa);
         ImageView imageView = dialogStrutturaMappa.findViewById(R.id.imageView);
         ImageView imageViewStelle = dialogStrutturaMappa.findViewById(R.id.imageViewStelle);

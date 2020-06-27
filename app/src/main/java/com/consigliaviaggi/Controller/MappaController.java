@@ -227,8 +227,8 @@ public class MappaController {
 
     private String arrotondaValutazione(float valutazione) {
 
-        if (valutazione < 1)
-            throw new IllegalArgumentException("Valutazione deve essere >1");
+        if (valutazione < 0)
+            throw new IllegalArgumentException("Valutazione deve essere >0");
         if (valutazione > 5)
             throw new IllegalArgumentException("Valutazione deve essere <5");
 

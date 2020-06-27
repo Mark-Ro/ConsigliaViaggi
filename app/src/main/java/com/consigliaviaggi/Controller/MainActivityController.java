@@ -1,5 +1,6 @@
 package com.consigliaviaggi.Controller;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -71,10 +72,6 @@ public class MainActivityController {
         this.contextMainActivity = contextMainActivity;
         this.utente = Utente.getIstance();
         this.utenteDAO = new UtenteDAO(contextMainActivity,MainActivityController.this);
-    }
-
-    public Location getMiaPosizione() {
-        return miaPosizione;
     }
 
     public void openProfiloPage(){
@@ -246,6 +243,7 @@ public class MainActivityController {
         }
     }
 
+    @SuppressLint("MissingPermission")
     public void getCurrentLocation() {
         final LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);

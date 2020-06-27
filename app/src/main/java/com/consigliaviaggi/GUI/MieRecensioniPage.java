@@ -159,7 +159,7 @@ public class MieRecensioniPage extends AppCompatActivity {
     }
     private void effettuaRicerca(String query) {
         if(!query.isEmpty()) {
-            ArrayList<Recensione> listaRicerca = mieRecensioniController.ricercaRecensione(query, listaMieRecensioni);
+            ArrayList<Recensione> listaRicerca = mieRecensioniController.ricercaInMieRecensioneDataStruttura(query, listaMieRecensioni);
             CustomAdapterMieRecensioniPage customAdapterMieRecensioniPage = new CustomAdapterMieRecensioniPage(this, listaRicerca);
             listViewMieRecensioni.setAdapter(customAdapterMieRecensioniPage);
         }

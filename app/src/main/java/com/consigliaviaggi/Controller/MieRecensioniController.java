@@ -41,10 +41,10 @@ public class MieRecensioniController {
         return  risultatoSuggerimenti;
     }
 
-    public ArrayList<Recensione> ricercaRecensione(String parolaChiave, ArrayList<Recensione> listaRecensioni) {
+    public ArrayList<Recensione> ricercaInMieRecensioneDataStruttura(String nomeStruttura, ArrayList<Recensione> listaRecensioni) {
         ArrayList<Recensione> resultSearch=new ArrayList<>();
         for (int i=0; i<listaRecensioni.size(); i++) {
-            if(listaRecensioni.get(i).getNomeStruttura().contains(parolaChiave))
+            if(listaRecensioni.get(i).getNomeStruttura().contains(nomeStruttura))
                 resultSearch.add(listaRecensioni.get(i));
         }
         return resultSearch;

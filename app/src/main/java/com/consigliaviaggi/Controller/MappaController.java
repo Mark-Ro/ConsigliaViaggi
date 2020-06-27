@@ -161,6 +161,7 @@ public class MappaController {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
+
     public Struttura trovaStruttura(double latitudine, double longitudine) {
         Struttura risultato=null;
         for (int i = 0; i < listaStrutture.size(); i++) {
@@ -170,6 +171,7 @@ public class MappaController {
         }
         return risultato;
     }
+
     public void apriDialogStruttura(final Struttura struttura) {
         Dialog dialogStrutturaMappa;
         dialogStrutturaMappa = new Dialog(contextMappaPage);
@@ -190,7 +192,7 @@ public class MappaController {
                 activityMappaPage.startActivity(intent);
             }
         });
-        switch (arrotondaNumero(struttura.getVoto())) {
+        switch (arrotondaValutazione(struttura.getVoto())) {
 
             case "1":
                 imageViewStelle.setImageResource(R.drawable.ic_1stelle);
@@ -222,16 +224,23 @@ public class MappaController {
         }
         dialogStrutturaMappa.show();
     }
-    private String arrotondaNumero(float numero){
-        int decimale= Integer.parseInt(String.valueOf(numero).substring(2,3));
-        String risultato;
-        if(decimale<5 || decimale>5)
-            risultato=String.valueOf(Math.round(numero));
-        else
-            risultato=String.valueOf(numero).substring(0,3);
 
-        return risultato;
+    private String arrotondaValutazione(float valutazione) {
+
+        if (valutazione < 1)
+            throw new IllegalArgumentException("Valutazione deve essere >1");
+        if (valutazione > 5)
+            throw new IllegalArgumentException("Valutazione deve essere <5");
+
+        int primaCifraDecimale= Integer.parseInt(String.valueOf(valutazione).substring(2,3));
+
+        if (primaCifraDecimale < 5)
+            return String.valueOf(Math.floor(valutazione));
+        if (primaCifraDecimale > 5)
+            return  String.valueOf(Math.ceil(valutazione));
+        return String.valueOf(valutazione).substring(0,3);
     }
+
     public void openHomePage() {
         Log.i("LISTA_STRUTTURE_PAGE_CONTROLLER","Entrato in openHomePage");
         Intent intent = new Intent(contextMappaPage.getApplicationContext(), MainActivity.class);

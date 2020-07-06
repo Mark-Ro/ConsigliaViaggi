@@ -51,7 +51,7 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
     private ToggleButton toggleButtonMenu,toggleButtonOverview,toggleButtonGallery;
     private FloatingActionButton floatingActionButtonNuovaRecensione,floatingActionButtonFiltroRecensioni;
     private RecensioniStrutturaController recensioniStrutturaController;
-    private ArrayList<Recensione> listaRecensioni;
+    private ArrayList<Recensione> listaRecensioni, listaTmpRecensioni;
     private Struttura struttura;
 
     private ListView listViewRecensioni;
@@ -85,7 +85,7 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
 
         recensioniStrutturaController = new RecensioniStrutturaController(this,this);
         listaRecensioni = recensioniStrutturaController.getListaRecensioni(struttura);
-
+        listaTmpRecensioni = listaRecensioni;
         CustomAdapterRecensioniPage customAdapterRecensioniPage = new CustomAdapterRecensioniPage(this,listaRecensioni);
         listViewRecensioni.setAdapter(customAdapterRecensioniPage);
         listViewRecensioni.setNestedScrollingEnabled(true);
@@ -123,7 +123,7 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
         listViewRecensioni.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                recensioniStrutturaController.openDialogRecensione(listaRecensioni.get(position).getTesto());
+                recensioniStrutturaController.openDialogRecensione(listaTmpRecensioni.get(position).getTesto());
             }
         });
 
@@ -219,11 +219,13 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
         buttonApplicaFiltro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 for (Recensione elem : listaRecensioni) {
                     if (elem.getVoto() == mratingBar.getRating()) {
                         listaRecensioniFiltrata.add(elem);
                     }
                 }
+                listaTmpRecensioni=listaRecensioniFiltrata;
                 CustomAdapterRecensioniPage customAdapterRecensioniPage = new CustomAdapterRecensioniPage(RecensioniStrutturaPage.this,listaRecensioniFiltrata);
                 listViewRecensioni.setAdapter(customAdapterRecensioniPage);
                 dialogRecensione.dismiss();
@@ -232,6 +234,7 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
         buttonAnnullaFiltro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listaTmpRecensioni=listaRecensioni;
                 CustomAdapterRecensioniPage customAdapterRecensioniPage = new CustomAdapterRecensioniPage(RecensioniStrutturaPage.this,listaRecensioni);
                 listViewRecensioni.setAdapter(customAdapterRecensioniPage);
                 dialogRecensione.dismiss();

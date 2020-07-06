@@ -234,6 +234,7 @@ public class RecensioniStrutturaPage extends AppCompatActivity implements Naviga
         buttonAnnullaFiltro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //fix recensioni listview
                 listaTmpRecensioni=listaRecensioni;
                 CustomAdapterRecensioniPage customAdapterRecensioniPage = new CustomAdapterRecensioniPage(RecensioniStrutturaPage.this,listaRecensioni);
                 listViewRecensioni.setAdapter(customAdapterRecensioniPage);

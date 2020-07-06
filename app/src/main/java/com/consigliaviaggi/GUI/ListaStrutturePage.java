@@ -3,6 +3,7 @@ package com.consigliaviaggi.GUI;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.consigliaviaggi.Controller.ListaStrutturePageController;
@@ -81,7 +82,6 @@ public class ListaStrutturePage extends AppCompatActivity implements NavigationV
         toggleButtonAltro = findViewById(R.id.toggleButtonAltro);
         drawerLayout = findViewById(R.id.drawerlayout);
         buttonLenteRicerca = findViewById(R.id.buttonLenteRicerca);
-
         navigationView.setNavigationItemSelectedListener(this);
         final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         final AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) collapsingToolbarLayout.getLayoutParams();

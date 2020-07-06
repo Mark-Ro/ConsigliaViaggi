@@ -69,7 +69,8 @@
         android:textOn="Overview"
         android:theme="@style/Dead.Button"
         app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni_Overview"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:stateListAnimator="@null"/>
 
     <ToggleButton
         android:id="@+id/toggleButtonGallery_Overview"
@@ -81,7 +82,8 @@
         android:textOn="Gallery"
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni_Overview"
-        app:layout_constraintStart_toEndOf="@+id/toggleButtonOverview_Overview" />
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonOverview_Overview"
+        android:stateListAnimator="@null"/>
 
     <ToggleButton
         android:id="@+id/toggleButtonRecensioni_Overview"
@@ -98,7 +100,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/toggleButtonGallery_Overview"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewOverview" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewOverview"
+        android:stateListAnimator="@null"/>
 
     <ToggleButton
         android:id="@+id/toggleButtonMenu"
@@ -111,5 +114,6 @@
         android:textOff=""
         android:textOn=""
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:stateListAnimator="@null"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

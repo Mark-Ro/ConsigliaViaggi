@@ -69,7 +69,8 @@
         android:textOn="Overview"
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:stateListAnimator="@null"/>
 
     <ToggleButton
         android:id="@+id/toggleButtonGallery"
@@ -81,7 +82,8 @@
         android:textOn="Gallery"
         android:theme="@style/Dead.Button"
         app:layout_constraintBaseline_toBaselineOf="@+id/toggleButtonRecensioni"
-        app:layout_constraintStart_toEndOf="@+id/toggleButtonOverview" />
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonOverview"
+        android:stateListAnimator="@null"/>
 
     <ToggleButton
         android:id="@+id/toggleButtonRecensioni"
@@ -98,7 +100,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/toggleButtonGallery"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewGallery" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewGallery"
+        android:stateListAnimator="@null"/>
 
     <ToggleButton
         android:id="@+id/toggleButtonMenu"

@@ -223,7 +223,7 @@ public class MainActivityController {
                         homePage.resetGuiButtons();
                         cancelLoadingDialog();
                         if (!listaStrutture.isEmpty()) {
-                            Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
+                            Log.i("RICERCA_CONTROLLER", "Lista size: " + listaStrutture.size());
                             Intent intent = new Intent(contextMainActivity, ListaStrutturePage.class);
                             intent.putExtra("ListaStrutture", listaStrutture);
                             intent.putExtra("Citta", listaStrutture.get(0).getCitta().getNome());

@@ -21,6 +21,7 @@ import com.consigliaviaggi.DAO.StrutturaDAO;
 import com.consigliaviaggi.Entity.Struttura;
 import com.consigliaviaggi.GUI.ListaStrutturePage;
 import com.consigliaviaggi.GUI.LoadingDialog;
+import com.consigliaviaggi.GUI.RicercaPage;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -35,6 +36,7 @@ public class RicercaController {
 
     private Activity activityRicercaPage;
     private Context contextRicercaPage;
+    private RicercaPage ricercaPage;
     private StrutturaDAO strutturaDAO;
 
     private LoadingDialog loadingDialog;
@@ -44,7 +46,8 @@ public class RicercaController {
     private ArrayList<Struttura> listaStrutture;
 
 
-    public RicercaController(Activity activityRicercaPage, Context contextRicercaPage) {
+    public RicercaController(RicercaPage ricercaPage, Activity activityRicercaPage, Context contextRicercaPage) {
+        this.ricercaPage = ricercaPage;
         this.activityRicercaPage = activityRicercaPage;
         this.contextRicercaPage = contextRicercaPage;
         this.strutturaDAO = new StrutturaDAO(contextRicercaPage);
@@ -65,16 +68,16 @@ public class RicercaController {
                  @Override
                  protected void onPostExecute(Void aVoid) {
                      super.onPostExecute(aVoid);
+                     ricercaPage.resetGuiButtons();
+                     cancelLoadingDialog();
                      if (!listaStrutture.isEmpty()) {
-                         Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
-                         cancelLoadingDialog();
+                         Log.i("RICERCA_CONTROLLER", "Lista size: " + listaStrutture.size());
                          Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);
                          intent.putExtra("ListaStrutture", listaStrutture);
                          intent.putExtra("Citta", citta);
                          intent.putExtra("TipoStruttura", tipoStruttura);
                          contextRicercaPage.startActivity(intent);
                      } else {
-                         cancelLoadingDialog();
                          Log.i("RICERCA_CONTROLLER", "Lista vuota!");
                          Toast.makeText(contextRicercaPage, "Nessun risultato trovato!", Toast.LENGTH_SHORT).show();
                      }
@@ -82,6 +85,7 @@ public class RicercaController {
              }.execute();
         }
         else {
+            ricercaPage.resetGuiButtons();
             cancelLoadingDialog();
             Toast.makeText(contextRicercaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         }
@@ -103,27 +107,29 @@ public class RicercaController {
                     @Override
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
+                        ricercaPage.resetGuiButtons();
+                        cancelLoadingDialog();
                         if (!listaStrutture.isEmpty()) {
                             Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
-                            cancelLoadingDialog();
                             Intent intent = new Intent(contextRicercaPage, ListaStrutturePage.class);
                             intent.putExtra("ListaStrutture", listaStrutture);
                             intent.putExtra("Citta", listaStrutture.get(0).getCitta().getNome());
                             intent.putExtra("TipoStruttura", tipoStruttura);
                             contextRicercaPage.startActivity(intent);
                         } else {
-                            cancelLoadingDialog();
                             Log.i("RICERCA_CONTROLLER", "Lista vuota!");
                             Toast.makeText(contextRicercaPage, "Nessun risultato trovato!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }.execute();
             } else {
+                ricercaPage.resetGuiButtons();
                 cancelLoadingDialog();
                 Toast.makeText(contextRicercaPage, "Posizione GPS non trovata! Riprovare!", Toast.LENGTH_SHORT).show();
             }
         }
         else {
+            ricercaPage.resetGuiButtons();
             cancelLoadingDialog();
             Toast.makeText(contextRicercaPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         }

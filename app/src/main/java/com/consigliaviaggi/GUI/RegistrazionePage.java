@@ -38,7 +38,7 @@ public class RegistrazionePage extends AppCompatActivity {
         bottoneConferma = findViewById(R.id.bottoneConferma);
         bottoneAnnulla = findViewById(R.id.bottoneAnnulla);
 
-        registrazioneController = new RegistrazioneController(RegistrazionePage.this);
+        registrazioneController = new RegistrazioneController(this,RegistrazionePage.this);
 
         bottoneConferma.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +52,7 @@ public class RegistrazionePage extends AppCompatActivity {
                 else if (editTextPassword.getText().toString().length() < 8)
                     Toast.makeText(RegistrazionePage.this, "Password troppo corta!", Toast.LENGTH_SHORT).show();
                 else {
+                    bottoneConferma.setEnabled(false);
                     registrazioneController.openLoadingDialog(RegistrazionePage.this);
                     registrazioneController.effettuaRegistrazione(editTextNome.getText().toString(), editTextCognome.getText().toString(), editTextEmail.getText().toString(), editTextNickname.getText().toString(), editTextPassword.getText().toString(), checkBox.isChecked());
                 }
@@ -75,6 +76,10 @@ public class RegistrazionePage extends AppCompatActivity {
 
     private boolean isBlank(String string) {
         return string == null || string.trim().length() == 0;
+    }
+
+    public void resetGuiButtons() {
+        bottoneConferma.setEnabled(true);
     }
 
 }

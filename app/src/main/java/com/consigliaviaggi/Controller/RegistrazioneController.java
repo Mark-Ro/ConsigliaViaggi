@@ -12,15 +12,18 @@ import android.widget.Toast;
 import com.consigliaviaggi.Cognito.RegistrazioneCognito;
 import com.consigliaviaggi.DAO.UtenteDAO;
 import com.consigliaviaggi.GUI.LoadingDialog;
+import com.consigliaviaggi.GUI.RegistrazionePage;
 import com.consigliaviaggi.GUI.VerificationCodePage;
 
 public class RegistrazioneController {
 
+    private RegistrazionePage registrazionePage;
     private Context context;
     private UtenteDAO utenteDAO;
     private LoadingDialog loadingDialog;
 
-    public RegistrazioneController(Context context) {
+    public RegistrazioneController(RegistrazionePage registrazionePage, Context context) {
+        this.registrazionePage = registrazionePage;
         this.context = context;
         this.utenteDAO = new UtenteDAO(context);
     }
@@ -45,10 +48,12 @@ public class RegistrazioneController {
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     if (resultInsert.contains("uniqueMail")) {
+                        registrazionePage.resetGuiButtons();
                         cancelLoadingDialog();
                         Toast.makeText(context, "Mail già esistente!", Toast.LENGTH_SHORT).show();
                     }
                     else if (resultInsert.contains("PRIMARY")) {
+                        registrazionePage.resetGuiButtons();
                         cancelLoadingDialog();
                         Toast.makeText(context, "Nickname già esistente!", Toast.LENGTH_SHORT).show();
                     }
@@ -60,12 +65,14 @@ public class RegistrazioneController {
             }.execute();
         }
         else {
+            registrazionePage.resetGuiButtons();
             cancelLoadingDialog();
             Toast.makeText(context, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         }
     }
     
     public void registrazioneEffettuataConSuccesso(String nickname, String password, String email) {
+        registrazionePage.resetGuiButtons();
         cancelLoadingDialog();
         Toast.makeText(context, "Registrazione effettuata! Codice di verifica inviato a: " + email, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(context, VerificationCodePage.class);
@@ -76,6 +83,7 @@ public class RegistrazioneController {
     }
 
     public void registrazioneFallita(Exception exception) {
+        registrazionePage.resetGuiButtons();
         cancelLoadingDialog();
         Toast.makeText(context, "Registrazione fallita: " + exception.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }

@@ -55,7 +55,7 @@ public class RicercaPage extends AppCompatActivity {
         bottoneRicerca = findViewById(R.id.bottoneRicerca);
         toggleButtonHotel.performClick();
 
-        ricercaController = new RicercaController(RicercaPage.this,RicercaPage.this);
+        ricercaController = new RicercaController(this,RicercaPage.this,RicercaPage.this);
 
         switchGPS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -147,6 +147,7 @@ public class RicercaPage extends AppCompatActivity {
                    if (autoCompleteTextCitta.getText().toString().isEmpty() && autoCompleteTextNomeStruttura.getText().toString().isEmpty())
                        Toast.makeText(RicercaPage.this, "Riempire i campi!", Toast.LENGTH_SHORT).show();
                    else {
+                       bottoneRicerca.setEnabled(false);
                        if (autoCompleteTextCitta.getText().toString().isEmpty()) {
                            ricercaController.openLoadingDialog(RicercaPage.this);
                            ricercaController.effettuaRicercaStrutture(autoCompleteTextNomeStruttura.getText().toString(), "null", "null", getPrezzoMassimoFromSpinner(), ratingBar.getRating(), getTipoStruttura());
@@ -165,6 +166,7 @@ public class RicercaPage extends AppCompatActivity {
                    }
                }
                else {
+                    bottoneRicerca.setEnabled(false);
                     if (autoCompleteTextNomeStruttura.getText().toString().isEmpty()) {
                         ricercaController.openLoadingDialog(RicercaPage.this);
                         ricercaController.effettuaRicercaStruttureConPosizione("null", getPrezzoMassimoFromSpinner(), ratingBar.getRating(), getTipoStruttura());
@@ -247,5 +249,9 @@ public class RicercaPage extends AppCompatActivity {
         Log.i("RICERCA_PAGE_CITTA_NAZIONE", risultato[0] + " " + risultato[1]);
 
         return risultato;
+    }
+
+    public void resetGuiButtons() {
+        bottoneRicerca.setEnabled(true);
     }
 }

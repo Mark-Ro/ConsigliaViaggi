@@ -220,8 +220,8 @@ public class MainActivityController {
                     @Override
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
-                        cancelLoadingDialog();
                         homePage.resetGuiButtons();
+                        cancelLoadingDialog();
                         if (!listaStrutture.isEmpty()) {
                             Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
                             Intent intent = new Intent(contextMainActivity, ListaStrutturePage.class);
@@ -237,11 +237,13 @@ public class MainActivityController {
                 }.execute();
             } else {
                 cancelLoadingDialog();
+                homePage.resetGuiButtons();
                 Toast.makeText(contextMainActivity, "Posizione GPS non trovata! Riprovare!", Toast.LENGTH_SHORT).show();
             }
         }
         else {
             cancelLoadingDialog();
+            homePage.resetGuiButtons();
             Toast.makeText(contextMainActivity, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         }
     }

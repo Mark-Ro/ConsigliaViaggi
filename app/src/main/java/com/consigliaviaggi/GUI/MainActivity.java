@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         username = intent.getStringExtra("Username");
         boolean logout = intent.getBooleanExtra("Logout",false);
 
-        mainActivityController = new MainActivityController(MainActivity.this,MainActivity.this);
+        mainActivityController = new MainActivityController(this,MainActivity.this,MainActivity.this);
 
 
         Log.i("MAIN_ACTIVITY","Username: " + username);
@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         bottoneRistoranti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottoneRistoranti.setEnabled(false);
+                bottoneHotel.setEnabled(false);
+                bottoneAltro.setEnabled(false);
                 mainActivityController.openStruttureVicine("Ristorante");
             }
         });
@@ -74,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         bottoneHotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottoneRistoranti.setEnabled(false);
+                bottoneHotel.setEnabled(false);
+                bottoneAltro.setEnabled(false);
                 mainActivityController.openStruttureVicine("Hotel");
             }
         });
@@ -81,6 +87,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         bottoneAltro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottoneRistoranti.setEnabled(false);
+                bottoneHotel.setEnabled(false);
+                bottoneAltro.setEnabled(false);
                 mainActivityController.openStruttureVicine("Altro");
             }
         });
@@ -192,5 +201,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             }
         }
         return false;
+    }
+
+    public void resetGuiButtons() {
+        bottoneRistoranti.setEnabled(true);
+        bottoneHotel.setEnabled(true);
+        bottoneAltro.setEnabled(true);
     }
 }

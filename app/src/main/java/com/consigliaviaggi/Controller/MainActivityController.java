@@ -33,6 +33,7 @@ import com.consigliaviaggi.Entity.Utente;
 import com.consigliaviaggi.GUI.ListaStrutturePage;
 import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.GUI.LoginPage;
+import com.consigliaviaggi.GUI.MainActivity;
 import com.consigliaviaggi.GUI.MappaPage;
 import com.consigliaviaggi.GUI.ProfiloPage;
 import com.consigliaviaggi.GUI.RicercaPage;
@@ -51,6 +52,7 @@ public class MainActivityController {
 
     private Activity activityMainActivity;
     private Context contextMainActivity;
+    private MainActivity homePage;
     private Utente utente;
     private UtenteDAO utenteDAO;
 
@@ -61,7 +63,8 @@ public class MainActivityController {
     private static final String SHARED_PREFS = "sharedPrefs";
     private static final String usernameSalvato = "username";
 
-    public MainActivityController(Activity activityMainActivity, Context contextMainActivity) {
+    public MainActivityController(MainActivity homePage, Activity activityMainActivity, Context contextMainActivity) {
+        this.homePage = homePage;
         this.activityMainActivity = activityMainActivity;
         this.contextMainActivity = contextMainActivity;
         this.utente = Utente.getIstance();
@@ -217,16 +220,16 @@ public class MainActivityController {
                     @Override
                     protected void onPostExecute(Void aVoid) {
                         super.onPostExecute(aVoid);
+                        cancelLoadingDialog();
+                        homePage.resetGuiButtons();
                         if (!listaStrutture.isEmpty()) {
                             Log.i("RICERCA_CONTROLLER", "Lista size: " + String.valueOf(listaStrutture.size()));
-                            cancelLoadingDialog();
                             Intent intent = new Intent(contextMainActivity, ListaStrutturePage.class);
                             intent.putExtra("ListaStrutture", listaStrutture);
                             intent.putExtra("Citta", listaStrutture.get(0).getCitta().getNome());
                             intent.putExtra("TipoStruttura", tipoStruttura);
                             contextMainActivity.startActivity(intent);
                         } else {
-                            cancelLoadingDialog();
                             Log.i("RICERCA_CONTROLLER", "Lista vuota!");
                             Toast.makeText(contextMainActivity, "Nessun risultato trovato!", Toast.LENGTH_SHORT).show();
                         }
@@ -292,10 +295,14 @@ public class MainActivityController {
             getCurrentLocation();
             effettuaRicercaStruttureConPosizione("null",3000,0,tipoStruttura);
         }
-        else if (verificaCondizioniGPS() == 0)
+        else if (verificaCondizioniGPS() == 0) {
             Toast.makeText(activityMainActivity, "Devi abilitare il GPS!", Toast.LENGTH_SHORT).show();
-        else
+            homePage.resetGuiButtons();
+        }
+        else {
             Toast.makeText(activityMainActivity, "Sono necessari i permessi di geolocalizzazione!", Toast.LENGTH_SHORT).show();
+            homePage.resetGuiButtons();
+        }
     }
 
 

@@ -34,7 +34,7 @@ public class InserimentoRecensionePage extends AppCompatActivity {
         bottoneNuovaRecensione = findViewById(R.id.bottoneNuovaRecensione);
         ratingBar = findViewById(R.id.ratingBar);
 
-        final InserimentoRecensioneController inserimentoRecensioneController = new InserimentoRecensioneController(this,this);
+        final InserimentoRecensioneController inserimentoRecensioneController = new InserimentoRecensioneController(this,this,this);
 
         bottoneNuovaRecensione.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,10 +45,15 @@ public class InserimentoRecensionePage extends AppCompatActivity {
                 else if (ratingBar.getRating()<1)
                     Toast.makeText(InserimentoRecensionePage.this, "Il voto deve essere almeno di una stella!", Toast.LENGTH_SHORT).show();
                 else {
+                    bottoneNuovaRecensione.setEnabled(false);
                     inserimentoRecensioneController.openLoadingDialog(InserimentoRecensionePage.this);
                     inserimentoRecensioneController.inserimentoRecensione(struttura,textInputEditTextRecensione.getText().toString(),ratingBar.getRating());
                 }
             }
         });
+    }
+
+    public void resetGuiButtons() {
+        bottoneNuovaRecensione.setEnabled(true);
     }
 }

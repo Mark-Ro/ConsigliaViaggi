@@ -15,17 +15,20 @@ import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.RecensioneDAO;
 import com.consigliaviaggi.Entity.Struttura;
+import com.consigliaviaggi.GUI.InserimentoRecensionePage;
 import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.R;
 
 public class InserimentoRecensioneController {
 
+    private InserimentoRecensionePage inserimentoRecensionePage;
     private Activity activityInserimentoRecensionePage;
     private Context contextInserimentoRecensionePage;
 
     private LoadingDialog loadingDialog;
 
-    public InserimentoRecensioneController(Activity activityInserimentoRecensionePage, Context contextInserimentoRecensionePage) {
+    public InserimentoRecensioneController(InserimentoRecensionePage inserimentoRecensionePage, Activity activityInserimentoRecensionePage, Context contextInserimentoRecensionePage) {
+        this.inserimentoRecensionePage = inserimentoRecensionePage;
         this.activityInserimentoRecensionePage = activityInserimentoRecensionePage;
         this.contextInserimentoRecensionePage = contextInserimentoRecensionePage;
     }
@@ -46,12 +49,14 @@ public class InserimentoRecensioneController {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
+                    inserimentoRecensionePage.resetGuiButtons();
                     cancelLoadingDialog();
                     mostraDialogResponso(risultatoInserimento);
                 }
             }.execute();
         }
         else {
+            inserimentoRecensionePage.resetGuiButtons();
             cancelLoadingDialog();
             activityInserimentoRecensionePage.overridePendingTransition(0, 0);
             activityInserimentoRecensionePage.finish();

@@ -13,18 +13,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.consigliaviaggi.DAO.RecensioneDAO;
+import com.consigliaviaggi.GUI.GestioneMiaRecensionePage;
 import com.consigliaviaggi.GUI.LoadingDialog;
 import com.consigliaviaggi.R;
 
 public class GestioneMiaRecensioneController {
 
+    private GestioneMiaRecensionePage gestioneMiaRecensionePage;
     private Activity activityGestioneMiaRecensionePage;
     private Context contextGestioneMiaRecensionePage;
     private LoadingDialog loadingDialog;
 
     private RecensioneDAO recensioneDAO;
 
-    public GestioneMiaRecensioneController(Activity activityGestioneMiaRecensionePage, Context contextGestioneMiaRecensionePage) {
+    public GestioneMiaRecensioneController(GestioneMiaRecensionePage gestioneMiaRecensionePage, Activity activityGestioneMiaRecensionePage, Context contextGestioneMiaRecensionePage) {
         this.activityGestioneMiaRecensionePage = activityGestioneMiaRecensionePage;
         this.contextGestioneMiaRecensionePage = contextGestioneMiaRecensionePage;
         this.recensioneDAO = new RecensioneDAO(contextGestioneMiaRecensionePage);
@@ -45,12 +47,14 @@ public class GestioneMiaRecensioneController {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
+                    gestioneMiaRecensionePage.resetGuiButtons();
                     cancelLoadingDialog();
                     mostraDialogResponso(resultUpdate);
                 }
             }.execute();
         }
         else {
+            gestioneMiaRecensionePage.resetGuiButtons();
             cancelLoadingDialog();
             Toast.makeText(contextGestioneMiaRecensionePage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         }
@@ -87,7 +91,7 @@ public class GestioneMiaRecensioneController {
         deleteRecensioniDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         deleteRecensioniDialog.setContentView(R.layout.layout_dialog_elimina);
         deleteRecensioniDialog.setTitle("Conferma eliminazione recensione");
-        Button bottoneAnnulla,bottoneConferma;
+        final Button bottoneAnnulla,bottoneConferma;
         bottoneAnnulla = deleteRecensioniDialog.findViewById(R.id.buttonAnnulla);
         bottoneConferma = deleteRecensioniDialog.findViewById(R.id.buttonConferma);
         bottoneAnnulla.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +104,7 @@ public class GestioneMiaRecensioneController {
         bottoneConferma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bottoneConferma.setEnabled(false);
                 deleteRecensioniDialog.dismiss();
                 openLoadingDialog(activityGestioneMiaRecensionePage);
                 deleteRecensioneTask(idRecensione);

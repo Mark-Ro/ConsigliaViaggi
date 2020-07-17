@@ -192,40 +192,41 @@ public class MappaController {
                 activityMappaPage.startActivity(intent);
             }
         });
-        switch (arrotondaValutazione(struttura.getVoto())) {
+        String valutazione=String.valueOf(arrotondaValutazione(struttura.getVoto()));
+        switch (valutazione) {
 
-            case "1":
+            case "1.0":
                 imageViewStelle.setImageResource(R.drawable.ic_1stelle);
                 break;
             case "1.5":
                 imageViewStelle.setImageResource(R.drawable.ic_1_2stelle);
                 break;
-            case "2":
+            case "2.0":
                 imageViewStelle.setImageResource(R.drawable.ic_2stelle);
                 break;
             case "2.5":
                 imageViewStelle.setImageResource(R.drawable.ic_2_2stelle);
                 break;
-            case "3":
+            case "3.0":
                 imageViewStelle.setImageResource(R.drawable.ic_3stelle);
                 break;
             case "3.5":
                 imageViewStelle.setImageResource(R.drawable.ic_3_2stelle);
                 break;
-            case "4":
+            case "4.0":
                 imageViewStelle.setImageResource(R.drawable.ic_4stelle);
                 break;
             case "4.5":
                 imageViewStelle.setImageResource(R.drawable.ic_4_2stelle);
                 break;
-            case "5":
+            case "5.0":
                 imageViewStelle.setImageResource(R.drawable.ic_5stelle);
                 break;
         }
         dialogStrutturaMappa.show();
     }
 
-    private String arrotondaValutazione(float valutazione) {
+    public float arrotondaValutazione(float valutazione) {
 
         if (valutazione < 0)
             throw new IllegalArgumentException("Valutazione deve essere >0");
@@ -235,10 +236,10 @@ public class MappaController {
         int primaCifraDecimale= Integer.parseInt(String.valueOf(valutazione).substring(2,3));
 
         if (primaCifraDecimale < 5)
-            return String.valueOf(Math.floor(valutazione));
+            return (float) Math.floor(valutazione);
         if (primaCifraDecimale > 5)
-            return  String.valueOf(Math.ceil(valutazione));
-        return String.valueOf(valutazione).substring(0,3);
+            return (float) Math.ceil(valutazione);
+        return Float.parseFloat(String.valueOf(valutazione).substring(0,3));
     }
 
     public void openHomePage() {

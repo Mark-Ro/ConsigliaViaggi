@@ -49,7 +49,6 @@ public class GestioneMiaRecensionePage extends AppCompatActivity {
                 else if (ratingBar.getRating()<1)
                     Toast.makeText(GestioneMiaRecensionePage.this, "Il voto deve essere almeno uno", Toast.LENGTH_SHORT).show();
                 else {
-                    buttonGestisciRecensioneOk.setEnabled(false);
                     gestioneMiaRecensioneController.openLoadingDialog(GestioneMiaRecensionePage.this);
                     gestioneMiaRecensioneController.updateRecensione(recensione.getIdRecensione(), textInputEditTextGestisciRecensione.getText().toString(), ratingBar.getRating());
                 }
@@ -64,7 +63,4 @@ public class GestioneMiaRecensionePage extends AppCompatActivity {
         });
     }
 
-    public void resetGuiButtons() {
-        buttonGestisciRecensioneOk.setEnabled(true);
-    }
 }

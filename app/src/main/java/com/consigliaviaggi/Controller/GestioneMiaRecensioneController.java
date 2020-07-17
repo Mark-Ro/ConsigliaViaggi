@@ -47,14 +47,12 @@ public class GestioneMiaRecensioneController {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    gestioneMiaRecensionePage.resetGuiButtons();
                     cancelLoadingDialog();
                     mostraDialogResponso(resultUpdate);
                 }
             }.execute();
         }
         else {
-            gestioneMiaRecensionePage.resetGuiButtons();
             cancelLoadingDialog();
             Toast.makeText(contextGestioneMiaRecensionePage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         }

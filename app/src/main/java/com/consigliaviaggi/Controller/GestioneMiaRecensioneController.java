@@ -19,14 +19,13 @@ import com.consigliaviaggi.R;
 
 public class GestioneMiaRecensioneController {
 
-    private GestioneMiaRecensionePage gestioneMiaRecensionePage;
     private Activity activityGestioneMiaRecensionePage;
     private Context contextGestioneMiaRecensionePage;
     private LoadingDialog loadingDialog;
 
     private RecensioneDAO recensioneDAO;
 
-    public GestioneMiaRecensioneController(GestioneMiaRecensionePage gestioneMiaRecensionePage, Activity activityGestioneMiaRecensionePage, Context contextGestioneMiaRecensionePage) {
+    public GestioneMiaRecensioneController(Activity activityGestioneMiaRecensionePage, Context contextGestioneMiaRecensionePage) {
         this.activityGestioneMiaRecensionePage = activityGestioneMiaRecensionePage;
         this.contextGestioneMiaRecensionePage = contextGestioneMiaRecensionePage;
         this.recensioneDAO = new RecensioneDAO(contextGestioneMiaRecensionePage);

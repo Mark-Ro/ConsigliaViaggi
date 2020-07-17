@@ -38,7 +38,7 @@ public class GestioneMiaRecensionePage extends AppCompatActivity {
         textInputEditTextGestisciRecensione.setText(recensione.getTesto());
         ratingBar.setRating(recensione.getVoto());
 
-        final GestioneMiaRecensioneController gestioneMiaRecensioneController = new GestioneMiaRecensioneController(this,this,this);
+        final GestioneMiaRecensioneController gestioneMiaRecensioneController = new GestioneMiaRecensioneController(this,this);
 
         buttonGestisciRecensioneOk.setOnClickListener(new View.OnClickListener() {
             @Override

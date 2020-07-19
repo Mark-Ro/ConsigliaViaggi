@@ -7,9 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".GUI.ProfiloPage"
     android:id="@+id/drawerLayout">
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/coordinator_layout">
@@ -178,7 +176,7 @@
             android:layout_marginStart="24dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/myfont"
-            android:text="MieRecensioni"
+            android:text="Mie Recensioni"
             android:textAllCaps="false"
             android:textColor="@color/Bluscuro"
             android:textSize="20sp"

@@ -34,7 +34,7 @@ public class VerificationCodeController {
             Toast.makeText(contextVerificationCode, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
         }
         else
-            verificationCodeCognito.verificaCodiceRegistrazioneCognito(username,codice);
+            verificationCodeCognito.verificaCodiceRegistrazioneCognito(username, codice);
     }
 
     public void verificaEffettuataConSuccesso() {

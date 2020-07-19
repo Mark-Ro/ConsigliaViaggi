@@ -53,8 +53,10 @@ public class LoginController {
             loginCognito = new LoginCognito(LoginController.this);
             loginCognito.effettuaLoginCognito(username,password);
         }
-        else
+        else {
+            cancelLoadingDialog();
             Toast.makeText(contextLoginPage, "Connessione Internet non disponibile!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void loginEffettuatoConSuccesso() {

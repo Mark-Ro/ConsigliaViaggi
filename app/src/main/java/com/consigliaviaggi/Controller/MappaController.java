@@ -47,6 +47,8 @@ public class MappaController {
     private ArrayList<Marker> listaOldLocations;
     private Activity activityMappaPage;
 
+    public MappaController() { }
+
     public MappaController(Activity activityMappaPage,Context contextMappaPage) {
         this.activityMappaPage = activityMappaPage;
         this.contextMappaPage = contextMappaPage;

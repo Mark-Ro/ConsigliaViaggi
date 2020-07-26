@@ -15,17 +15,19 @@
         android:roundIcon="@drawable/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GUI.MappaPage"></activity>
-        <activity android:name=".GUI.GestioneMiaRecensionePage" />
-        <activity android:name=".GUI.MieRecensioniPage" />
-        <activity android:name=".GUI.InserimentoRecensionePage" />
+        <activity android:name=".GUI.MappaPage" android:screenOrientation="nosensor" ></activity>
+        <activity android:name=".GUI.GestioneMiaRecensionePage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.MieRecensioniPage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.InserimentoRecensionePage" android:screenOrientation="nosensor" />
         <activity
             android:name=".GUI.RecensioniStrutturaPage"
             android:label="@string/title_activity_recensioni_struttura_page"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GUI.GalleryStrutturaPage"
             android:label="@string/title_activity_gallery_struttura_page"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -35,20 +37,22 @@
         <activity
             android:name=".GUI.OverviewStrutturaPage"
             android:label="@string/title_activity_overview_struttura_page"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GUI.ListaStrutturePage"
             android:label="@string/title_activity_lista_strutture_page"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GUI.CambiaEmailPage" />
-        <activity android:name=".GUI.CambiaPasswordPage" />
-        <activity android:name=".GUI.RecuperaPasswordPage" />
-        <activity android:name=".GUI.RegistrazionePage" />
-        <activity android:name=".GUI.VerificationCodePage" />
-        <activity android:name=".GUI.RicercaPage" />
-        <activity android:name=".GUI.ProfiloPage" />
-        <activity android:name=".GUI.LoginPage" />
-        <activity android:name=".GUI.MainActivity">
+        <activity android:name=".GUI.CambiaEmailPage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.CambiaPasswordPage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.RecuperaPasswordPage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.RegistrazionePage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.VerificationCodePage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.RicercaPage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.ProfiloPage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.LoginPage" android:screenOrientation="nosensor"/>
+        <activity android:name=".GUI.MainActivity" android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
